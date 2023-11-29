@@ -1,0 +1,106 @@
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            
+        }
+
+        header {
+            background-color: #00A19B;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #00CCC2;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        section p{
+            padding: 20px;
+        }
+footer{
+text-align: center;
+}
+        /* Add additional styling as needed */
+
+#logo h1{
+  font-size:3em;
+  
+}
+
+img{
+  width:50%;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  padding: 5px;
+}
+
+.grid-container > div {
+  background-color: #00CCC2;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 30px;
+}
+
+h1 span{
+  color:#DDFF48;
+}
+
+span strong {
+  color:#7957A0;
+}
+
+h2, #home p{
+  text-align: center;
+}
+
+.imgS{
+  display: flex;
+  align-items: center;
+}
+
+.imgS img{
+  margin-left: 40px;
+}
+
+.imgM{
+  display: flex;
+  align-items: center;
+}
+
+.imgM img{
+  margin-left: 40px;
+}
+
+.imgF{
+  display: flex;
+  align-items: center;
+}
+
+.imgF img{
+  margin-left: 40px;
+}
+
+header img{
+width:80%;
+}
+
+h2 img{
+width:100%;
+display: block;
+}
