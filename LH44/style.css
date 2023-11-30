@@ -7,10 +7,12 @@ body {
 
 .yellow{
 background-color:#DDFF48;
+color: #7957A0;
 }
 
 .purple{
 background-color:#7957A0;
+color: #DDFF48;
 }
 
         header {
@@ -46,21 +48,13 @@ text-align: center;
 }
         /* Add additional styling as needed */
 
-#logo h1{
-  font-size:3em;
+h1{
+  font-size:2em;
   
 }
 
 img{
   width:50%;
-}
-
-h1 span{
-  color:#DDFF48;
-}
-
-span strong {
-  color:#7957A0;
 }
 
 h2, #home p{
@@ -158,6 +152,7 @@ margin: 0 10px;
             border-collapse: collapse;
             width: 100%; /* Table takes 100% width of its container */
 background-color: #DDFF48;
+color: #000000;
         }
 
 thead:first-child {
