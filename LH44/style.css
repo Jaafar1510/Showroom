@@ -26,6 +26,8 @@ color: #DDFF48;
             background-color: #00CCC2;
             padding: 1em;
             text-align: center;
+            display: flex;
+            justify-content: space-around;
         }
 
         nav a {
@@ -141,38 +143,76 @@ display: block;
 color:#FFD700;
 }
 
-.table-container {
+.table-container-WC {
             width: 95%;
             max-height: 700px; /* Set the desired fixed height */
             overflow-x: auto; /* Enable horizontal scrolling */
 margin: 0 10px;
+display: block;
         }
 
-        table {
+       .table-container-WC table {
             border-collapse: collapse;
             width: 100%; /* Table takes 100% width of its container */
 background-color: #DDFF48;
 color: #000000;
         }
 
-thead:first-child {
+.table-container-WC thead:first-child {
 background-color: #E3F2FD;
 }
 
-td:first-child {
+.table-container-WC td:first-child {
 background-color: #E3F2FD;
 }
 
-        td, th {
+       .table-container-WC td, .table-container-WC th {
             border: 1px solid #ddd;
             padding: 20px;
             text-align: center;
         }
 
-tr:nth-child(1) td:nth-child(3) {
+.table-container-WC tr:nth-child(1) td:nth-child(3) {
     background-color: #CCCCCC
 }
 
-tr:nth-child(2) td:nth-child(3) {
+.table-container-WC tr:nth-child(2) td:nth-child(3) {
     background-color:#00CCC2;
+}
+
+.table-container-gpv {
+width: 95%;
+            max-height: 700px; /* Set the desired fixed height */
+            overflow-x: auto; /* Enable horizontal scrolling */
+margin: 0 10px;
+display: block;
+}
+
+.table-container-gpv table {
+            border-collapse: collapse;
+            width: 100%;
+background-color: #DDFF48;
+color: #000000;
+        }
+
+.table-container-gpv thead:first-child {
+background-color: #E3F2FD;
+}
+
+.table-container-gpv td:first-child {
+background-color: #E3F2FD;
+}
+
+        .table-container-gpv th, .table-container-gpv td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+.table-container-gpv tr:nth-child(1) td:nth-child(10) {
+    background-color: #00CCC2
+}
+
+.table-container-gpv tr:nth-child(1) td:nth-child(9) {
+    background-color: #CCCCCC
 }
