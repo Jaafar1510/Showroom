@@ -5,9 +5,14 @@ body {
             
         }
 
-.p{
+.yellow{
 background-color:#DDFF48;
 }
+
+.purple{
+background-color:#7957A0;
+}
+
         header {
             background-color: #00A19B;
             color: white;
