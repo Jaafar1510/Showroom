@@ -172,17 +172,17 @@ background-color: #E3F2FD;
             text-align: center;
         }
 
-.table-container-WC tr:nth-child(1) td:nth-child(3) {
-    background-color: #CCCCCC
+.mclaren {
+    background-color: #FF8000;
 }
 
-.table-container-WC tr:nth-child(2) td:nth-child(3) {
+.mercedes {
     background-color:#00CCC2;
 }
 
 .table-container-gpv {
 width: 95%;
-            max-height: 700px; /* Set the desired fixed height */
+            max-height: 2000px; /* Set the desired fixed height */
             overflow-x: auto; /* Enable horizontal scrolling */
 margin: 0 10px;
 display: block;
@@ -208,11 +208,3 @@ background-color: #E3F2FD;
             padding: 8px;
             text-align: center;
         }
-
-.table-container-gpv tr:nth-child(1) td:nth-child(10) {
-    background-color: #00CCC2
-}
-
-.table-container-gpv tr:nth-child(1) td:nth-child(9) {
-    background-color: #CCCCCC
-}
