@@ -152,6 +152,7 @@ margin: 0 10px;
         table {
             border-collapse: collapse;
             width: 100%; /* Table takes 100% width of its container */
+background-color: #DDFF48;
         }
 
 thead:first-child {
