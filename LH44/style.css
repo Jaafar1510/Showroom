@@ -28,6 +28,11 @@ body {
         section p{
             padding: 20px;
         }
+
+h3{
+padding: 10px;
+}
+
 footer{
 text-align: center;
 }
@@ -40,21 +45,6 @@ text-align: center;
 
 img{
   width:50%;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-  gap: 20px;
-  padding: 5px;
-}
-
-.grid-container > div {
-  background-color: #00CCC2;
-  text-align: center;
-  padding: 10px 0;
-  font-size: 30px;
 }
 
 h1 span{
@@ -75,7 +65,15 @@ h2, #home p{
 }
 
 .imgS img{
-  margin-left: 40px;
+  margin-left: 2px;
+  height: 130px;
+}
+
+.scroll-s {
+height: 100px;
+width: 250px;
+overflow: auto;
+text-align: center;
 }
 
 .imgM{
@@ -84,7 +82,15 @@ h2, #home p{
 }
 
 .imgM img{
-  margin-left: 40px;
+  margin-left: 2px;
+  height:130px;
+}
+
+.scroll-m {
+height: 100px;
+width: 250px;
+overflow: auto;
+text-align: center;
 }
 
 .imgF{
@@ -93,7 +99,31 @@ h2, #home p{
 }
 
 .imgF img{
-  margin-left: 40px;
+  margin-left: 2px;
+}
+
+.scroll-f {
+height: 100px;
+width: 250px;
+overflow: auto;
+text-align: center;
+}
+
+.imgC{
+  display: flex;
+  align-items: center;
+}
+
+.imgC img{
+  margin-left: 2px;
+  height: 130px;
+}
+
+.scroll-c {
+height: 100px;
+width: 250px;
+overflow: auto;
+text-align: center;
 }
 
 header img{
@@ -103,4 +133,42 @@ width:80%;
 h2 img{
 width:100%;
 display: block;
+}
+
+.A{
+color:#FFD700;
+}
+
+.table-container {
+            width: 95%;
+            max-height: 700px; /* Set the desired fixed height */
+            overflow-x: auto; /* Enable horizontal scrolling */
+margin: 0 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%; /* Table takes 100% width of its container */
+        }
+
+thead:first-child {
+background-color: #E3F2FD;
+}
+
+td:first-child {
+background-color: #E3F2FD;
+}
+
+        td, th {
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: center;
+        }
+
+tr:nth-child(1) td:nth-child(3) {
+    background-color: #CCCCCC
+}
+
+tr:nth-child(2) td:nth-child(3) {
+    background-color:#00CCC2;
 }
