@@ -59,7 +59,12 @@ img{
   width:50%;
 }
 
-h2, #home p{
+h2{
+margin: 20px;
+text-align: center;
+}
+
+#home p{
   text-align: center;
 }
 
@@ -80,61 +85,11 @@ overflow: scroll;
 text-align: center;
 }
 
-.imgM{
-  display: flex;
-  align-items: center;
-}
-
-.imgM img{
-  margin-left: 2px;
-  height:130px;
-}
-
-.scroll-m {
-height: 100px;
-width: 250px;
-overflow: scroll;
-text-align: center;
-}
-
-.imgF{
-  display: flex;
-  align-items: center;
-}
-
-.imgF img{
-  margin-left: 2px;
-}
-
-.scroll-f {
-height: 100px;
-width: 250px;
-overflow: scroll;
-text-align: center;
-}
-
-.imgC{
-  display: flex;
-  align-items: center;
-}
-
-.imgC img{
-  margin-left: 2px;
-  height: 130px;
-}
-
-.scroll-c {
-height: 100px;
-width: 250px;
-overflow: scroll;
-text-align: center;
-}
-
 header img{
 width:80%;
 }
 
-h2 img{
+#sevenchamp {
 width:100%;
 display: block;
 }
@@ -145,8 +100,8 @@ color:#FFD700;
 
 .table-container-WC {
             width: 95%;
-            max-height: 700px; /* Set the desired fixed height */
-            overflow-x: auto; /* Enable horizontal scrolling */
+            max-height: 700px;
+            overflow-x: auto;
 margin: 0 10px;
 display: block;
         }
@@ -167,7 +122,7 @@ background-color: #E3F2FD;
 }
 
        .table-container-WC td, .table-container-WC th {
-            border: 1px solid #ddd;
+            border: 3px solid #7957A0;
             padding: 20px;
             text-align: center;
         }
@@ -180,31 +135,12 @@ background-color: #E3F2FD;
     background-color:#00CCC2;
 }
 
-.table-container-gpv {
-width: 95%;
-            max-height: 2000px; /* Set the desired fixed height */
-            overflow-x: auto; /* Enable horizontal scrolling */
-margin: 0 10px;
-display: block;
+#gpv{
+max-height: 5000px;
 }
 
-.table-container-gpv table {
-            border-collapse: collapse;
-            width: 100%;
-background-color: #DDFF48;
-color: #000000;
-        }
-
-.table-container-gpv thead:first-child {
-background-color: #E3F2FD;
+.current{
+text-transform: uppercase;
+background-color:#7957A0;
+color: #DDFF48;
 }
-
-.table-container-gpv td:first-child {
-background-color: #E3F2FD;
-}
-
-        .table-container-gpv th, .table-container-gpv td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
