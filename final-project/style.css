@@ -1,0 +1,189 @@
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            
+        }
+
+.yellow{
+background-color:#DDFF48;
+color: #7957A0;
+}
+
+.purple{
+background-color:#7957A0;
+color: #DDFF48;
+}
+
+        header {
+            background-color: #00A19B;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #00CCC2;
+            padding: 1em;
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        section p{
+            padding: 20px;
+        }
+
+h3{
+padding: 10px;
+}
+
+footer{
+text-align: center;
+}
+
+h1{
+  font-size:2em;
+  
+}
+
+img{
+  width:50%;
+}
+
+h2{
+margin: 20px;
+text-align: center;
+}
+
+#home p{
+  text-align: center;
+}
+
+.imgS{
+  display: flex;
+  align-items: center;
+}
+
+.imgS img{
+  margin-left: 2px;
+  height: 130px;
+}
+
+.scroll-s {
+height: 100px;
+width: 250px;
+overflow: scroll;
+text-align: center;
+}
+
+header img{
+width:80%;
+}
+
+#sevenchamp {
+width:93%;
+display: block;
+}
+
+.A{
+color:#FFD700;
+}
+
+.table-container-WC {
+            width: 95%;
+            max-height: 700px;
+            overflow-x: auto;
+margin: 0 10px;
+display: block;
+        }
+
+       .table-container-WC table {
+            border-collapse: collapse;
+            width: 100%;
+background-color: #DDFF48;
+color: #000000;
+        }
+
+.table-container-WC thead:first-child {
+background-color: #E3F2FD;
+}
+
+.table-container-WC td:first-child {
+background-color: #E3F2FD;
+}
+
+       .table-container-WC td, .table-container-WC th {
+            border: 3px solid #7957A0;
+            padding: 20px;
+            text-align: center;
+        }
+
+    tr:nth-child(1) td:nth-child(3) {
+      background-color: #FF8000;
+}
+
+.mclaren {
+    background-color: #FF8000;
+}
+
+.mercedes {
+    background-color:#00CCC2;
+}
+
+#gpv{
+max-height: 5000px;
+}
+
+.current{
+text-transform: uppercase;
+}
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+}
+
+.skip-link:focus {
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    z-index: 1000;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+img {
+    border: 10px solid #ddd;
+    padding: 2px;
+    border-radius: 8px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.child-item {
+border: 2px solid #000;
+padding: 10px;
+border-radius: 8px;
+}
+
+.championship-year:hover {
+    background-color: #3498db;
+    color: #fff;
+    transform: scale(1.2);
+    transition: background-color 0.3s, transform 0.3s;
+}
