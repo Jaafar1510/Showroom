@@ -120,6 +120,7 @@ background-color: #E3F2FD;
 
 .table-container-WC td:first-child {
 background-color: #E3F2FD;
+font-weight: bold;
 }
 
        .table-container-WC td, .table-container-WC th {
