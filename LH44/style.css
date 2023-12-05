@@ -76,6 +76,7 @@ text-align: center;
 .imgS img{
   margin-left: 2px;
   height: 130px;
+  width: 50%;
 }
 
 .scroll-s {
@@ -136,11 +137,28 @@ background-color: #E3F2FD;
 }
 
 #gpv{
-max-height: 5000px;
+max-height: 7000px;
 }
 
 .current{
 text-transform: uppercase;
-background-color:#7957A0;
-color: #DDFF48;
+}
+
+/* Initially hide the link */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+}
+
+/* Make the link visible only when focused */
+.skip-link:focus {
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    z-index: 1000;
+    border-radius: 5px;
+    text-decoration: none;
 }
