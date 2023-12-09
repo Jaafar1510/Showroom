@@ -141,6 +141,10 @@ font-weight: bold;
 max-height: 10000px;
 }
 
+#pp{
+max-height: 10000px;
+}
+
 .current{
 text-transform: uppercase;
 }
@@ -168,4 +172,5 @@ details p{
 text-align: center;
 padding: 5px;
 margin: 5px;
+font-size: 1.2em;
 }
