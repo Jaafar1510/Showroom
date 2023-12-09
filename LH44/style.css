@@ -76,12 +76,13 @@ text-align: center;
 .imgS img{
   margin-left: 2px;
   height: 130px;
-  width: 50%;
+  width: 200px;
+  align-items: center;
 }
 
 .scroll-s {
 height: 100px;
-width: 250px;
+width: 50%;
 overflow: scroll;
 text-align: center;
 }
