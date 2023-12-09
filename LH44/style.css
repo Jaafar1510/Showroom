@@ -138,7 +138,7 @@ font-weight: bold;
 }
 
 #gpv{
-max-height: 7000px;
+max-height: 10000px;
 }
 
 .current{
@@ -162,4 +162,10 @@ text-transform: uppercase;
     z-index: 1000;
     border-radius: 5px;
     text-decoration: none;
+}
+
+details p{
+text-align: center;
+padding: 5px;
+margin: 5px;
 }
