@@ -169,9 +169,12 @@ text-transform: uppercase;
     text-decoration: none;
 }
 
-details p{
-text-align: center;
+details{
 padding: 5px;
 margin: 5px;
+}
+
+details p{
 font-size: 1.2em;
+text-align: center;
 }
