@@ -15,6 +15,18 @@ background-color:#7957A0;
 color: #DDFF48;
 }
 
+.gold{
+background-color: #FFD700;
+}
+
+.silver{
+background-color: #B3B3B3;
+}
+
+.bronze{
+background-color: #E6980E;
+}
+
         header {
             background-color: #00A19B;
             color: white;
@@ -55,10 +67,6 @@ h1{
   
 }
 
-img{
-  width:50%;
-}
-
 h2{
 margin: 20px;
 text-align: center;
@@ -74,13 +82,11 @@ text-align: center;
 }
 
 .imgS img{
-  margin-left: 2px;
-  height: 130px;
   width: 200px;
-  align-items: center;
 }
 
-.scroll-s {
+.scroll-s{
+margin-right: 5%;
 height: 100px;
 width: 50%;
 overflow: scroll;
@@ -101,10 +107,10 @@ color:#FFD700;
 }
 
 .table-container-WC {
-            width: 95%;
+            width: 97%;
             max-height: 700px;
             overflow-x: auto;
-margin: 0 10px;
+margin: 0 8px;
 display: block;
         }
 
@@ -169,7 +175,7 @@ text-transform: uppercase;
     text-decoration: none;
 }
 
-details{
+details summary, p{
 padding: 5px;
 margin: 5px;
 }
