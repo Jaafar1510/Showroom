@@ -83,6 +83,7 @@ text-align: center;
 
 .imgS img{
   width: 200px;
+  max-height: 150px;
 }
 
 .scroll-s{
@@ -108,7 +109,7 @@ color:#FFD700;
 
 .table-container-WC {
             width: 97%;
-            max-height: 700px;
+            max-height: 40000px;
             overflow-x: auto;
 margin: 0 8px;
 display: block;
@@ -149,7 +150,7 @@ max-height: 10000px;
 }
 
 #pp{
-max-height: 10000px;
+max-height: 40000px;
 }
 
 .current{
