@@ -212,7 +212,7 @@ function submitAnswer() {
 
 function showResult() {
     const resultContainer = document.getElementById('result-container');
-    resultContainer.innerText = `${userName}, Your Score: ${score} out of ${quizData.length}`;
+    resultContainer.innerText = `${userName}, your score is: ${score} out of ${quizData.length}`;
 }
 
 function nextQuestion() {
