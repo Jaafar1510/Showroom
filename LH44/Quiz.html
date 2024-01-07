@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/qstyles.css">
+<link rel="stylesheet" href="css/style.css">
+  <script defer src="js/trivia.js"></script>
+  <title>Lewis Hamilton Trivia Quiz</title>
+</head>
+<header>
+  <h1>Trivia Quiz</h1>
+</header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="career.html">Career</a>
+        <a href="achievements.html">Achievements</a>
+<a href="Quiz.html" class="current purple">Quiz</a>
+    </nav>
+
+<body class="yellow">
+
+<section>
+  <div id="quiz-container">
+    <div id="question-container"></div>
+    <div id="options-container"></div>
+            <button onclick="previousQuestion()">Previous</button>
+            <button onclick="submitAnswer()">Submit</button>
+    <button onclick="nextQuestion()" id="next-button">Next</button>
+  </div>
+    <span id="user-name"></span>
+</div>
+
+  <div id="result-container"></div>
+</section>
+</body>
+</html>

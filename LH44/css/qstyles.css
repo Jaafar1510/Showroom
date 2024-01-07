@@ -1,0 +1,30 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+#quiz-container {
+  margin-top: 20px;
+}
+
+#question-container {
+  margin-bottom: 10px;
+}
+
+#options-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+button {
+  background-color: #7957A0;
+  color: #DDFF48;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+#result-container {
+  margin-top: 20px;
+  font-weight: bold;
+}
