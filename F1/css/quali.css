@@ -1,0 +1,100 @@
+body {
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      /*overflow: hidden; /* Hide horizontal scrollbar */
+    }
+
+    header {
+  background-color: #c00; /* Deep red */
+  color: #fff; /* White text for contrast */
+  padding: 10px;
+  text-align: center;
+}
+
+h1{
+font-size:2em;
+}
+
+nav {
+      background-color: #000000;
+      color: #fff;
+      text-align: center;
+      padding: 5px;
+      display: flex;
+      justify-content: space-around;
+font-size: 0.8em;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      margin: 0 5px;
+      font-weight: bold;
+    }
+
+    #track {
+      position: relative;
+      max-width: 100%;
+      margin: 20px auto;
+      background: url('f1_track.jpg') no-repeat center center;
+      background-size: cover;
+      height: 650px; /* Set the desired height */
+    }
+
+    .car {
+      position: absolute;
+      width: 40%;
+      height: 30px;
+      border-width: 5px 5px 0 5px;
+      border-color: #c00;
+border-style: solid;
+      color: #000;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 5px;
+    }
+
+     .pole {
+top:12px;
+left:33px;
+background-color: #dc0000;
+border: 5px solid #dc0000;
+border-bottom-left-radius: 0;
+border-bottom-right-radius: 0;
+width: 38%;
+}
+
+    /* Example car positions */
+    .car1 { top: 50px; left: 30px; }
+    .car2 { top: 80px; left: 52%; }
+    .car3 { top: 110px; left: 30px; }
+    .car4 { top: 140px; left: 52%; }
+    .car5 { top: 170px; left: 30px; }
+    .car6 { top: 200px; left: 52%; }
+    .car7 { top: 230px; left: 30px; }
+    .car8 { top: 260px; left: 52%; }
+    .car9 { top: 290px; left: 30px; }
+    .car10 { top: 320px; left: 52%; }
+    .car11 { top: 350px; left: 30px; }
+    .car12 { top: 380px; left: 52%; }
+    .car13 { top: 410px; left: 30px; }
+    .car14 { top: 440px; left: 52%; }
+    .car15 { top: 470px; left: 30px; }
+    .car16 { top: 500px; left: 52%; }
+    .car17 { top: 530px; left: 30px; }
+    .car18 { top: 560px; left: 52%; }
+    .car19 { top: 590px; left: 30px; }
+    .car20 { top: 620px; left: 52%; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
