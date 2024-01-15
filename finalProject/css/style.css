@@ -30,3 +30,17 @@ figure {
   grid-column: span 2; /* Every third figure takes up both columns */
 }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto; /* Remove scroll behavior */
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  figure {
+    background-color: #333; /* Dark color for background */
+    color: #ffeb3b; /* Lighter color for font (yellow-ish) */
+    border-color: #000; /* Black border color */
+  }
+}
