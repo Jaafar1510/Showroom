@@ -21,3 +21,12 @@ figure {
     grid-column: span 2; /* On larger screens, last figure takes up both columns */
   }
 }
+
+@media (min-width: 992px) {
+  .container figure {
+    border-radius: 0; /* Remove border radius from all figures on large screens */
+}
+.container figure:nth-child(3n) {
+  grid-column: span 2; /* Every third figure takes up both columns */
+}
+}
