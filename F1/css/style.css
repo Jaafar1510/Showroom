@@ -20,6 +20,11 @@ background-color: #ff0000;
 color: #fff;
 }
 
+#countdown{
+font-size: 3.5em;
+align-items: center;
+}
+
 .trackinfo{
 font-size: 2.3em;
 }
@@ -48,6 +53,11 @@ font-size: 2.6em;
       display: table;
       clear: both;
     }
+
+.tyres{
+width: 50%;
+align-items: center;
+}
 
     .list-container {
       display: flex;
@@ -128,3 +138,18 @@ text-decoration: none;
 .sprint{
 width:48%;
 }
+
+    .image-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .image-container img {
+      width: 90%; /* Adjust the width as needed */
+    }
+
+    .caption {
+      text-align: center;
+      width: 90%; /* Adjust the width as needed */
+    }
