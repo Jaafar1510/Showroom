@@ -1,11 +1,11 @@
   // Set the dates for each event
   var eventDates = [
     new Date("Jan 16, 2024 00:23:00").getTime(),
-    new Date("Mar 7, 2024 12:30:00").getTime(),
-    new Date("Mar 7, 2024 16:00:00").getTime(),
-    new Date("Mar 8, 2024 12:30:00").getTime(),
-    new Date("Mar 8, 2024 16:00:00").getTime(),
-    new Date("Mar 9, 2024 17:00:00").getTime(),
+    new Date("Mar 7, 2024 15:30:00").getTime(),
+    new Date("Mar 7, 2024 19:00:00").getTime(),
+    new Date("Mar 8, 2024 15:30:00").getTime(),
+    new Date("Mar 8, 2024 19:00:00").getTime(),
+    new Date("Mar 9, 2024 19:00:00").getTime(),
     // ... add more dates for events up to 120
   ];
 
@@ -48,7 +48,7 @@
         setInterval(updateCountdown, 1000);
       } else {
         // All events are done
-        document.getElementById("countdown").innerHTML = "ALL EVENTS EXPIRED";
+        document.getElementById("countdown").innerHTML = "RACE WEEKEND FINISHED";
       }
     }
   }
