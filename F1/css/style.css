@@ -153,3 +153,8 @@ width:48%;
       text-align: center;
       width: 90%; /* Adjust the width as needed */
     }
+
+.break{
+  background-color: #c00; /* Deep red */
+  color: #fff; /* White text for contrast */
+}
