@@ -127,6 +127,10 @@ function loadQuestion() {
     // Clear previous feedback
     resultContainer.innerText = "";
 
+    const questionNumberContainer = document.getElementById('question-number');
+    questionNumberContainer.innerText = `Question ${currentQuestion + 1}/${quizData.length}`;
+
+
     const currentQuizData = quizData[currentQuestion];
 
     questionContainer.innerText = currentQuizData.question;
