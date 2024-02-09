@@ -1,0 +1,146 @@
+header {
+  background-color: #000; /* Deep red */
+  color: #fff; /* White text for contrast */
+  padding: 10px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+header img{
+  width: 15%;
+}
+
+h1{
+  font-size: 3em;
+  align-items: center;
+}
+
+h2{
+  font-size: 2em;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+}
+
+h3{
+  font-size: 2.5em;
+  border-bottom: 10px solid #ddd;
+}
+
+p{
+  border-bottom: 5px solid #ddd;
+  border-right: 5px solid #ddd;
+}
+
+hr{
+  margin-bottom: 50px;
+  margin-top: 20px;
+}
+
+.bold{
+font-size: 3.5em;
+}
+
+.cc{
+  font-size: 6em;
+}
+
+a{
+  text-decoration: none;
+}
+
+.mercedes{
+  border-left: 20px solid #00CCC2;
+  padding: 10px;
+}
+
+.m{
+  border: 10px solid #00ccc2;
+}
+
+.ferrari{
+  border-left: 20px solid #EF1A2D;
+  padding: 10px;
+}
+
+.f{
+  border: 10px solid #EF1A2D;
+}
+
+.redbull{
+  border-left: 20px solid #0036b3;
+  padding: 10px;
+}
+
+.rb{
+  border: 10px solid #0036b3;
+}
+
+.mclaren{
+  border-left: 20px solid #FF8000;
+  padding: 10px
+}
+
+.mc{
+  border: 10px solid #FF8000;
+}
+
+.aston{
+  border-left: 20px solid #004d42;
+  padding: 10px;
+}
+
+.as{
+  border: 10px solid #004d42;
+}
+
+.alpine{
+  border-left: 20px solid #2173B8;
+  padding: 10px;
+}
+
+.al{
+  border: 10px solid #2173b8;
+}
+
+.haas{
+  border-left: 20px solid #E6002B;
+  padding: 10px;
+}
+
+.h{
+  border: 10px solid #e6002b;
+}
+
+.williams{
+  border-left: 20px solid #00A0DE;
+  padding: 10px;
+}
+
+.w{
+  border: 10px solid #00a0de;
+}
+
+.racingbull{
+  border-left: 20px solid #2b4d66;
+  padding: 10px;
+}
+
+.rcb{
+  border: 10px solid #2b4d66;
+}
+
+.stake{
+  border-left: 20px solid #00E701;
+  padding: 10px;
+}
+
+.s{
+  border: 10px solid #00e701;
+}
+
+.car{
+  float: right;
+  width: 30%;
+}
