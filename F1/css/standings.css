@@ -61,50 +61,45 @@ table a{
 
 .mclaren {
     background-color: #FF8000;
-color: #fff;
 }
 
 .mercedes {
     background-color:#00CCC2;
-color: #fff;
 }
 
 .ferrari{
 background-color: #EF1A2D;
-color: #fff;
 }
 
 .redbull{
 background-color: #00174C;
-color: #fff;
 }
 
 .alpine{
 background-color: #2173B8;
-color: #fff;
 }
 
 .haas{
 background-color: #E6002B;
-color: #fff;
 }
 
 .aston{
 background-color: #002420;
-color: #fff;
 }
 
 .williams{
 background-color: #00A0DE;
-color: #fff;
 }
 
 .rb{
 background-color: #20394C;
-color: #fff;
 }
 
 .stake{
 background-color: #00E701;
-color: #fff;
+}
+
+.driver{
+color: #000;
+font-size: 0.9em;
 }
