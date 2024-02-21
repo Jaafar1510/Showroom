@@ -69,3 +69,14 @@ function translateToMorse() {
 
     outputMorse.textContent = morseTranslation.trim();
 }
+
+function copyOutput(elementId) {
+    const outputText = document.getElementById(elementId).textContent;
+    const tempInput = document.createElement("textarea");
+    tempInput.value = outputText;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    alert("Copied to clipboard");
+}
