@@ -1,11 +1,11 @@
   // Set the dates for each event
   var eventDates = [
     new Date("Jan 16, 2024 00:23:00").getTime(),
-    new Date("Feb 29, 2024 13:30:00").getTime(),
-    new Date("Feb 29, 2024 17:00:00").getTime(),
-    new Date("Mar 1, 2024 14:30:00").getTime(),
-    new Date("Mar 1, 2024 18:00:00").getTime(),
-    new Date("Mar 2, 2024 17:00:00").getTime(),
+    new Date("Feb 29, 2024 11:30:00").getTime(),
+    new Date("Feb 29, 2024 15:00:00").getTime(),
+    new Date("Mar 1, 2024 12:30:00").getTime(),
+    new Date("Mar 1, 2024 16:00:00").getTime(),
+    new Date("Mar 2, 2024 15:00:00").getTime(),
     // ... add more dates for events up to 120
   ];
 
@@ -24,34 +24,45 @@
   var currentIndex = 0;
 
   // Function to update the countdown
-  function updateCountdown() {
-    var now = new Date().getTime();
-    var distance = eventDates[currentIndex] - now;
+// Function to update the countdown
+function updateCountdown() {
+  // Get the current date/time in the user's local time zone
+  var now = new Date().getTime();
 
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  // Get the user's timezone offset in milliseconds
+  var userTimezoneOffset = new Date().getTimezoneOffset() * 60000;
 
-    var countdownText = eventTitles[currentIndex] + ": " + days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+  // Adjust the current time to the user's timezone
+  now += userTimezoneOffset;
 
-    document.getElementById("countdown").innerHTML = countdownText;
+  var distance = eventDates[currentIndex] - now;
 
-    if (distance < 0) {
-      // Move to the next event
-      currentIndex++;
-        setInterval(updateCountdown, 1000);
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      // Check if there are more events
-      if (currentIndex < eventDates.length) {
-        // Set the interval for the next event
-        setInterval(updateCountdown, 1000);
-      } else {
-        // All events are done
-        document.getElementById("countdown").innerHTML = "RACE WEEKEND FINISHED";
-      }
+  var countdownText = eventTitles[currentIndex] + ": " + days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+  document.getElementById("countdown").innerHTML = countdownText;
+
+  if (distance < 0) {
+    // Move to the next event
+    currentIndex++;
+
+    // Check if there are more events
+    if (currentIndex < eventDates.length) {
+      // Set the interval for the next event
+      setTimeout(updateCountdown, 1000);
+    } else {
+      // All events are done
+      document.getElementById("countdown").innerHTML = "RACE WEEKEND FINISHED";
     }
+  } else {
+    // Schedule the next update
+    setTimeout(updateCountdown, 1000);
   }
+}
 
-  // Start the countdown for the first event
-  updateCountdown();
+// Start the countdown for the first event
+updateCountdown();
