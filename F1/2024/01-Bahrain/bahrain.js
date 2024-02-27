@@ -23,7 +23,6 @@
   // Initialize the index for the current event
   var currentIndex = 0;
 
-  // Function to update the countdown
 // Function to update the countdown
 function updateCountdown() {
   // Get the current date/time in the user's local time zone
