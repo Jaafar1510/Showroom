@@ -63,30 +63,30 @@ a{
 }
 
 .mercedes{
-  border-left: 20px solid #00CCC2;
+  border-left: 20px solid #27F4D2;
   padding: 10px;
 }
 
 .m{
-  border: 10px solid #00ccc2;
+  border: 10px solid #27F4D2;
 }
 
 .ferrari{
-  border-left: 20px solid #EF1A2D;
+  border-left: 20px solid #E8002D;
   padding: 10px;
 }
 
 .f{
-  border: 10px solid #EF1A2D;
+  border: 10px solid #E8002D;
 }
 
 .redbull{
-  border-left: 20px solid #0036b3;
+  border-left: 20px solid 	#3671C6;
   padding: 10px;
 }
 
 .rb{
-  border: 10px solid #0036b3;
+  border: 10px solid #3671C6;
 }
 
 .mclaren{
@@ -99,57 +99,57 @@ a{
 }
 
 .aston{
-  border-left: 20px solid #004d42;
+  border-left: 20px solid #229971;
   padding: 10px;
 }
 
 .as{
-  border: 10px solid #004d42;
+  border: 10px solid #229971;
 }
 
 .alpine{
-  border-left: 20px solid #2173B8;
+  border-left: 20px solid #FF87BC;
   padding: 10px;
 }
 
 .al{
-  border: 10px solid #2173b8;
+  border: 10px solid #FF87BC;
 }
 
 .haas{
-  border-left: 20px solid #E6002B;
+  border-left: 20px solid #B6BABD;
   padding: 10px;
 }
 
 .h{
-  border: 10px solid #e6002b;
+  border: 10px solid #B6BABD;
 }
 
 .williams{
-  border-left: 20px solid #00A0DE;
+  border-left: 20px solid #64C4FF;
   padding: 10px;
 }
 
 .w{
-  border: 10px solid #00a0de;
+  border: 10px solid #64C4FF;
 }
 
 .racingbull{
-  border-left: 20px solid #2b4d66;
+  border-left: 20px solid #6692FF;
   padding: 10px;
 }
 
 .rcb{
-  border: 10px solid #2b4d66;
+  border: 10px solid #6692FF;
 }
 
 .stake{
-  border-left: 20px solid #00E701;
+  border-left: 20px solid #52E252;
   padding: 10px;
 }
 
 .s{
-  border: 10px solid #00e701;
+  border: 10px solid #52E252;
 }
 
 .car{
