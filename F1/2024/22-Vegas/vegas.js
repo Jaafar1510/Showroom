@@ -1,11 +1,11 @@
   // Set the dates for each event
   var eventDates = [
     new Date("Jan 16, 2024 00:23:00").getTime(),
-    new Date("Aug 30, 2024 11:30:00").getTime(),
-    new Date("Aug 30, 2024 15:00:00").getTime(),
-    new Date("Aug 31, 2024 10:30:00").getTime(),
-    new Date("Aug 31, 2024 14:00:00").getTime(),
-    new Date("Sep 1, 2024 13:00:00").getTime(),
+    new Date("Nov 22, 2024 02:30:00").getTime(),
+    new Date("Nov 22, 2024 06:00:00").getTime(),
+    new Date("Nov 23, 2024 02:30:00").getTime(),
+    new Date("Nov 23, 2024 06:00:00").getTime(),
+    new Date("Nov 24, 2024 06:00:00").getTime(),
     // ... add more dates for events up to 120
   ];
 

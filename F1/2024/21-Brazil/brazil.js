@@ -1,11 +1,11 @@
   // Set the dates for each event
   var eventDates = [
     new Date("Jan 16, 2024 00:23:00").getTime(),
-    new Date("Aug 30, 2024 11:30:00").getTime(),
-    new Date("Aug 30, 2024 15:00:00").getTime(),
-    new Date("Aug 31, 2024 10:30:00").getTime(),
-    new Date("Aug 31, 2024 14:00:00").getTime(),
-    new Date("Sep 1, 2024 13:00:00").getTime(),
+    new Date("Nov 01, 2024 14:30:00").getTime(),
+    new Date("Nov 01, 2024 18:30:00").getTime(),
+    new Date("Nov 02, 2024 14:00:00").getTime(),
+    new Date("Nov 02, 2024 18:00:00").getTime(),
+    new Date("Nov 03, 2024 17:00:00").getTime(),
     // ... add more dates for events up to 120
   ];
 
@@ -13,8 +13,8 @@
   var eventTitles = [
     "F1",
     "FP1",
-    "FP2",
-    "FP3",
+    "Sprint Qualifying",
+    "Sprint Race",
     "Qualifying",
     "Race",
     // ... add more titles for events up to 120
