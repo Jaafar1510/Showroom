@@ -122,4 +122,10 @@ background-color: #4CAF50;
 
 .title{
   color:#c00;
-}    
+}
+
+.note{
+  background: #5F5F65;
+  color: #fff;
+  font-size: 1.7em;
+}
