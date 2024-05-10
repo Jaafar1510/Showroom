@@ -6,6 +6,7 @@
         <title>F1 2025 SEASON</title>
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <style>
             h1{
                 font-size: 2em;
@@ -17,10 +18,61 @@
                 background-color: #c00;
                 font-size: 1.5em;
             }
+            .menu{
+                display: none;
+            }
+            @media screen and (min-width: 1px) {
+                .menu{
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 200px;
+                    background-color: #f9f9f9;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                    transition: transform 0.8s ease-in-out;
+                    transform: translateX(-100%);
+                }
+                .menu.active {
+                    transform: translateX(0);
+                    display: block;
+                    z-index:1000;
+                }
+                .menu ul{
+                    list-style-type: none;
+                    padding: 20px;
+                    margin: 0;
+                }
+                .menu ul li {
+                    padding: 20px 20px;
+                }
+                .menu ul li a{
+                    display: block;
+                    text-decoration: none;
+                    color: #333;
+                    height:40px;
+                    line-height: 40px;
+                }
+                .menu-icon {
+                    position: fixed;
+                    top: 20px;
+                    left: 20px;
+                    cursor: pointer;
+                    color:black;
+                    z-index:1100;
+                }
+            }
         </style>
     </head>
     <body>
         <header class="container-fluid">
+            <div class="menu">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="../2024/2024.html">2024</a></li>
+                    <li class="nav-item"><a class="nav-link" href="2024.html">2025</a></li>
+                </ul>
+            </div>
+            <div class="menu-icon" onclick="toggleMenu()">≡</div>
             <h1 class="text-center">F1 2025</h1>
             <h2 class="text-center">CALENDAR</h2>
         </header>
@@ -168,5 +220,22 @@
             </div>
         </main>
         <script src="https://maxcdn.bootstrap.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            function toggleNav() {
+                var navbar = document.getElementById('navbarSupportedContent');
+                if (navbar.classList.contains('open')) {
+                navbar.classList.remove('open');
+                } else {
+                navbar.classList.add('open');
+                }
+            }
+            function toggleMenu() {
+                var menu = document.querySelector('.menu');
+                menu.classList.toggle('active');
+            }
+        </script>
     </body>
 </html>

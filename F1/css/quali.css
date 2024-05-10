@@ -98,3 +98,13 @@ width: 38%;
             border-bottom: 1px solid #ddd;
             text-align: center;
         }
+
+.note{
+  background: #5F5F65;
+  color: #fff;
+  font-size: 1.1em;
+}       
+
+.title{
+  text-align: center;
+}
