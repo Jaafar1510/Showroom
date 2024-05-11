@@ -28,7 +28,7 @@ nav {
       padding: 5px;
       display: flex;
       justify-content: space-around;
-font-size: 2em;
+      font-size: 2em;
     }
 
     nav a {
