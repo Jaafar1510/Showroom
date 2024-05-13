@@ -5,25 +5,92 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>F1 Standings</title>
         <link rel="stylesheet" href="../css/standings.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <style>
+            h1{
+                font-size: 2em;
+            }
+            nav{
+                font-size: 1em;
+            }
             h2{
-            font-size: 1.5em;
+                background-color: #c00;
+                font-size: 1.5em;
+            }
+            .menu{
+                display: none;
+            }
+            @media screen and (min-width: 1px) {
+                .menu{
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 200px;
+                    background-color: #f9f9f9;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                    transition: transform 0.8s ease-in-out;
+                    transform: translateX(-100%);
+                }
+                .menu.active {
+                    transform: translateX(0);
+                    display: block;
+                    z-index:1000;
+                }
+                .menu ul{
+                    list-style-type: none;
+                    padding: 20px;
+                    margin: 0;
+                }
+                .menu ul li {
+                    padding: 20px 20px;
+                }
+                .menu ul li a{
+                    display: block;
+                    text-decoration: none;
+                    color: #333;
+                    height:40px;
+                    line-height: 40px;
+                }
+                .menu-icon-container {
+                    position: relative;
+                }
+                .menu-icon {
+                    position: absolute;
+                    top: 20px;
+                    left: 20px;
+                    cursor: pointer;
+                    color: black;
+                    z-index: 1100;
+                }
             }
         </style>
     </head>
     <body>
-        <header>
+        <header class="container-fluid">
+            <div class="menu">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="cs.html">2025</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../2024/cs.html">2024</a></li>
+                </ul>
+            </div>
+            <div class="menu-icon-container">
+                <div class="menu-icon" onclick="toggleMenu()">≡</div>
+            </div>
             <h1>F1 2025</h1>
             <h2>CONSTRUCTORS STANDINGS</h2>
         </header>
-        <nav>
-            <a href="2024.html">Calendar</a>
-            <a href="ds.html">Drivers Standings</a>
-            <a href="cs.html">Constructors Standings</a>
-            <a href="intro.html">Line Up</a>
+        <nav class="container-fluid">
+            <div class="row text-center">
+                <div class="col-sm-3"><a href="2024.html">Calendar</a></div>
+                <div class="col-sm-3"><a href="ds.html">Drivers Standings</a></div>
+                <div class="col-sm-3"><a href="cs.html">Constructors Standings</a></div>
+                <div class="col-sm-3"><a href="intro.html">Line Up</a></div>
+            </div>
         </nav>
         <table id="standings">
-            <tr>
+            <tr class="text-center">
                 <th>Position</th>
                 <th>Team</th>
                 <th>Points</th>
@@ -80,5 +147,23 @@
             </tr>
         </table>
         <script src="../js/order.js" defer></script>
+        <script src="https://maxcdn.bootstrap.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            function toggleNav() {
+                var navbar = document.getElementById('navbarSupportedContent');
+                if (navbar.classList.contains('open')) {
+                navbar.classList.remove('open');
+                } else {
+                navbar.classList.add('open');
+                }
+            }
+            function toggleMenu() {
+                var menu = document.querySelector('.menu');
+                menu.classList.toggle('active');
+            }
+        </script>
     </body>
 </html>

@@ -53,14 +53,23 @@
                     height:40px;
                     line-height: 40px;
                 }
+                .menu-icon-container {
+                    position: relative;
+                }
                 .menu-icon {
-                    position: fixed;
+                    position: absolute;
                     top: 20px;
                     left: 20px;
                     cursor: pointer;
-                    color:black;
-                    z-index:1100;
+                    color: black;
+                    z-index: 1100;
                 }
+            }
+            .rw a{
+            color:#000;
+            font-size: 1.2em;
+            text-decoration: none;
+            text-decoration: underline;
             }
         </style>
     </head>
@@ -68,11 +77,13 @@
         <header class="container-fluid">
             <div class="menu">
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link" href="../2024/2024.html">2024</a></li>
                     <li class="nav-item"><a class="nav-link" href="2024.html">2025</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../2024/2024.html">2024</a></li>
                 </ul>
             </div>
-            <div class="menu-icon" onclick="toggleMenu()">≡</div>
+            <div class="menu-icon-container">
+                <div class="menu-icon" onclick="toggleMenu()">≡</div>
+            </div>
             <h1 class="text-center">F1 2025</h1>
             <h2 class="text-center">CALENDAR</h2>
         </header>
@@ -85,23 +96,24 @@
             </div>
         </nav>
         <main class="container-fluid">
+            <p class="rw"><a href="#test">This Race Week</a></p>
             <div class="row">
-                <div class="col-lg-7 col-md-9 offset-lg-3 offset-md-2">
+                <div id="test" class="col-lg-7 col-md-9 offset-lg-3 offset-md-2">
                     <p class="text-center"><strong>0.<a href="00-Testing/Bahraintest.html"> PRE-SEASON TESTING</a></strong></p>
                     <a href="00-Testing/Bahraintest.html"><img src="../images/bahraingp.jpeg" alt="" class="img-fluid d-block mx-auto"></a>
                     <p class="text-center">Sakhir<br>TBC</p>
                 </div>
-                <div class="col-lg-3 col-md-4 col-6">
+                <div id="r1" class="col-lg-3 col-md-4 col-6">
                     <p class="text-center"><strong>1.<a href="01-Australia/australiaGP.html"> AUSTRALIA</a></strong></p>
                     <a href="01-Australia/australiaGP.html"><img src="../images/australiagp.jpeg" alt="" class="img-fluid"></a>
                     <p class="text-center">Melbourne<br>14-16 MARCH</p>
                 </div>
-                <div class="col-lg-3 col-md-4 col-6">
+                <div id="r2" class="col-lg-3 col-md-4 col-6">
                     <p class="text-center"><strong>2.<a href="02-China/chinagp.html">CHINA</a></strong></p>
                     <a href="02-China/chinagp.html"><img src="../images/chinagp.jpeg" alt="" class="img-fluid"></a>
                     <p class="text-center">Shanghai<br>21-23 MARCH</p>
                 </div>
-                <div class="col-lg-3 col-md-4 col-6">
+                <div id="r3" class="col-lg-3 col-md-4 col-6">
                     <p class="text-center"><strong>3.<a href="03-Japan/japangp.html">JAPAN</a></strong></p>
                     <a href="03-Japan/japangp.html"><img src="../images/japangp.jpeg" alt="" class="img-fluid"></a>
                     <p class="text-center">Suzuka<br>04-06 APRIL</p>
@@ -224,14 +236,6 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script>
-            function toggleNav() {
-                var navbar = document.getElementById('navbarSupportedContent');
-                if (navbar.classList.contains('open')) {
-                navbar.classList.remove('open');
-                } else {
-                navbar.classList.add('open');
-                }
-            }
             function toggleMenu() {
                 var menu = document.querySelector('.menu');
                 menu.classList.toggle('active');

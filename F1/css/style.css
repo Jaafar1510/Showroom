@@ -148,3 +148,6 @@ width:48%;
   background-color: #c00; /* Deep red */
   color: #fff; /* White text for contrast */
 }
+.finish{
+  opacity: 0.3;
+}
