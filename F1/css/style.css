@@ -6,38 +6,38 @@ header {
 }
 
 .track {
-width:100%;
+  width:100%;
 }
 
 h1{
-font-size: 5em;
+  font-size: 2.5em;
 }
 
 h2{
-font-size: 3.5em;
-text-align: center;
-background-color: #ff0000;
-color: #fff;
+  font-size: 3.5em;
+  text-align: center;
+  background-color: #ff0000;
+  color: #fff;
 }
 
 #countdown{
-font-size: 3.5em;
-align-items: center;
+  font-size: 3.5em;
+  align-items: center;
 }
 
 .trackinfo{
-font-size: 2.3em;
+  font-size: 2.3em;
 }
 
 .bold{
-font-size: 2em;
+  font-size: 2em;
 }
 
 .left-text {
-  float: left;
-  width:50%;
-  padding: 1px;
-  box-sizing: border-box;
+    float: left;
+    width:50%;
+    padding: 1px;
+    box-sizing: border-box;
 }
 
 .right-text {
@@ -54,8 +54,8 @@ font-size: 2em;
 }
 
 .tyres{
-width: 50%;
-align-items: center;
+  width: 50%;
+  align-items: center;
 }
 
 .list-container {
@@ -63,13 +63,13 @@ align-items: center;
 }
 
 .race{
-font-size: 1.3em;
-text-align: center;
+  font-size: 1.3em;
+  text-align: center;
 }
 
 .quali{
-font-size: 1.3em;
-text-align: center;
+  font-size: 1.3em;
+  text-align: center;
 }
 
 body {
@@ -86,7 +86,7 @@ nav {
   padding: 10px;
   display: flex;
   justify-content: space-around;
-font-size: 2em;
+  font-size: 2em;
 }
 
 nav a {
@@ -97,17 +97,12 @@ nav a {
 }
 
 table img{
-width: 100%;
-align-items: center;
+  width: 100%;
+  align-items: center;
 }
 
 table a{
-text-decoration: none;
-}
-
-td {
-  padding: 8px;
-  text-align: center;
+  text-decoration: none;
 }
 
 td:nth-child(1) {
@@ -125,7 +120,7 @@ td:nth-child(2) {
 }
 
 .sprint{
-width:48%;
+  width:48%;
 }
 
 .image-container {
@@ -150,4 +145,31 @@ width:48%;
 
 .finish{
   opacity: 0.3;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 2em;
+  background-color: #4CAF50;
+}
+
+table th, table td {
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.navbar-toggler {
+  background-color: rgb(0, 0, 0);
+}
+
+.navbar-toggler {
+  font-size: 1em;
+  color: #fff
+}
+
+.navbar-brand{
+  font-size: 1em !important;
 }
