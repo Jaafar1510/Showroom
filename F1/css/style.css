@@ -96,6 +96,10 @@ nav a {
   font-weight: bold;
 }
 
+table{
+  text-align: center;
+}
+
 table img{
   width: 100%;
   align-items: center;
@@ -147,7 +151,7 @@ td:nth-child(2) {
   opacity: 0.3;
 }
 
-table {
+.points {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
@@ -155,7 +159,7 @@ table {
   background-color: #4CAF50;
 }
 
-table th, table td {
+.points table th, .points table td {
   padding: 5px;
   border-bottom: 1px solid #ddd;
   text-align: center;
