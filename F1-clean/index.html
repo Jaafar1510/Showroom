@@ -19,6 +19,7 @@
         <li><a href="#drivers">Drivers</a></li>
         <li><a href="#teams">Teams</a></li>
         <li><a href="#standings">Standings</a></li>
+        <li><a href="#results">Results</a></li>
       </ul>
     </nav>
   </header>
@@ -81,9 +82,29 @@
         <button class="standings-tab" data-standing="constructors">Constructors</button>
       </div>
 
-<div id="standingsTable" class="standings-table-wrapper">
-  <!-- Standings will be added here by JavaScript -->
-</div>
+      <div id="standingsTable" class="standings-table-wrapper">
+        <!-- Standings will be added here by JavaScript -->
+      </div>
+    </section>
+
+    <section class="section" id="results">
+      <div class="section-header">
+        <p class="eyebrow">Race Data</p>
+        <h2>2025 Results Archive</h2>
+      </div>
+
+      <!--<p class="section-note">
+        Results shown here are the points-scoring positions used by the standings engine.
+      </p>-->
+
+      <div class="results-tabs">
+        <button class="results-tab active" data-results="race">Grand Prix</button>
+        <button class="results-tab" data-results="sprint">Sprints</button>
+      </div>
+
+      <div id="resultsGrid" class="results-grid">
+        <!-- Results will be added here by JavaScript -->
+      </div>
     </section>
   </main>
 

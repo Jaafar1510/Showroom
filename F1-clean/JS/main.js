@@ -35,6 +35,10 @@ function renderRaceCalendar() {
         <p><strong>${race.date}</strong></p>
         <p>${race.city}, ${race.country}</p>
         <p>${race.circuit}</p>
+        
+        <button class="race-result-btn" data-round="${race.round}">
+          View Results
+        </button>
       </div>
     `;
 
@@ -167,10 +171,11 @@ function calculateDriverStandings() {
     };
   });
 
-  raceResults2025.forEach((race) => {
-    race.results.forEach((result, index) => {
+  function addResultsToDriverStandings(resultsList, pointsSystem, countsAsWinAndPodium = false) {
+  resultsList.forEach((event) => {
+    event.results.forEach((result, index) => {
       const position = index + 1;
-      const points = racePointsSystem[position] || 0;
+      const points = pointsSystem[position] || 0;
       const driverCode = result.code;
 
       if (!standingsMap[driverCode]) {
@@ -191,15 +196,19 @@ function calculateDriverStandings() {
         standingsMap[driverCode].teamColor = latestTeamData.color;
       }
 
-      if (position === 1) {
+      if (countsAsWinAndPodium && position === 1) {
         standingsMap[driverCode].wins += 1;
       }
 
-      if (position <= 3) {
+      if (countsAsWinAndPodium && position <= 3) {
         standingsMap[driverCode].podiums += 1;
       }
     });
   });
+}
+
+addResultsToDriverStandings(raceResults2025, racePointsSystem, true);
+addResultsToDriverStandings(sprintResults2025, sprintPointsSystem, false);
 
   return Object.values(standingsMap).sort((a, b) => {
     return (
@@ -223,10 +232,11 @@ function calculateConstructorStandings() {
     };
   });
 
-  raceResults2025.forEach((race) => {
-    race.results.forEach((result, index) => {
+  function addResultsToConstructorStandings(resultsList, pointsSystem, countsAsWinAndPodium = false) {
+  resultsList.forEach((event) => {
+    event.results.forEach((result, index) => {
       const position = index + 1;
-      const points = racePointsSystem[position] || 0;
+      const points = pointsSystem[position] || 0;
       const teamName = result.team;
 
       if (!constructorMap[teamName]) {
@@ -236,15 +246,19 @@ function calculateConstructorStandings() {
 
       constructorMap[teamName].points += points;
 
-      if (position === 1) {
+      if (countsAsWinAndPodium && position === 1) {
         constructorMap[teamName].wins += 1;
       }
 
-      if (position <= 3) {
+      if (countsAsWinAndPodium && position <= 3) {
         constructorMap[teamName].podiums += 1;
       }
     });
   });
+}
+
+addResultsToConstructorStandings(raceResults2025, racePointsSystem, true);
+addResultsToConstructorStandings(sprintResults2025, sprintPointsSystem, false);
 
   return Object.values(constructorMap).sort((a, b) => {
     return (
@@ -353,3 +367,115 @@ standingsTabs.forEach((tab) => {
 });
 
 setActiveStanding("drivers");
+
+const resultsGrid = document.getElementById("resultsGrid");
+const resultsTabs = document.querySelectorAll(".results-tab");
+
+function getResultTitle(event, type) {
+  return type === "sprint"
+    ? `${event.race} Sprint`
+    : event.race;
+}
+
+function renderResults(type = "race") {
+  const events = type === "sprint" ? sprintResults2025 : raceResults2025;
+  const pointsSystem = type === "sprint" ? sprintPointsSystem : racePointsSystem;
+
+  resultsGrid.innerHTML = "";
+
+  events.forEach((event) => {
+    const resultCard = document.createElement("article");
+    resultCard.classList.add("result-card");
+    resultCard.id = `result-${type}-${event.round}`;
+
+    resultCard.innerHTML = `
+      <div class="result-card-header">
+        <p class="race-round">Round ${event.round}</p>
+        <h3>${getResultTitle(event, type)}</h3>
+      </div>
+
+      <ol class="result-list">
+        ${event.results
+          .map((result, index) => {
+            const position = index + 1;
+            const points = pointsSystem[position] || 0;
+            const driver = getDriverByCode(result.code);
+            const team = getTeamByName(result.team);
+
+            return `
+              <li>
+                <span class="result-position">P${position}</span>
+
+                <span class="result-driver">
+                  ${driver ? `${driver.flag} ${driver.name}` : result.code}
+                  <small>${result.code}</small>
+                </span>
+
+                <span class="result-team">
+                  <span class="team-dot" style="background: ${team ? team.color : "#e10600"};"></span>
+                  ${result.team}
+                </span>
+
+                <span class="result-points">${points} pts</span>
+              </li>
+            `;
+          })
+          .join("")}
+      </ol>
+    `;
+
+    resultsGrid.appendChild(resultCard);
+  });
+}
+
+function setActiveResults(type) {
+  resultsTabs.forEach((tab) => {
+    tab.classList.toggle("active", tab.dataset.results === type);
+  });
+
+  renderResults(type);
+}
+
+resultsTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    setActiveResults(tab.dataset.results);
+  });
+});
+
+setActiveResults("race");
+
+function connectCalendarToResults() {
+  const resultButtons = document.querySelectorAll(".race-result-btn");
+
+  resultButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const round = button.dataset.round;
+
+      setActiveResults("race");
+
+      setTimeout(() => {
+        const resultCard = document.getElementById(`result-race-${round}`);
+
+        if (!resultCard) return;
+
+        resultCard.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+        document.querySelectorAll(".result-card").forEach((card) => {
+          card.classList.remove("result-card-selected");
+        });
+
+        resultCard.classList.add("result-card-highlight");
+        resultCard.classList.add("result-card-selected");
+
+        setTimeout(() => {
+          resultCard.classList.remove("result-card-highlight");
+        }, 1400);
+      }, 100);
+    });
+  });
+}
+
+connectCalendarToResults();

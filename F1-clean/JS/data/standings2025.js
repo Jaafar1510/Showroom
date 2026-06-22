@@ -397,3 +397,101 @@ const raceResults2025 = [
     ]
   }
 ];
+
+const sprintPointsSystem = {
+  1: 8,
+  2: 7,
+  3: 6,
+  4: 5,
+  5: 4,
+  6: 3,
+  7: 2,
+  8: 1
+};
+
+const sprintResults2025 = [
+  {
+    round: 2,
+    race: "Chinese Grand Prix",
+    results: [
+      { code: "HAM", team: "Ferrari" },
+      { code: "PIA", team: "McLaren" },
+      { code: "VER", team: "Red Bull Racing" },
+      { code: "RUS", team: "Mercedes" },
+      { code: "LEC", team: "Ferrari" },
+      { code: "TSU", team: "Racing Bulls" },
+      { code: "ANT", team: "Mercedes" },
+      { code: "NOR", team: "McLaren" }
+    ]
+  },
+  {
+    round: 6,
+    race: "Miami Grand Prix",
+    results: [
+      { code: "NOR", team: "McLaren" },
+      { code: "PIA", team: "McLaren" },
+      { code: "HAM", team: "Ferrari" },
+      { code: "RUS", team: "Mercedes" },
+      { code: "STR", team: "Aston Martin" },
+      { code: "TSU", team: "Red Bull Racing" },
+      { code: "ANT", team: "Mercedes" },
+      { code: "GAS", team: "Alpine" }
+    ]
+  },
+  {
+    round: 13,
+    race: "Belgian Grand Prix",
+    results: [
+      { code: "VER", team: "Red Bull Racing" },
+      { code: "PIA", team: "McLaren" },
+      { code: "NOR", team: "McLaren" },
+      { code: "LEC", team: "Ferrari" },
+      { code: "OCO", team: "Haas" },
+      { code: "SAI", team: "Williams" },
+      { code: "BEA", team: "Haas" },
+      { code: "HAD", team: "Racing Bulls" }
+    ]
+  },
+  {
+    round: 19,
+    race: "United States Grand Prix",
+    results: [
+      { code: "VER", team: "Red Bull Racing" },
+      { code: "RUS", team: "Mercedes" },
+      { code: "SAI", team: "Williams" },
+      { code: "HAM", team: "Ferrari" },
+      { code: "LEC", team: "Ferrari" },
+      { code: "ALB", team: "Williams" },
+      { code: "TSU", team: "Red Bull Racing" },
+      { code: "ANT", team: "Mercedes" }
+    ]
+  },
+  {
+    round: 21,
+    race: "São Paulo Grand Prix",
+    results: [
+      { code: "NOR", team: "McLaren" },
+      { code: "ANT", team: "Mercedes" },
+      { code: "RUS", team: "Mercedes" },
+      { code: "VER", team: "Red Bull Racing" },
+      { code: "LEC", team: "Ferrari" },
+      { code: "ALO", team: "Aston Martin" },
+      { code: "HAM", team: "Ferrari" },
+      { code: "GAS", team: "Alpine" }
+    ]
+  },
+  {
+    round: 23,
+    race: "Qatar Grand Prix",
+    results: [
+      { code: "PIA", team: "McLaren" },
+      { code: "RUS", team: "Mercedes" },
+      { code: "NOR", team: "McLaren" },
+      { code: "VER", team: "Red Bull Racing" },
+      { code: "TSU", team: "Red Bull Racing" },
+      { code: "ANT", team: "Mercedes" },
+      { code: "ALO", team: "Aston Martin" },
+      { code: "SAI", team: "Williams" }
+    ]
+  }
+];
