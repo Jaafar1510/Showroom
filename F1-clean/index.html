@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>F1 World | Home</title>
+
+  <link rel="stylesheet" href="./css/main.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="./index.html" class="logo">F1 World</a>
+
+      <ul class="nav-links">
+        <li><a href="#calendar">Calendar</a></li>
+        <li><a href="#drivers">Drivers</a></li>
+        <li><a href="#teams">Teams</a></li>
+        <li><a href="#standings">Standings</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Formula 1 Website Project</p>
+        <h1>Welcome to F1 World</h1>
+        <p>
+          Follow the F1 season with race calendars, driver lineups,
+          team information, and championship standings.
+        </p>
+
+        <a href="#calendar" class="btn">View 2025 Calendar</a>
+      </div>
+    </section>
+
+    <section class="section" id="calendar">
+      <div class="section-header">
+        <p class="eyebrow">Season</p>
+        <h2>2025 Race Calendar</h2>
+      </div>
+
+      <div id="raceCalendar" class="race-grid">
+        <!-- Races will be added here by JavaScript -->
+      </div>
+    </section>
+
+    <section class="section" id="drivers">
+      <div class="section-header">
+        <p class="eyebrow">Lineup</p>
+        <h2>Drivers</h2>
+      </div>
+
+      <div id="driversGrid" class="drivers-grid">
+        <!-- Drivers will be added here by JavaScript -->
+      </div>
+    </section>
+
+    <section class="section" id="teams">
+      <div class="section-header">
+        <p class="eyebrow">Constructors</p>
+        <h2>Teams</h2>
+      </div>
+
+      <div id="teamsGrid" class="teams-grid">
+        <!-- Teams will be added here by JavaScript -->
+      </div>
+    </section>
+
+    <section class="section" id="standings">
+      <div class="section-header">
+        <p class="eyebrow">Championship</p>
+        <h2>Standings</h2>
+      </div>
+
+      <div class="standings-tabs">
+        <button class="standings-tab active" data-standing="drivers">Drivers</button>
+        <button class="standings-tab" data-standing="constructors">Constructors</button>
+      </div>
+
+<div id="standingsTable" class="standings-table-wrapper">
+  <!-- Standings will be added here by JavaScript -->
+</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>F1 World Project — Built by Jaafar</p>
+  </footer>
+
+  <script src="./js/data/races2025.js"></script>
+  <script src="./js/data/drivers2025.js"></script>
+  <script src="./js/data/teams2025.js"></script>
+  <script src="./js/data/standings2025.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+</html>
