@@ -529,6 +529,53 @@ function getSprintResultByRound(round) {
   return sprintResults2025.find((event) => event.round === Number(round));
 }
 
+const tyreImagePath = "./assets/images/tyres/";
+
+function getTyreImage(compound) {
+  const tyreName = compound.toLowerCase();
+
+  if (tyreName.includes("hard")) {
+    return tyreImagePath + "hard.jpeg";
+  }
+
+  if (tyreName.includes("medium")) {
+    return tyreImagePath + "medium.jpeg";
+  }
+
+  if (tyreName.includes("soft")) {
+    return tyreImagePath + "soft.jpeg";
+  }
+
+  if (tyreName.includes("intermediate")) {
+    return tyreImagePath + "intermediate.jpeg";
+  }
+
+  if (tyreName.includes("wet")) {
+    return tyreImagePath + "wet.jpeg";
+  }
+
+  return null;
+}
+
+function renderTyreCompounds(compounds) {
+  return compounds
+    .map((compound) => {
+      const image = getTyreImage(compound);
+
+      return `
+        <div class="tyre-card">
+          ${
+            image
+              ? `<img src="${image}" alt="${compound}" class="tyre-image">`
+              : ""
+          }
+          <span>${compound}</span>
+        </div>
+      `;
+    })
+    .join("");
+}
+
 function renderMiniResultList(event, pointsSystem) {
   if (!event) {
     return `<p class="empty-session">Results will be added later.</p>`;
@@ -628,7 +675,6 @@ function renderRaceWeekend(round = 1) {
                 <li><strong>Length:</strong> ${details.circuit.length}</li>
                 <li><strong>Laps:</strong> ${details.circuit.laps}</li>
                 <li><strong>Race Distance:</strong> ${details.circuit.raceDistance}</li>
-                <li><strong>Corners:</strong> ${details.circuit.corners}</li>
                 <li><strong>Lap Record:</strong> ${details.circuit.lapRecord}</li>
               </ul>
             `
@@ -644,12 +690,10 @@ function renderRaceWeekend(round = 1) {
         <h4>Tyres</h4>
 
         ${
-          details
+          details.tyres
             ? `
-              <div class="tyre-pills">
-                ${details.tyres.compounds
-                  .map((compound) => `<span>${compound}</span>`)
-                  .join("")}
+              <div class="tyre-cards">
+                ${renderTyreCompounds(details.tyres.compounds)}
               </div>
 
               <p class="tyre-note">${details.tyres.allocation}</p>
