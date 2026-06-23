@@ -16,10 +16,7 @@
 
       <ul class="nav-links">
         <li><a href="#calendar">Calendar</a></li>
-        <li><a href="#drivers">Drivers</a></li>
-        <li><a href="#teams">Teams</a></li>
-        <li><a href="#standings">Standings</a></li>
-        <li><a href="#results">Results</a></li>
+        <li><a href="#explore">Explore</a></li>
       </ul>
     </nav>
   </header>
@@ -49,61 +46,88 @@
       </div>
     </section>
 
-    <section class="section" id="drivers">
+    <section class="section hidden-section" id="race-weekend">
       <div class="section-header">
-        <p class="eyebrow">Lineup</p>
-        <h2>Drivers</h2>
+        <p class="eyebrow">Weekend Hub</p>
+        <h2>Race Weekend Details</h2>
       </div>
 
-      <div id="driversGrid" class="drivers-grid">
-        <!-- Drivers will be added here by JavaScript -->
+      <div id="raceWeekendPanel" class="race-weekend-panel">
+        <!-- Race weekend details will be added here by JavaScript -->
       </div>
     </section>
 
-    <section class="section" id="teams">
+    <section class="section" id="explore">
       <div class="section-header">
-        <p class="eyebrow">Constructors</p>
-        <h2>Teams</h2>
+        <p class="eyebrow">Explore</p>
+        <h2>F1 Data Hub</h2>
       </div>
 
-      <div id="teamsGrid" class="teams-grid">
-        <!-- Teams will be added here by JavaScript -->
-      </div>
-    </section>
+      <p class="section-note">
+        Explore drivers, teams, championship standings, and race results without scrolling through the whole page.
+      </p>
 
-    <section class="section" id="standings">
-      <div class="section-header">
-        <p class="eyebrow">Championship</p>
-        <h2>Standings</h2>
-      </div>
-
-      <div class="standings-tabs">
-        <button class="standings-tab active" data-standing="drivers">Drivers</button>
-        <button class="standings-tab" data-standing="constructors">Constructors</button>
+      <div class="explore-tabs">
+        <button class="explore-tab active" data-explore="drivers">Drivers</button>
+        <button class="explore-tab" data-explore="teams">Teams</button>
+        <button class="explore-tab" data-explore="standings">Standings</button>
+        <button class="explore-tab" data-explore="results">Results</button>
       </div>
 
-      <div id="standingsTable" class="standings-table-wrapper">
-        <!-- Standings will be added here by JavaScript -->
-      </div>
-    </section>
+      <div class="explore-panels">
+        <div class="explore-panel active" id="explore-drivers">
+          <div class="explore-panel-header">
+            <h3>2025 Drivers</h3>
+            <p>Driver lineup with team colors, numbers, nationalities, and photos/placeholders.</p>
+          </div>
 
-    <section class="section" id="results">
-      <div class="section-header">
-        <p class="eyebrow">Race Data</p>
-        <h2>2025 Results Archive</h2>
-      </div>
+          <div id="driversGrid" class="drivers-grid">
+            <!-- Drivers will be added here by JavaScript -->
+          </div>
+        </div>
 
-      <!--<p class="section-note">
-        Results shown here are the points-scoring positions used by the standings engine.
-      </p>-->
+        <div class="explore-panel" id="explore-teams">
+          <div class="explore-panel-header">
+            <h3>2025 Teams</h3>
+            <p>Constructor cards with bases, power units, team colors, and drivers.</p>
+          </div>
 
-      <div class="results-tabs">
-        <button class="results-tab active" data-results="race">Grand Prix</button>
-        <button class="results-tab" data-results="sprint">Sprints</button>
-      </div>
+          <div id="teamsGrid" class="teams-grid">
+            <!-- Teams will be added here by JavaScript -->
+          </div>
+        </div>
 
-      <div id="resultsGrid" class="results-grid">
-        <!-- Results will be added here by JavaScript -->
+        <div class="explore-panel" id="explore-standings">
+          <div class="explore-panel-header">
+            <h3>Championship Standings</h3>
+            <p>Calculated automatically from Grand Prix and Sprint result data.</p>
+          </div>
+
+          <div class="standings-tabs">
+            <button class="standings-tab active" data-standing="drivers">Drivers</button>
+            <button class="standings-tab" data-standing="constructors">Constructors</button>
+          </div>
+
+          <div id="standingsTable" class="standings-table-wrapper">
+            <!-- Standings will be added here by JavaScript -->
+          </div>
+        </div>
+
+        <div class="explore-panel" id="explore-results">
+          <div class="explore-panel-header">
+            <h3>Results Archive</h3>
+            <p>All point-scoring Grand Prix and Sprint results used by the standings engine.</p>
+          </div>
+
+          <div class="results-tabs">
+            <button class="results-tab active" data-results="race">Grand Prix</button>
+            <button class="results-tab" data-results="sprint">Sprints</button>
+          </div>
+
+          <div id="resultsGrid" class="results-grid">
+            <!-- Results will be added here by JavaScript -->
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -116,6 +140,7 @@
   <script src="./js/data/drivers2025.js"></script>
   <script src="./js/data/teams2025.js"></script>
   <script src="./js/data/standings2025.js"></script>
+  <script src="./js/data/raceDetails2025.js"></script>
   <script src="./js/main.js"></script>
 </body>
 </html>

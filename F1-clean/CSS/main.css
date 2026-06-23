@@ -155,7 +155,8 @@ body {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
-.race-result-btn {
+.race-result-btn,
+.race-weekend-btn {
   margin-top: 18px;
   border: none;
   background: #111;
@@ -167,9 +168,19 @@ body {
   transition: 0.2s ease;
 }
 
-.race-result-btn:hover {
+.race-result-btn:hover,
+.race-weekend-btn:hover {
   background: #e10600;
   transform: translateY(-2px);
+}
+
+.race-weekend-btn {
+  margin-left: 8px;
+  background: #e10600;
+}
+
+.race-weekend-btn:hover {
+  background: #111;
 }
 
 .race-image-box {
@@ -708,6 +719,297 @@ body {
     box-shadow: 0 0 0 rgba(225, 6, 0, 0);
     border-color: #ddd;
   }
+}
+
+/* RACE WEEKEND DETAILS */
+
+.race-weekend-panel {
+  transition: 0.25s ease;
+}
+
+.weekend-panel-highlight {
+  animation: resultPulse 1.4s ease;
+}
+
+.weekend-hero-card {
+  background:
+    linear-gradient(135deg, rgba(225, 6, 0, 0.96), rgba(0, 0, 0, 0.96));
+  color: #fff;
+  padding: 34px;
+  border-radius: 0 34px 0 34px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.weekend-hero-card h3 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin-bottom: 10px;
+}
+
+.weekend-hero-card p {
+  color: #f1f1f1;
+  line-height: 1.6;
+}
+
+.weekend-format {
+  background: #fff;
+  color: #111;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.weekend-format.sprint {
+  color: #e10600;
+}
+
+.weekend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.weekend-info-card,
+.session-card,
+.weekend-notes {
+  background: #fff;
+  border: 2px solid #ddd;
+  border-left: 8px solid #e10600;
+  padding: 24px;
+  border-radius: 0 24px 0 24px;
+}
+
+.weekend-info-card h4,
+.session-card h4,
+.weekend-notes h4 {
+  font-size: 1.35rem;
+  margin-bottom: 16px;
+}
+
+.weekend-stats {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  color: #444;
+}
+
+.tyre-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.tyre-pills span {
+  background: #111;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 900;
+}
+
+.tyre-note {
+  color: #555;
+  line-height: 1.6;
+  font-weight: 700;
+}
+
+.session-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 28px 0;
+}
+
+.session-flow span {
+  background: #e10600;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-weight: 900;
+}
+
+.sessions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.empty-session {
+  color: #666;
+  line-height: 1.6;
+  background: #f5f5f5;
+  padding: 14px;
+  border-left: 5px solid #111;
+}
+
+.weekend-result-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.weekend-result-list li {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 6px 10px;
+  align-items: center;
+  padding: 12px;
+  background: #f6f6f6;
+  border-left: 5px solid #e10600;
+}
+
+.weekend-result-list li span {
+  color: #e10600;
+  font-weight: 900;
+}
+
+.weekend-result-list li strong {
+  font-weight: 900;
+}
+
+.weekend-result-list li small,
+.weekend-result-list li b {
+  grid-column: 2;
+}
+
+.weekend-result-list li small {
+  color: #666;
+}
+
+.weekend-result-list li b {
+  color: #e10600;
+}
+
+.weekend-notes {
+  margin-top: 24px;
+}
+
+.weekend-notes ul {
+  padding-left: 20px;
+  color: #444;
+  line-height: 1.8;
+}
+
+.weekend-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.weekend-back-btn,
+.weekend-close-btn {
+  border: none;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.weekend-back-btn {
+  background: #111;
+  color: #fff;
+}
+
+.weekend-close-btn {
+  background: #e10600;
+  color: #fff;
+}
+
+.weekend-back-btn:hover,
+.weekend-close-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
+}
+
+/* EXPLORE HUB */
+
+.explore-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.explore-tab {
+  border: 2px solid #111;
+  background: #fff;
+  color: #111;
+  padding: 13px 22px;
+  border-radius: 999px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.explore-tab:hover,
+.explore-tab.active {
+  background: #e10600;
+  border-color: #e10600;
+  color: #fff;
+}
+
+.explore-panels {
+  background: #f7f7f7;
+  border: 2px solid #ddd;
+  border-radius: 0 34px 0 34px;
+  padding: 26px;
+}
+
+.explore-panel {
+  display: none;
+}
+
+.explore-panel.active {
+  display: block;
+  animation: exploreFade 0.25s ease;
+}
+
+.explore-panel-header {
+  margin-bottom: 24px;
+}
+
+.explore-panel-header h3 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  margin-bottom: 8px;
+}
+
+.explore-panel-header p {
+  color: #555;
+  line-height: 1.6;
+  font-weight: 700;
+}
+
+@keyframes exploreFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hidden-section {
+  display: none;
+}
+
+.visible-section {
+  display: block;
+}
+
+.race-image-box {
+  cursor: pointer;
 }
 
 /* MOBILE */

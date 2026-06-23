@@ -25,7 +25,7 @@ function renderRaceCalendar() {
     raceCard.classList.add("race-card");
 
     raceCard.innerHTML = `
-      <div class="race-image-box">
+      <div class="race-image-box" data-round="${race.round}">
         <img src="${race.image}" alt="${race.name} circuit layout" class="race-image">
       </div>
 
@@ -38,6 +38,10 @@ function renderRaceCalendar() {
         
         <button class="race-result-btn" data-round="${race.round}">
           View Results
+        </button>
+
+        <button class="race-weekend-btn" data-round="${race.round}">
+          View Weekend
         </button>
       </div>
     `;
@@ -451,9 +455,10 @@ function connectCalendarToResults() {
     button.addEventListener("click", () => {
       const round = button.dataset.round;
 
+      setActiveExplore("results");
       setActiveResults("race");
 
-      setTimeout(() => {
+      setTimeout(() => { 
         const resultCard = document.getElementById(`result-race-${round}`);
 
         if (!resultCard) return;
@@ -479,3 +484,286 @@ function connectCalendarToResults() {
 }
 
 connectCalendarToResults();
+
+const raceWeekendPanel = document.getElementById("raceWeekendPanel");
+
+function getRaceByRound(round) {
+  return races2025.find((race) => race.round === Number(round));
+}
+
+function getRaceDetailsByRound(round) {
+  return raceDetails2025[Number(round)] || null;
+}
+
+function getWeekendFormat(round, details) {
+  if (details?.weekendFormat) return details.weekendFormat;
+
+  return sprintRounds2025.includes(Number(round)) ? "sprint" : "normal";
+}
+
+function getWeekendSessions(format) {
+  if (format === "sprint") {
+    return [
+      "FP1",
+      "Sprint Qualifying",
+      "Sprint",
+      "Qualifying",
+      "Race"
+    ];
+  }
+
+  return [
+    "FP1",
+    "FP2",
+    "FP3",
+    "Qualifying",
+    "Race"
+  ];
+}
+
+function getRaceResultByRound(round) {
+  return raceResults2025.find((event) => event.round === Number(round));
+}
+
+function getSprintResultByRound(round) {
+  return sprintResults2025.find((event) => event.round === Number(round));
+}
+
+function renderMiniResultList(event, pointsSystem) {
+  if (!event) {
+    return `<p class="empty-session">Results will be added later.</p>`;
+  }
+
+  return `
+    <ol class="weekend-result-list">
+      ${event.results
+        .map((result, index) => {
+          const driver = getDriverByCode(result.code);
+          const points = pointsSystem[index + 1] || 0;
+
+          return `
+            <li>
+              <span>P${index + 1}</span>
+              <strong>${driver ? driver.name : result.code}</strong>
+              <small>${result.team}</small>
+              <b>${points} pts</b>
+            </li>
+          `;
+        })
+        .join("")}
+    </ol>
+  `;
+}
+
+function renderSessionCard(sessionName, round) {
+  if (sessionName === "Race") {
+    return `
+      <article class="session-card">
+        <h4>Race</h4>
+        ${renderMiniResultList(getRaceResultByRound(round), racePointsSystem)}
+      </article>
+    `;
+  }
+
+  if (sessionName === "Sprint") {
+    return `
+      <article class="session-card">
+        <h4>Sprint</h4>
+        ${renderMiniResultList(getSprintResultByRound(round), sprintPointsSystem)}
+      </article>
+    `;
+  }
+
+  return `
+    <article class="session-card">
+      <h4>${sessionName}</h4>
+      <p class="empty-session">
+        ${sessionName} classification/details will be added later.
+      </p>
+    </article>
+  `;
+}
+
+function renderRaceWeekend(round = 1) {
+  const race = getRaceByRound(round);
+  const details = getRaceDetailsByRound(round);
+  const format = getWeekendFormat(round, details);
+  const sessions = getWeekendSessions(format);
+
+  if (!race) return;
+
+  raceWeekendPanel.innerHTML = `
+    <div class="weekend-actions">
+      <button class="weekend-back-btn" id="backToCalendarBtn">
+        ← Back to Calendar
+      </button>
+
+      <button class="weekend-close-btn" id="closeWeekendBtn">
+        Close Details ×
+      </button>
+    </div>
+
+    <article class="weekend-hero-card">
+      <div>
+        <p class="race-round">Round ${race.round}</p>
+        <h3>${race.name}</h3>
+        <p>${race.city}, ${race.country}</p>
+        <p>${race.circuit}</p>
+      </div>
+
+      <span class="weekend-format ${format}">
+        ${format === "sprint" ? "Sprint Weekend" : "Normal Weekend"}
+      </span>
+    </article>
+
+    <div class="weekend-grid">
+      <article class="weekend-info-card">
+        <h4>Circuit Details</h4>
+
+        ${
+          details
+            ? `
+              <ul class="weekend-stats">
+                <li><strong>First GP:</strong> ${details.circuit.firstGrandPrix}</li>
+                <li><strong>Length:</strong> ${details.circuit.length}</li>
+                <li><strong>Laps:</strong> ${details.circuit.laps}</li>
+                <li><strong>Race Distance:</strong> ${details.circuit.raceDistance}</li>
+                <li><strong>Corners:</strong> ${details.circuit.corners}</li>
+                <li><strong>Lap Record:</strong> ${details.circuit.lapRecord}</li>
+              </ul>
+            `
+            : `
+              <p class="empty-session">
+                Circuit details for this race will be added later.
+              </p>
+            `
+        }
+      </article>
+
+      <article class="weekend-info-card">
+        <h4>Tyres</h4>
+
+        ${
+          details
+            ? `
+              <div class="tyre-pills">
+                ${details.tyres.compounds
+                  .map((compound) => `<span>${compound}</span>`)
+                  .join("")}
+              </div>
+
+              <p class="tyre-note">${details.tyres.allocation}</p>
+            `
+            : `
+              <p class="empty-session">
+                Tyre compounds for this race will be added later.
+              </p>
+            `
+        }
+      </article>
+    </div>
+
+    <div class="session-flow">
+      ${sessions.map((session) => `<span>${session}</span>`).join("")}
+    </div>
+
+    <div class="sessions-grid">
+      ${sessions.map((session) => renderSessionCard(session, race.round)).join("")}
+    </div>
+
+    ${
+      details?.notes
+        ? `
+          <article class="weekend-notes">
+            <h4>Weekend Notes</h4>
+            <ul>
+              ${details.notes.map((note) => `<li>${note}</li>`).join("")}
+            </ul>
+          </article>
+        `
+        : ""
+    }
+  `;
+}
+
+function closeWeekendPanel() {
+  const raceWeekendSection = document.getElementById("race-weekend");
+
+  raceWeekendSection.classList.remove("visible-section");
+  raceWeekendSection.classList.add("hidden-section");
+}
+
+function connectWeekendActionButtons() {
+  const calendarSection = document.getElementById("calendar");
+
+  const closeWeekendBtn = document.getElementById("closeWeekendBtn");
+  const backToCalendarBtn = document.getElementById("backToCalendarBtn");
+
+  if (closeWeekendBtn) {
+    closeWeekendBtn.addEventListener("click", () => {
+      closeWeekendPanel();
+    });
+  }
+
+  if (backToCalendarBtn) {
+    backToCalendarBtn.addEventListener("click", () => {
+      closeWeekendPanel();
+
+      calendarSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  }
+}
+
+function connectCalendarToWeekendDetails() {
+  const weekendTriggers = document.querySelectorAll(".race-weekend-btn, .race-image-box");
+  const raceWeekendSection = document.getElementById("race-weekend");
+
+  weekendTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const round = trigger.dataset.round;
+
+      if (!round) return;
+
+      raceWeekendSection.classList.remove("hidden-section");
+      raceWeekendSection.classList.add("visible-section");
+
+      renderRaceWeekend(round);
+      connectWeekendActionButtons();
+
+      raceWeekendSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+      raceWeekendPanel.classList.add("weekend-panel-highlight");
+
+      setTimeout(() => {
+        raceWeekendPanel.classList.remove("weekend-panel-highlight");
+      }, 1400);
+    });
+  });
+}
+
+connectCalendarToWeekendDetails();
+
+const exploreTabs = document.querySelectorAll(".explore-tab");
+const explorePanels = document.querySelectorAll(".explore-panel");
+
+function setActiveExplore(sectionName) {
+  exploreTabs.forEach((tab) => {
+    tab.classList.toggle("active", tab.dataset.explore === sectionName);
+  });
+
+  explorePanels.forEach((panel) => {
+    panel.classList.toggle("active", panel.id === `explore-${sectionName}`);
+  });
+}
+
+exploreTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    setActiveExplore(tab.dataset.explore);
+  });
+});
