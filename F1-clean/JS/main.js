@@ -508,6 +508,7 @@ function getWeekendSessions(format) {
       "Sprint Qualifying",
       "Sprint",
       "Qualifying",
+      "Starting Grid",
       "Race"
     ];
   }
@@ -517,6 +518,7 @@ function getWeekendSessions(format) {
     "FP2",
     "FP3",
     "Qualifying",
+    "Starting Grid",
     "Race"
   ];
 }
@@ -576,6 +578,309 @@ function renderTyreCompounds(compounds) {
     .join("");
 }
 
+const sessionKeyMap = {
+  "FP1": "fp1",
+  "FP2": "fp2",
+  "FP3": "fp3",
+  "Sprint Qualifying": "sprintQualifying",
+  "Sprint": "sprint",
+  "Qualifying": "qualifying",
+  "Starting Grid": "startingGrid",
+  "Race": "race"
+};
+
+function getSessionDetails(round, sessionName) {
+  const sessionKey = sessionKeyMap[sessionName];
+
+  if (!sessionKey) return null;
+
+  return sessionDetails2025?.[Number(round)]?.[sessionKey] || null;
+}
+
+function renderTyreTags(tyres = []) {
+  if (!tyres.length) return "";
+
+  return `
+    <div class="session-tyres">
+      ${tyres.map((tyre) => `<span>${tyre}</span>`).join("")}
+    </div>
+  `;
+}
+
+function renderNotes(notes = []) {
+  if (!notes.length) return "";
+
+  return `
+    <ul class="session-notes">
+      ${notes.map((note) => `<li>${note}</li>`).join("")}
+    </ul>
+  `;
+}
+
+function renderPracticeSession(sessionDetails) {
+  if (!sessionDetails?.classification?.length) {
+    return `
+      <p class="empty-session">
+        ${sessionDetails?.headline || "Practice details will be added later."}
+      </p>
+    `;
+  }
+
+  return `
+    <div class="practice-list">
+      ${sessionDetails.classification
+        .map((entry) => {
+          const driver = getDriverByCode(entry.code);
+
+          return `
+            <div class="practice-row">
+              <span class="session-position">P${entry.position}</span>
+
+              <div>
+                <strong>${driver ? driver.name : entry.code}</strong>
+                <small>${entry.team || driver?.team || "Team TBC"}</small>
+                ${renderTyreTags(entry.tyres)}
+              </div>
+
+              <span>${entry.time || "—"}</span>
+              <span>${entry.gap || "—"}</span>
+              <span>${entry.laps ? `${entry.laps} laps` : "—"}</span>
+            </div>
+          `;
+        })
+        .join("")}
+    </div>
+
+    ${renderNotes(sessionDetails.notes)}
+  `;
+}
+
+function renderQualifyingGroup(label, group) {
+  if (!group?.classification?.length) {
+    return `
+      <article class="quali-group">
+        <h5>${label}</h5>
+        <p class="empty-session">No ${label} data added yet.</p>
+      </article>
+    `;
+  }
+
+  return `
+    <article class="quali-group">
+      <h5>${label}</h5>
+
+      <div class="practice-list">
+        ${group.classification
+          .map((entry) => {
+            const driver = getDriverByCode(entry.code);
+
+            return `
+              <div class="practice-row">
+                <span class="session-position">P${entry.position}</span>
+
+                <div>
+                  <strong>${driver ? driver.name : entry.code}</strong>
+                  <small>${entry.team || driver?.team || "Team TBC"}</small>
+                </div>
+
+                <span>${entry.time || "—"}</span>
+                <span>${entry.gap || "—"}</span>
+                <span>${entry.tyres ? entry.tyres.join(", ") : "—"}</span>
+              </div>
+            `;
+          })
+          .join("")}
+      </div>
+    </article>
+  `;
+}
+
+function renderQualifyingSession(round, sessionName = "Qualifying") {
+  const qualifying = getSessionDetails(round, sessionName);
+
+  if (!qualifying) {
+    return `<p class="empty-session">Qualifying details will be added later.</p>`;
+  }
+
+  const poleDriver = qualifying.pole ? getDriverByCode(qualifying.pole) : null;
+
+  return `
+    ${
+      poleDriver
+        ? `
+          <div class="pole-banner">
+            <span>POLE POSITION</span>
+            <strong>${poleDriver.name}</strong>
+            <small>${poleDriver.team}</small>
+          </div>
+        `
+        : `
+          <p class="empty-session">
+            Pole sitter will be added once qualifying data is filled.
+          </p>
+        `
+    }
+
+    <div class="quali-rounds">
+      ${renderQualifyingGroup(sessionName === "Sprint Qualifying" ? "SQ1" : "Q1", qualifying.q1 || qualifying.sq1)}
+      ${renderQualifyingGroup(sessionName === "Sprint Qualifying" ? "SQ2" : "Q2", qualifying.q2 || qualifying.sq2)}
+      ${renderQualifyingGroup(sessionName === "Sprint Qualifying" ? "SQ3" : "Q3", qualifying.q3 || qualifying.sq3)}
+    </div>
+
+    ${renderNotes(qualifying.notes)}
+  `;
+}
+
+function getGridSide(position, poleSide) {
+  const isOdd = position % 2 !== 0;
+
+  if (poleSide === "right") {
+    return isOdd ? "right" : "left";
+  }
+
+  return isOdd ? "left" : "right";
+}
+
+function renderStartingGrid(round) {
+  const gridData = getSessionDetails(round, "Starting Grid");
+
+  if (!gridData?.positions?.length) {
+    return `
+      <p class="empty-session">
+        Starting grid will be added here with the real staggered F1 layout.
+      </p>
+    `;
+  }
+
+  return `
+    <div class="f1-grid-track">
+      ${gridData.positions
+        .map((entry) => {
+          const driver = getDriverByCode(entry.code);
+          const teamName = entry.team || driver?.team;
+          const team = getTeamByName(teamName);
+          const side = getGridSide(entry.grid, gridData.poleSide);
+
+          const hasGridChange =
+            entry.qualified && entry.qualified !== entry.grid;
+
+          return `
+            <div class="grid-slot ${side}">
+              <article class="grid-position-card ${entry.grid === 1 ? "pole-grid-card" : ""}"
+                style="--team-color: ${team ? team.color : "#e10600"}"
+              >
+                <div class="grid-card-top">
+                  <span>P${entry.grid}</span>
+                  ${entry.grid === 1 ? `<b>POLE</b>` : ""}
+                </div>
+
+                <h5>${driver ? driver.name : entry.code}</h5>
+                <p>${teamName || "Team TBC"}</p>
+
+                ${
+                  hasGridChange
+                    ? `<small class="grid-change">Qualified P${entry.qualified}</small>`
+                    : ""
+                }
+
+                ${
+                  entry.note
+                    ? `<small class="grid-note">${entry.note}</small>`
+                    : ""
+                }
+              </article>
+            </div>
+          `;
+        })
+        .join("")}
+    </div>
+
+    ${renderNotes(gridData.notes)}
+  `;
+}
+
+function renderRaceSession(round) {
+  const raceData = getSessionDetails(round, "Race");
+  const raceResult = getRaceResultByRound(round);
+
+  const podium =
+    raceData?.podium?.length
+      ? raceData.podium
+      : raceResult?.results.slice(0, 3).map((result, index) => ({
+          position: index + 1,
+          code: result.code,
+          team: result.team,
+          time: index === 0 ? "Winner time TBC" : "Gap TBC"
+        }));
+
+  return `
+    ${
+      podium?.length
+        ? `
+          <div class="race-podium">
+            ${podium
+              .map((entry) => {
+                const driver = getDriverByCode(entry.code);
+
+                return `
+                  <article class="podium-card podium-${entry.position}">
+                    <span>P${entry.position}</span>
+                    <h5>${driver ? driver.name : entry.code}</h5>
+                    <p>${entry.team || driver?.team || "Team TBC"}</p>
+                    <strong>${entry.time || entry.gap || "Time TBC"}</strong>
+                  </article>
+                `;
+              })
+              .join("")}
+          </div>
+        `
+        : `<p class="empty-session">Race podium details will be added later.</p>`
+    }
+
+    <div class="race-extra-grid">
+      <article>
+        <h5>Fastest Lap</h5>
+        <p>
+          ${
+            raceData?.fastestLap
+              ? `${raceData.fastestLap.code} — ${raceData.fastestLap.time} on Lap ${raceData.fastestLap.lap}`
+              : "Fastest lap will be added later."
+          }
+        </p>
+      </article>
+
+      <article>
+        <h5>Fastest Pit Stop</h5>
+        <p>
+          ${
+            raceData?.fastestPitStop
+              ? `${raceData.fastestPitStop.team} — ${raceData.fastestPitStop.time}`
+              : "Fastest pit stop will be added later."
+          }
+        </p>
+      </article>
+
+      <article>
+        <h5>Driver of the Day</h5>
+        <p>
+          ${
+            raceData?.driverOfTheDay
+              ? getDriverByCode(raceData.driverOfTheDay)?.name || raceData.driverOfTheDay
+              : "Driver of the Day will be added later."
+          }
+        </p>
+      </article>
+    </div>
+
+    <h5 class="session-subtitle">Points Finishers</h5>
+    ${renderMiniResultList(raceResult, racePointsSystem)}
+
+    ${renderNotes(raceData?.keyMoments)}
+    ${renderNotes(raceData?.penalties)}
+    ${renderNotes(raceData?.notes)}
+  `;
+}
+
 function renderMiniResultList(event, pointsSystem) {
   if (!event) {
     return `<p class="empty-session">Results will be added later.</p>`;
@@ -603,11 +908,19 @@ function renderMiniResultList(event, pointsSystem) {
 }
 
 function renderSessionCard(sessionName, round) {
+  const sessionDetails = getSessionDetails(round, sessionName);
+
   if (sessionName === "Race") {
     return `
       <article class="session-card">
-        <h4>Race</h4>
-        ${renderMiniResultList(getRaceResultByRound(round), racePointsSystem)}
+        <details class="session-details">
+          <summary>
+            <span>${sessionName}</span>
+            <small>Podium, fastest lap, DOTD</small>
+          </summary>
+
+          ${renderRaceSession(round)}
+        </details>
       </article>
     `;
   }
@@ -615,18 +928,58 @@ function renderSessionCard(sessionName, round) {
   if (sessionName === "Sprint") {
     return `
       <article class="session-card">
-        <h4>Sprint</h4>
-        ${renderMiniResultList(getSprintResultByRound(round), sprintPointsSystem)}
+        <details class="session-details">
+          <summary>
+            <span>${sessionName}</span>
+            <small>Sprint result</small>
+          </summary>
+
+          ${renderMiniResultList(getSprintResultByRound(round), sprintPointsSystem)}
+        </details>
+      </article>
+    `;
+  }
+
+  if (sessionName === "Qualifying" || sessionName === "Sprint Qualifying") {
+    return `
+      <article class="session-card">
+        <details class="session-details">
+          <summary>
+            <span>${sessionName}</span>
+            <small>Q1 / Q2 / Q3</small>
+          </summary>
+
+          ${renderQualifyingSession(round, sessionName)}
+        </details>
+      </article>
+    `;
+  }
+
+  if (sessionName === "Starting Grid") {
+    return `
+      <article class="session-card starting-grid-session">
+        <details class="session-details">
+          <summary>
+            <span>${sessionName}</span>
+            <small>Real grid layout</small>
+          </summary>
+
+          ${renderStartingGrid(round)}
+        </details>
       </article>
     `;
   }
 
   return `
     <article class="session-card">
-      <h4>${sessionName}</h4>
-      <p class="empty-session">
-        ${sessionName} classification/details will be added later.
-      </p>
+      <details class="session-details">
+        <summary>
+          <span>${sessionName}</span>
+          <small>${sessionDetails?.status || "Details coming soon"}</small>
+        </summary>
+
+        ${renderPracticeSession(sessionDetails)}
+      </details>
     </article>
   `;
 }

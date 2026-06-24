@@ -798,6 +798,281 @@ body {
   color: #444;
 }
 
+/* ADVANCED WEEKEND SESSIONS */
+
+.practice-list {
+  display: grid;
+  gap: 10px;
+}
+
+.practice-row {
+  display: grid;
+  grid-template-columns: 48px 1.5fr 90px 90px 90px;
+  gap: 12px;
+  align-items: center;
+  background: #f6f6f6;
+  border-left: 5px solid #e10600;
+  padding: 12px;
+  border-radius: 0 14px 0 14px;
+}
+
+.practice-row strong {
+  display: block;
+}
+
+.practice-row small {
+  display: block;
+  color: #666;
+  margin-top: 3px;
+}
+
+.session-position {
+  color: #e10600;
+  font-weight: 900;
+}
+
+.session-tyres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.session-tyres span {
+  background: #111;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.session-notes {
+  margin-top: 18px;
+  padding-left: 20px;
+  color: #444;
+  line-height: 1.8;
+}
+
+/* QUALIFYING */
+
+.pole-banner {
+  background:
+    linear-gradient(135deg, #e10600, #111);
+  color: #fff;
+  padding: 22px;
+  border-radius: 0 24px 0 24px;
+  margin-bottom: 22px;
+}
+
+.pole-banner span {
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.pole-banner strong {
+  display: block;
+  font-size: 1.8rem;
+}
+
+.pole-banner small {
+  color: #f1f1f1;
+}
+
+.quali-rounds {
+  display: grid;
+  gap: 18px;
+}
+
+.quali-group {
+  border: 2px solid #ddd;
+  padding: 18px;
+  border-radius: 0 22px 0 22px;
+  background: #fff;
+}
+
+.quali-group h5 {
+  font-size: 1.2rem;
+  margin-bottom: 14px;
+  color: #e10600;
+}
+
+/* STARTING GRID */
+
+.f1-grid-track {
+  position: relative;
+  background:
+    linear-gradient(90deg, #181818, #2a2a2a, #181818);
+  border: 3px solid #111;
+  border-radius: 0 32px 0 32px;
+  padding: 56px 26px 26px;
+  overflow: hidden;
+}
+
+.f1-grid-track::before {
+  content: "STARTING GRID";
+  position: absolute;
+  top: 18px;
+  left: 26px;
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.f1-grid-track::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.04),
+      rgba(255,255,255,0.04) 8px,
+      transparent 8px,
+      transparent 16px
+    );
+  pointer-events: none;
+}
+
+.grid-slot {
+  position: relative;
+  z-index: 2;
+  width: min(48%, 420px);
+  margin-bottom: 16px;
+}
+
+.grid-slot.left {
+  margin-right: auto;
+}
+
+.grid-slot.right {
+  margin-left: auto;
+}
+
+.grid-position-card {
+  --team-color: #e10600;
+  background: #fff;
+  border-left: 8px solid var(--team-color);
+  padding: 16px;
+  border-radius: 0 20px 0 20px;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+}
+
+.pole-grid-card {
+  border-color: #e10600;
+  box-shadow: 0 0 0 4px rgba(225, 6, 0, 0.25);
+}
+
+.grid-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.grid-card-top span {
+  color: #e10600;
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+.grid-card-top b {
+  background: #e10600;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+}
+
+.grid-position-card h5 {
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+
+.grid-position-card p {
+  color: #555;
+  font-weight: 700;
+}
+
+.grid-change,
+.grid-note {
+  display: block;
+  margin-top: 8px;
+  font-weight: 900;
+}
+
+.grid-change {
+  color: #e10600;
+}
+
+.grid-note {
+  color: #444;
+}
+
+/* RACE DETAILS */
+
+.race-podium {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.podium-card {
+  background: #111;
+  color: #fff;
+  padding: 20px;
+  border-radius: 0 24px 0 24px;
+  border-top: 8px solid #e10600;
+}
+
+.podium-card span {
+  color: #e10600;
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+.podium-card h5 {
+  font-size: 1.3rem;
+  margin: 10px 0 4px;
+}
+
+.podium-card p {
+  color: #ddd;
+  margin-bottom: 10px;
+}
+
+.podium-card strong {
+  color: #fff;
+}
+
+.podium-1 {
+  transform: scale(1.04);
+}
+
+.race-extra-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.race-extra-grid article {
+  background: #f6f6f6;
+  border-left: 6px solid #e10600;
+  padding: 16px;
+  border-radius: 0 18px 0 18px;
+}
+
+.race-extra-grid h5,
+.session-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
 .tyre-pills {
   display: flex;
   flex-wrap: wrap;
@@ -873,6 +1148,12 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
+  align-items: start;
+}
+
+.session-card {
+  align-self: start;
+  height: fit-content;
 }
 
 .empty-session {
@@ -1072,5 +1353,29 @@ body {
   .result-points {
     grid-column: 2;
     text-align: left;
+  }
+
+    .practice-row {
+    grid-template-columns: 42px 1fr;
+  }
+
+  .practice-row > span:nth-child(3),
+  .practice-row > span:nth-child(4),
+  .practice-row > span:nth-child(5) {
+    grid-column: 2;
+  }
+
+  .grid-slot {
+    width: 92%;
+  }
+
+  .grid-slot.left,
+  .grid-slot.right {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .podium-1 {
+    transform: none;
   }
 }
