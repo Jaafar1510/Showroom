@@ -559,23 +559,165 @@ function getTyreImage(compound) {
   return null;
 }
 
+const tyreEncyclopedia = {
+  c1: {
+    name: "C1",
+    label: "Hardest Slick",
+    style: "Maximum durability",
+    brief:
+      "C1 is the hardest dry compound in the range. It is designed for circuits that put very high energy through the tyres, such as tracks with fast corners, heavy braking zones, rough asphalt, or high temperatures.",
+    behavior:
+      "It usually offers the longest life, but it needs more warm-up and gives less peak grip than softer compounds.",
+    bestFor:
+      "Long race stints, high-degradation circuits, and conservative strategies."
+  },
+
+  c2: {
+    name: "C2",
+    label: "Hard Range",
+    style: "Durability with more grip",
+    brief:
+      "C2 sits on the harder side of the slick range. It gives better grip and warm-up than C1 while still offering strong durability for demanding circuits.",
+    behavior:
+      "Teams often use it when they need a reliable race tyre that can survive longer stints without losing too much lap time.",
+    bestFor:
+      "Race stints, one-stop strategies, and tracks that punish softer tyres."
+  },
+
+  c3: {
+    name: "C3",
+    label: "Balanced Compound",
+    style: "Grip and life balance",
+    brief:
+      "C3 is one of the most flexible compounds in the range. Depending on the weekend, it can be nominated as Hard, Medium, or Soft.",
+    behavior:
+      "It gives teams a balanced option between durability and performance, making it useful in both race strategy and qualifying preparation.",
+    bestFor:
+      "Balanced strategies, medium-length stints, and mixed track conditions."
+  },
+
+  c4: {
+    name: "C4",
+    label: "Soft Range",
+    style: "Higher grip",
+    brief:
+      "C4 is a softer compound that gives stronger grip and quicker lap time potential. It is usually chosen for smoother circuits or tracks with lower tyre energy.",
+    behavior:
+      "It can be fast over short and medium runs, but if pushed too hard it may degrade faster than the harder compounds.",
+    bestFor:
+      "Shorter stints, qualifying preparation, and races where track position matters."
+  },
+
+  c5: {
+    name: "C5",
+    label: "Very Soft Slick",
+    style: "Fast warm-up",
+    brief:
+      "C5 is a very soft dry compound with strong warm-up and high grip. It is often useful on street circuits or low-grip tracks where drivers need the tyre to switch on quickly.",
+    behavior:
+      "It can produce strong one-lap performance, but its race life is usually shorter and it needs careful management.",
+    bestFor:
+      "Qualifying laps, street circuits, and short aggressive stints."
+  },
+
+  c6: {
+    name: "C6",
+    label: "Softest 2025 Slick",
+    style: "Maximum short-run grip",
+    brief:
+      "C6 was introduced as the softest compound in the 2025 range. It is aimed at circuits where peak grip and fast warm-up matter more than long durability.",
+    behavior:
+      "It can be very strong over one lap, but it is the least durable slick option and can be sensitive in race conditions.",
+    bestFor:
+      "Qualifying-style runs, very low-energy circuits, and short stints."
+  },
+
+  intermediate: {
+    name: "Intermediate",
+    label: "Damp Track Tyre",
+    style: "Between slicks and wets",
+    brief:
+      "The Intermediate tyre is used when the track is wet or damp, but not wet enough for the full Wet tyre.",
+    behavior:
+      "Its grooves clear water while still keeping more contact with the track than a full Wet. Teams use it when conditions are between slick running and heavy rain.",
+    bestFor:
+      "Light rain, drying tracks, and mixed conditions."
+  },
+
+  wet: {
+    name: "Wet",
+    label: "Heavy Rain Tyre",
+    style: "Maximum water clearance",
+    brief:
+      "The Wet tyre is built for heavy rain and standing water. Its deeper tread pattern helps clear water and reduce aquaplaning.",
+    behavior:
+      "It is safer in heavy rain, but slower than the Intermediate once the track starts drying.",
+    bestFor:
+      "Heavy rain, standing water, and very wet race starts."
+  }
+};
+
+function getTyreInfo(compound) {
+  const tyreName = compound.toLowerCase();
+
+  if (tyreName.includes("c1")) return tyreEncyclopedia.c1;
+  if (tyreName.includes("c2")) return tyreEncyclopedia.c2;
+  if (tyreName.includes("c3")) return tyreEncyclopedia.c3;
+  if (tyreName.includes("c4")) return tyreEncyclopedia.c4;
+  if (tyreName.includes("c5")) return tyreEncyclopedia.c5;
+  if (tyreName.includes("c6")) return tyreEncyclopedia.c6;
+  if (tyreName.includes("intermediate")) return tyreEncyclopedia.intermediate;
+  if (tyreName.includes("wet")) return tyreEncyclopedia.wet;
+
+  return {
+    name: compound,
+    label: "Tyre Info",
+    style: "Race-dependent",
+    brief:
+      "Tyre performance depends on circuit layout, track temperature, asphalt roughness, fuel load, car setup, and driver style.",
+    behavior:
+      "The same compound can behave very differently from one Grand Prix to another.",
+    bestFor:
+      "Understanding race strategy and tyre management."
+  };
+}
+
 function renderTyreCompounds(compounds) {
   return compounds
     .map((compound) => {
       const image = getTyreImage(compound);
+      const tyreInfo = getTyreInfo(compound);
 
       return `
-        <div class="tyre-card">
-          ${
-            image
-              ? `<img src="${image}" alt="${compound}" class="tyre-image">`
-              : ""
-          }
+        <article class="tyre-card tyre-info-card" tabindex="0">
+          ${image ? `<img src="${image}" alt="${compound}" class="tyre-image">` : ""}
+
           <span>${compound}</span>
-        </div>
+
+          <div class="tyre-info-panel">
+            <div class="tyre-info-header">
+              <strong>${tyreInfo.name}</strong>
+              <small>${tyreInfo.label}</small>
+            </div>
+
+            <p>${tyreInfo.brief}</p>
+
+            <div class="tyre-info-grid">
+              <div>
+                <b>Behaviour</b>
+                <span>${tyreInfo.behavior}</span>
+              </div>
+
+              <div>
+                <b>Best for</b>
+                <span>${tyreInfo.bestFor}</span>
+              </div>
+            </div>
+          </div>
+        </article>
       `;
     })
-    .join("");
+  .join("");
 }
 
 const sessionKeyMap = {
@@ -631,9 +773,10 @@ function renderPracticeSession(sessionDetails) {
       ${sessionDetails.classification
         .map((entry) => {
           const driver = getDriverByCode(entry.code);
+          const team = getTeamByName(entry.team || driver?.team);
 
           return `
-            <div class="practice-row">
+            <div class="practice-row" style="--team-color: ${team ? team.color : "#e10600"}">
               <span class="session-position">P${entry.position}</span>
 
               <div>
@@ -655,44 +798,94 @@ function renderPracticeSession(sessionDetails) {
   `;
 }
 
-function renderQualifyingGroup(label, group) {
-  if (!group?.classification?.length) {
-    return `
-      <article class="quali-group">
-        <h5>${label}</h5>
-        <p class="empty-session">No ${label} data added yet.</p>
-      </article>
-    `;
-  }
+function getQualifyingGroups(qualifying, sessionName) {
+  const isSprintQualifying = sessionName === "Sprint Qualifying";
 
-  return `
-    <article class="quali-group">
-      <h5>${label}</h5>
+  return {
+    phase1Label: isSprintQualifying ? "SQ1" : "Q1",
+    phase2Label: isSprintQualifying ? "SQ2" : "Q2",
+    phase3Label: isSprintQualifying ? "SQ3" : "Q3",
+    phase1: isSprintQualifying ? qualifying.sq1 : qualifying.q1,
+    phase2: isSprintQualifying ? qualifying.sq2 : qualifying.q2,
+    phase3: isSprintQualifying ? qualifying.sq3 : qualifying.q3
+  };
+}
 
-      <div class="practice-list">
-        ${group.classification
-          .map((entry) => {
-            const driver = getDriverByCode(entry.code);
+function getQualifyingEntryMap(classification = []) {
+  const map = {};
 
-            return `
-              <div class="practice-row">
-                <span class="session-position">P${entry.position}</span>
+  classification.forEach((entry) => {
+    map[entry.code] = entry;
+  });
 
-                <div>
-                  <strong>${driver ? driver.name : entry.code}</strong>
-                  <small>${entry.team || driver?.team || "Team TBC"}</small>
-                </div>
+  return map;
+}
 
-                <span>${entry.time || "—"}</span>
-                <span>${entry.gap || "—"}</span>
-                <span>${entry.tyres ? entry.tyres.join(", ") : "—"}</span>
-              </div>
-            `;
-          })
-          .join("")}
-      </div>
-    </article>
-  `;
+function buildQualifyingRows(qualifying, sessionName) {
+  const groups = getQualifyingGroups(qualifying, sessionName);
+
+  const phase1Entries = groups.phase1?.classification || [];
+  const phase2Entries = groups.phase2?.classification || [];
+  const phase3Entries = groups.phase3?.classification || [];
+
+  const phase1Map = getQualifyingEntryMap(phase1Entries);
+  const phase2Map = getQualifyingEntryMap(phase2Entries);
+  const phase3Map = getQualifyingEntryMap(phase3Entries);
+
+  const driverCodes = [
+    ...new Set([
+      ...phase1Entries.map((entry) => entry.code),
+      ...phase2Entries.map((entry) => entry.code),
+      ...phase3Entries.map((entry) => entry.code)
+    ])
+  ];
+
+  return driverCodes
+    .map((code) => {
+      const q1 = phase1Map[code] || null;
+      const q2 = phase2Map[code] || null;
+      const q3 = phase3Map[code] || null;
+
+      let status = `Out in ${groups.phase1Label}`;
+      let statusClass = "eliminated-q1";
+      let sortGroup = 3;
+      let sortPosition = q1?.position || 99;
+
+      if (q2 && !q3) {
+        status = `Out in ${groups.phase2Label}`;
+        statusClass = "eliminated-q2";
+        sortGroup = 2;
+        sortPosition = q2.position || 99;
+      }
+
+      if (q3) {
+        status = groups.phase3Label;
+        statusClass = "advanced-q3";
+        sortGroup = 1;
+        sortPosition = q3.position || 99;
+      }
+
+      if (qualifying.pole === code) {
+        status = "POLE";
+        statusClass = "pole-status";
+        sortGroup = 0;
+        sortPosition = 1;
+      }
+
+      return {
+        code,
+        q1,
+        q2,
+        q3,
+        status,
+        statusClass,
+        sortGroup,
+        sortPosition
+      };
+    })
+    .sort((a, b) => {
+      return a.sortGroup - b.sortGroup || a.sortPosition - b.sortPosition;
+    });
 }
 
 function renderQualifyingSession(round, sessionName = "Qualifying") {
@@ -702,29 +895,59 @@ function renderQualifyingSession(round, sessionName = "Qualifying") {
     return `<p class="empty-session">Qualifying details will be added later.</p>`;
   }
 
-  const poleDriver = qualifying.pole ? getDriverByCode(qualifying.pole) : null;
+  const rows = buildQualifyingRows(qualifying, sessionName);
+  const groups = getQualifyingGroups(qualifying, sessionName);
+  if (!rows.length) {
+    return `
+      <p class="empty-session">
+        ${sessionName} Q1/Q2/Q3 timing board will be added once qualifying data is filled.
+      </p>
+    `;
+  }
 
   return `
-    ${
-      poleDriver
-        ? `
-          <div class="pole-banner">
-            <span>POLE POSITION</span>
-            <strong>${poleDriver.name}</strong>
-            <small>${poleDriver.team}</small>
-          </div>
-        `
-        : `
-          <p class="empty-session">
-            Pole sitter will be added once qualifying data is filled.
-          </p>
-        `
-    }
 
-    <div class="quali-rounds">
-      ${renderQualifyingGroup(sessionName === "Sprint Qualifying" ? "SQ1" : "Q1", qualifying.q1 || qualifying.sq1)}
-      ${renderQualifyingGroup(sessionName === "Sprint Qualifying" ? "SQ2" : "Q2", qualifying.q2 || qualifying.sq2)}
-      ${renderQualifyingGroup(sessionName === "Sprint Qualifying" ? "SQ3" : "Q3", qualifying.q3 || qualifying.sq3)}
+    <div class="qualifying-board-wrapper">
+      <table class="qualifying-board">
+        <thead>
+          <tr>
+            <th>Driver</th>
+            <th>${groups.phase1Label}</th>
+            <th>${groups.phase2Label}</th>
+            <th>${groups.phase3Label}</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          ${rows
+            .map((row) => {
+              const driver = getDriverByCode(row.code);
+
+              return `
+                <tr>
+                  <td>
+                    <span class="quali-driver-name">
+                      ${driver ? driver.name : row.code}
+                    </span>
+                    <span class="standing-code">${row.code}</span>
+                  </td>
+
+                  <td>${row.q1?.time || "—"}</td>
+                  <td>${row.q2?.time || "—"}</td>
+                  <td>${row.q3?.time || "—"}</td>
+
+                  <td>
+                    <span class="quali-status ${row.statusClass}">
+                      ${row.status}
+                    </span>
+                  </td>
+                </tr>
+              `;
+            })
+            .join("")}
+        </tbody>
+      </table>
     </div>
 
     ${renderNotes(qualifying.notes)}
@@ -799,6 +1022,170 @@ function renderStartingGrid(round) {
   `;
 }
 
+function getRaceHighlightCards(raceData) {
+  return [
+    {
+      title: "Fastest Lap",
+      value: raceData?.fastestLap
+        ? `${getDriverByCode(raceData.fastestLap.code)?.name || raceData.fastestLap.code}`
+        : "Coming soon",
+      detail: raceData?.fastestLap
+        ? `${raceData.fastestLap.time} — Lap ${raceData.fastestLap.lap}`
+        : "Fastest lap data will be added later."
+    },
+    {
+      title: "Fastest Pit Stop",
+      value: raceData?.fastestPitStop
+        ? raceData.fastestPitStop.team
+        : "Coming soon",
+      detail: raceData?.fastestPitStop
+        ? `${raceData.fastestPitStop.time}${raceData.fastestPitStop.driver ? ` — ${raceData.fastestPitStop.driver}` : ""}`
+        : "Fastest pit stop data will be added later."
+    },
+    {
+      title: "Driver of the Day",
+      value: raceData?.driverOfTheDay
+        ? getDriverByCode(raceData.driverOfTheDay)?.name || raceData.driverOfTheDay
+        : "Coming soon",
+      detail: raceData?.driverOfTheDay
+        ? "Fan-voted Driver of the Day."
+        : "Driver of the Day will be added later."
+    }
+  ];
+}
+
+function renderRaceHighlights(raceData) {
+  return `
+    <section class="race-highlights">
+      ${getRaceHighlightCards(raceData)
+        .map(
+          (highlight) => `
+            <article class="race-highlight-card">
+              <span>${highlight.title}</span>
+              <strong>${highlight.value}</strong>
+              <p>${highlight.detail}</p>
+            </article>
+          `
+        )
+        .join("")}
+    </section>
+  `;
+}
+
+function renderRacePodium(podium = []) {
+  if (!podium.length) {
+    return `<p class="empty-session">Podium details will be added later.</p>`;
+  }
+
+  const p1 = podium.find((entry) => entry.position === 1);
+  const p2 = podium.find((entry) => entry.position === 2);
+  const p3 = podium.find((entry) => entry.position === 3);
+
+  function renderPodiumStep(entry, medalClass, medalIcon) {
+    if (!entry) return "";
+
+    const driver = getDriverByCode(entry.code);
+
+    return `
+      <article class="podium-step ${medalClass}">
+        <div class="podium-medal">${medalIcon}</div>
+        <span>P${entry.position}</span>
+        <h5>${driver ? driver.name : entry.code}</h5>
+        <p>${entry.team || driver?.team || "Team TBC"}</p>
+        <strong>${entry.time || entry.gap || "Time TBC"}</strong>
+      </article>
+    `;
+  }
+
+  return `
+    <section class="real-podium">
+      <div class="podium-side podium-second">
+        ${renderPodiumStep(p2, "silver-step", "🥈")}
+      </div>
+
+      <div class="podium-center podium-first">
+        ${renderPodiumStep(p1, "gold-step", "🥇")}
+      </div>
+
+      <div class="podium-side podium-third">
+        ${renderPodiumStep(p3, "bronze-step", "🥉")}
+      </div>
+    </section>
+  `;
+}
+
+function getFullRaceClassification(round, raceData) {
+  if (raceData?.fullClassification?.length) {
+    return raceData.fullClassification;
+  }
+
+  const raceResult = getRaceResultByRound(round);
+
+  if (!raceResult?.results?.length) return [];
+
+  return raceResult.results.map((result, index) => ({
+    position: index + 1,
+    code: result.code,
+    team: result.team,
+    gap: index === 0 ? "Winner" : "Gap TBC",
+    status: "Finished",
+    points: racePointsSystem[index + 1] || 0,
+    note: index > 9 ? "No points" : ""
+  }));
+}
+
+function renderFullRaceClassification(round, raceData) {
+  const classification = getFullRaceClassification(round, raceData).filter((entry) => {
+    return typeof entry.position === "number" ? entry.position > 3 : true;
+  });
+
+  if (!classification.length) {
+    return `<p class="empty-session">Full race classification will be added later.</p>`;
+  }
+
+  return `
+    <section class="full-classification">
+      <h5 class="session-subtitle">Full Race Classification</h5>
+
+      <div class="classification-list">
+        ${classification
+          .map((entry) => {
+            const driver = getDriverByCode(entry.code);
+            const team = getTeamByName(entry.team || driver?.team);
+
+            return `
+              <article class="classification-row" style="--team-color: ${team ? team.color : "#e10600"}">
+                <span class="classification-position">
+                  ${typeof entry.position === "number" ? `P${entry.position}` : entry.position}
+                </span>
+
+                <div class="classification-driver">
+                  <strong>${driver ? driver.name : entry.code}</strong>
+                  <small>${entry.team || driver?.team || "Team TBC"}</small>
+                </div>
+
+                <span class="classification-gap">
+                  ${entry.time || entry.gap || entry.status || "—"}
+                </span>
+
+                <span class="classification-points">
+                  ${entry.points ? `${entry.points} pts` : "0 pts"}
+                </span>
+
+                ${
+                  entry.note
+                    ? `<small class="classification-note">${entry.note}</small>`
+                    : ""
+                }
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
 function renderRaceSession(round) {
   const raceData = getSessionDetails(round, "Race");
   const raceResult = getRaceResultByRound(round);
@@ -811,70 +1198,16 @@ function renderRaceSession(round) {
           code: result.code,
           team: result.team,
           time: index === 0 ? "Winner time TBC" : "Gap TBC"
-        }));
+        })) || [];
 
   return `
-    ${
-      podium?.length
-        ? `
-          <div class="race-podium">
-            ${podium
-              .map((entry) => {
-                const driver = getDriverByCode(entry.code);
+    ${renderRaceHighlights(raceData)}
 
-                return `
-                  <article class="podium-card podium-${entry.position}">
-                    <span>P${entry.position}</span>
-                    <h5>${driver ? driver.name : entry.code}</h5>
-                    <p>${entry.team || driver?.team || "Team TBC"}</p>
-                    <strong>${entry.time || entry.gap || "Time TBC"}</strong>
-                  </article>
-                `;
-              })
-              .join("")}
-          </div>
-        `
-        : `<p class="empty-session">Race podium details will be added later.</p>`
-    }
+    ${renderRacePodium(podium)}
 
-    <div class="race-extra-grid">
-      <article>
-        <h5>Fastest Lap</h5>
-        <p>
-          ${
-            raceData?.fastestLap
-              ? `${raceData.fastestLap.code} — ${raceData.fastestLap.time} on Lap ${raceData.fastestLap.lap}`
-              : "Fastest lap will be added later."
-          }
-        </p>
-      </article>
+    ${renderFullRaceClassification(round, raceData)}
 
-      <article>
-        <h5>Fastest Pit Stop</h5>
-        <p>
-          ${
-            raceData?.fastestPitStop
-              ? `${raceData.fastestPitStop.team} — ${raceData.fastestPitStop.time}`
-              : "Fastest pit stop will be added later."
-          }
-        </p>
-      </article>
-
-      <article>
-        <h5>Driver of the Day</h5>
-        <p>
-          ${
-            raceData?.driverOfTheDay
-              ? getDriverByCode(raceData.driverOfTheDay)?.name || raceData.driverOfTheDay
-              : "Driver of the Day will be added later."
-          }
-        </p>
-      </article>
-    </div>
-
-    <h5 class="session-subtitle">Points Finishers</h5>
-    ${renderMiniResultList(raceResult, racePointsSystem)}
-
+    ${renderNotes(raceData?.strategy)}
     ${renderNotes(raceData?.keyMoments)}
     ${renderNotes(raceData?.penalties)}
     ${renderNotes(raceData?.notes)}
@@ -907,12 +1240,110 @@ function renderMiniResultList(event, pointsSystem) {
   `;
 }
 
+function renderWeekendSessionContent(sessionName, round) {
+  const sessionDetails = getSessionDetails(round, sessionName);
+
+  if (sessionName === "Race") {
+    return renderRaceSession(round);
+  }
+
+  if (sessionName === "Sprint") {
+    return renderMiniResultList(getSprintResultByRound(round), sprintPointsSystem);
+  }
+
+  if (sessionName === "Qualifying" || sessionName === "Sprint Qualifying") {
+    return renderQualifyingSession(round, sessionName);
+  }
+
+  if (sessionName === "Starting Grid") {
+    return renderStartingGrid(round);
+  }
+
+  return renderPracticeSession(sessionDetails);
+}
+
+function renderWeekendSessionTabs(round, sessions) {
+  return `
+    <div class="weekend-session-tabs">
+      ${sessions
+        .map(
+          (sessionName, index) => `
+            <button 
+              class="weekend-session-tab ${index === 0 ? "active" : ""}" 
+              data-session="${sessionName}"
+            >
+              ${sessionName}
+            </button>
+          `
+        )
+        .join("")}
+    </div>
+
+    <div class="weekend-session-panels">
+      ${sessions
+        .map(
+          (sessionName, index) => `
+            <section 
+              class="weekend-session-panel ${index === 0 ? "active" : ""}" 
+              data-session-panel="${sessionName}"
+            >
+              <div class="weekend-session-panel-header">
+                <h4>${sessionName}</h4>
+                <p>${getSessionSmallDescription(sessionName)}</p>
+              </div>
+
+              ${renderWeekendSessionContent(sessionName, round)}
+            </section>
+          `
+        )
+        .join("")}
+    </div>
+  `;
+}
+
+function getSessionSmallDescription(sessionName) {
+  const descriptions = {
+    "FP1": "Opening practice session data and notes.",
+    "FP2": "Second practice session, pace runs, and tyre work.",
+    "FP3": "Final practice before qualifying.",
+    "Sprint Qualifying": "SQ1, SQ2, and SQ3 timing board.",
+    "Sprint": "Sprint result and points finishers.",
+    "Qualifying": "Q1, Q2, and Q3 timing board.",
+    "Starting Grid": "Official race starting grid layout.",
+    "Race": "Highlights, podium, full classification, and notes."
+  };
+
+  return descriptions[sessionName] || "Session details.";
+}
+
+function connectWeekendSessionTabs() {
+  const tabs = document.querySelectorAll(".weekend-session-tab");
+  const panels = document.querySelectorAll(".weekend-session-panel");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const selectedSession = tab.dataset.session;
+
+      tabs.forEach((item) => {
+        item.classList.toggle("active", item.dataset.session === selectedSession);
+      });
+
+      panels.forEach((panel) => {
+        panel.classList.toggle(
+          "active",
+          panel.dataset.sessionPanel === selectedSession
+        );
+      });
+    });
+  });
+}
+
 function renderSessionCard(sessionName, round) {
   const sessionDetails = getSessionDetails(round, sessionName);
 
   if (sessionName === "Race") {
     return `
-      <article class="session-card">
+      <article class="session-card race-session-card">
         <details class="session-details">
           <summary>
             <span>${sessionName}</span>
@@ -1009,6 +1440,10 @@ function renderRaceWeekend(round = 1) {
         <h3>${race.name}</h3>
         <p>${race.city}, ${race.country}</p>
         <p>${race.circuit}</p>
+
+        <div class="weekend-circuit-preview">
+          <img src="${race.image}" alt="${race.name} circuit layout">
+        </div>
       </div>
 
       <span class="weekend-format ${format}">
@@ -1043,7 +1478,7 @@ function renderRaceWeekend(round = 1) {
         <h4>Tyres</h4>
 
         ${
-          details.tyres
+          details?.tyres
             ? `
               <div class="tyre-cards">
                 ${renderTyreCompounds(details.tyres.compounds)}
@@ -1060,13 +1495,7 @@ function renderRaceWeekend(round = 1) {
       </article>
     </div>
 
-    <div class="session-flow">
-      ${sessions.map((session) => `<span>${session}</span>`).join("")}
-    </div>
-
-    <div class="sessions-grid">
-      ${sessions.map((session) => renderSessionCard(session, race.round)).join("")}
-    </div>
+    ${renderWeekendSessionTabs(race.round, sessions)}
 
     ${
       details?.notes
@@ -1129,6 +1558,7 @@ function connectCalendarToWeekendDetails() {
 
       renderRaceWeekend(round);
       connectWeekendActionButtons();
+      connectWeekendSessionTabs();
 
       raceWeekendSection.scrollIntoView({
         behavior: "smooth",

@@ -798,6 +798,24 @@ body {
   color: #444;
 }
 
+.weekend-circuit-preview {
+  background: #fff;
+  border: 2px solid #eee;
+  border-radius: 0 32px 0 32px;
+  padding: clamp(16px, 3vw, 30px);
+  margin: 24px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.weekend-circuit-preview img {
+  width: 100%;
+  max-width: 950px;
+  max-height: 520px;
+  object-fit: contain;
+}
+
 /* ADVANCED WEEKEND SESSIONS */
 
 .practice-list {
@@ -811,7 +829,7 @@ body {
   gap: 12px;
   align-items: center;
   background: #f6f6f6;
-  border-left: 5px solid #e10600;
+  border-left: 5px solid var(--team-color, #e10600);
   padding: 12px;
   border-radius: 0 14px 0 14px;
 }
@@ -827,7 +845,7 @@ body {
 }
 
 .session-position {
-  color: #e10600;
+  color: var(--team-color, #e10600);
   font-weight: 900;
 }
 
@@ -882,22 +900,63 @@ body {
   color: #f1f1f1;
 }
 
-.quali-rounds {
-  display: grid;
-  gap: 18px;
-}
-
-.quali-group {
+.qualifying-board-wrapper {
+  overflow-x: auto;
   border: 2px solid #ddd;
-  padding: 18px;
-  border-radius: 0 22px 0 22px;
+  border-radius: 0 24px 0 24px;
   background: #fff;
 }
 
-.quali-group h5 {
-  font-size: 1.2rem;
-  margin-bottom: 14px;
-  color: #e10600;
+.qualifying-board {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+}
+
+.qualifying-board thead {
+  background: #111;
+  color: #fff;
+}
+
+.qualifying-board th,
+.qualifying-board td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.qualifying-board tbody tr:hover {
+  background: #f7f7f7;
+}
+
+.quali-driver-name {
+  font-weight: 900;
+}
+
+.quali-status {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 900;
+  background: #111;
+  color: #fff;
+}
+
+.pole-status {
+  background: #e10600;
+}
+
+.advanced-q3 {
+  background: #111;
+}
+
+.eliminated-q2 {
+  background: #555;
+}
+
+.eliminated-q1 {
+  background: #888;
 }
 
 /* STARTING GRID */
@@ -1129,26 +1188,101 @@ body {
   color: #111;
 }
 
-.session-flow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 28px 0;
+.tyre-info-card {
+  position: relative;
+  cursor: pointer;
+  outline: none;
 }
 
-.session-flow span {
-  background: #e10600;
+.tyre-info-card:hover,
+.tyre-info-card:focus {
+  transform: translateY(-4px);
+}
+
+.tyre-info-panel {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 14px);
+  transform: translateX(-50%) translateY(8px);
+  width: min(380px, 86vw);
+  background: #111;
   color: #fff;
-  padding: 12px 16px;
-  border-radius: 999px;
-  font-weight: 900;
+  padding: 18px;
+  border-radius: 0 22px 0 22px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.32);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s ease;
+  z-index: 50;
+  text-align: left;
 }
 
-.sessions-grid {
+.tyre-info-panel::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0 8px;
+  border-style: solid;
+  border-color: #111 transparent transparent transparent;
+}
+
+.tyre-info-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.tyre-info-header strong {
+  color: #e10600;
+  font-size: 1.2rem;
+}
+
+.tyre-info-header small {
+  color: #ddd;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+}
+
+.tyre-info-panel p {
+  color: #eee;
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+
+.tyre-info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-  align-items: start;
+  gap: 10px;
+}
+
+.tyre-info-grid div {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 10px;
+  border-left: 4px solid #e10600;
+  border-radius: 0 14px 0 14px;
+}
+
+.tyre-info-grid b {
+  display: block;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.tyre-info-grid span {
+  color: #ddd;
+  line-height: 1.45;
+  font-size: 0.86rem;
+}
+
+.tyre-info-card:hover .tyre-info-panel,
+.tyre-info-card:focus .tyre-info-panel {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .session-card {
@@ -1328,6 +1462,340 @@ body {
   cursor: pointer;
 }
 
+/* RACE HIGHLIGHTS */
+
+.race-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+  width: 100%;
+}
+
+.race-highlight-card {
+  background: linear-gradient(135deg, #111, #292929);
+  color: #fff;
+  border-left: 8px solid #e10600;
+  padding: 20px;
+  border-radius: 0 24px 0 24px;
+  min-height: 150px;
+}
+
+.race-highlight-card span {
+  display: block;
+  color: #e10600;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.78rem;
+  margin-bottom: 10px;
+}
+
+.race-highlight-card strong {
+  display: block;
+  font-size: 1.35rem;
+  margin-bottom: 8px;
+}
+
+.race-highlight-card p {
+  color: #ddd;
+  line-height: 1.5;
+}
+
+.race-session-card {
+  grid-column: 1 / -1;
+}
+
+/* REAL PODIUM */
+
+.real-podium {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 1fr;
+  gap: clamp(8px, 2vw, 16px);
+  align-items: end;
+  margin: clamp(22px, 4vw, 34px) 0;
+  width: 100%;
+}
+
+.podium-side,
+.podium-center {
+  display: flex;
+  align-items: flex-end;
+}
+
+.podium-step {
+  width: 100%;
+  text-align: center;
+  color: #111;
+  padding: clamp(10px, 2vw, 18px) clamp(8px, 1.8vw, 14px);
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+  border: 3px solid transparent;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.podium-first .podium-step {
+  height: clamp(175px, 24vw, 250px);
+}
+
+.podium-second .podium-step {
+  height: clamp(145px, 20vw, 205px);
+}
+
+.podium-third .podium-step {
+  height: clamp(130px, 18vw, 185px);
+}
+
+.gold-step {
+  background: linear-gradient(135deg, #fff4b0, #d7a900);
+  border-color: #b88a00;
+}
+
+.silver-step {
+  background: linear-gradient(135deg, #ffffff, #bfc3c7);
+  border-color: #9ca3aa;
+}
+
+.bronze-step {
+  background: linear-gradient(135deg, #ffd0a3, #b46a2b);
+  border-color: #8f4f1c;
+}
+
+.podium-medal {
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  margin-bottom: 6px;
+}
+
+.podium-step span {
+  display: block;
+  font-weight: 900;
+  color: #e10600;
+  font-size: clamp(0.8rem, 1.8vw, 1.05rem);
+  margin-bottom: 5px;
+}
+
+.podium-step h5 {
+  font-size: clamp(0.8rem, 2vw, 1.2rem);
+  margin-bottom: 5px;
+  line-height: 1.1;
+}
+
+.podium-step p {
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: clamp(0.72rem, 1.6vw, 1rem);
+  line-height: 1.15;
+}
+
+.podium-step strong {
+  display: block;
+  background: #111;
+  color: #fff;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: clamp(0.68rem, 1.4vw, 0.9rem);
+}
+
+  .podium-second {
+  grid-column: 1;
+}
+
+.podium-first {
+  grid-column: 2;
+}
+
+.podium-third {
+  grid-column: 3;
+}
+
+/* FULL CLASSIFICATION */
+
+.full-classification {
+  margin-top: 28px;
+}
+
+.classification-list {
+  display: grid;
+  gap: 10px;
+}
+
+.classification-row {
+  --team-color: #e10600;
+  display: grid;
+  grid-template-columns: 56px minmax(150px, 1.4fr) minmax(90px, 0.8fr) 70px;
+  gap: 12px;
+  align-items: center;
+  background: #f6f6f6;
+  border-left: 6px solid var(--team-color);
+  padding: 12px 14px;
+  border-radius: 0 16px 0 16px;
+}
+
+.classification-position {
+  color: #e10600;
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.classification-driver strong {
+  display: block;
+  line-height: 1.15;
+}
+
+.classification-driver small {
+  display: block;
+  color: #666;
+  margin-top: 3px;
+}
+
+.classification-gap {
+  font-weight: 800;
+  color: #333;
+}
+
+.classification-points {
+  font-weight: 900;
+  color: #e10600;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.classification-note {
+  grid-column: 2 / -1;
+  color: #555;
+  font-weight: 800;
+}
+
+/* WEEKEND SESSION TABS */
+
+.weekend-session-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px 0 18px;
+  margin-top: 28px;
+  margin-bottom: 22px;
+  border-bottom: 2px solid #eee;
+  width: 100%;
+}
+
+.weekend-session-tab {
+  border: 2px solid #111;
+  background: #fff;
+  color: #111;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.weekend-session-tab:hover,
+.weekend-session-tab.active {
+  background: #e10600;
+  border-color: #e10600;
+  color: #fff;
+}
+
+.weekend-session-panels {
+  width: 100%;
+  display: block;
+  margin-top: 12px;
+}
+
+.weekend-session-panel {
+  display: none;
+  width: 100%;
+  background: #f4f4f4;
+  border: 2px solid #ddd;
+  border-radius: 0 34px 0 34px;
+  padding: clamp(18px, 3vw, 28px);
+  animation: weekendPanelFade 0.25s ease;
+}
+
+.weekend-session-panel.active {
+  display: block;
+}
+
+.weekend-session-panel-header {
+  background: #111;
+  color: #fff;
+  padding: 18px;
+  border-radius: 0 22px 0 22px;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.weekend-session-panel-header h4 {
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  margin-bottom: 4px;
+}
+
+.weekend-session-panel-header p {
+  color: #ddd;
+  font-weight: 700;
+}
+
+.weekend-session-panel .race-highlights,
+.weekend-session-panel .real-podium,
+.weekend-session-panel .full-classification,
+.weekend-session-panel .qualifying-board-wrapper,
+.weekend-session-panel .f1-grid-track,
+.weekend-session-panel .practice-list {
+  width: 100%;
+}
+
+@keyframes weekendPanelFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.weekend-session-tabs,
+.weekend-session-panels,
+.weekend-session-panel {
+  width: 100%;
+}
+
+.weekend-session-panels {
+  display: block;
+}
+
+.weekend-session-panel.active {
+  display: block;
+  width: 100%;
+}
+
+.weekend-session-panel .race-highlights,
+.weekend-session-panel .real-podium,
+.weekend-session-panel .full-classification,
+.weekend-session-panel .qualifying-board-wrapper,
+.weekend-session-panel .f1-grid-track,
+.weekend-session-panel .practice-list {
+  width: 100%;
+}
+
+.weekend-session-panel {
+  background: #f4f4f4;
+  border: 2px solid #ddd;
+  border-radius: 0 34px 0 34px;
+  padding: clamp(18px, 3vw, 28px);
+}
+
+.weekend-session-panel-header {
+  max-width: 100%;
+}
+
 /* MOBILE */
 
 @media (max-width: 700px) {
@@ -1377,5 +1845,80 @@ body {
 
   .podium-1 {
     transform: none;
+  }
+
+  .podium-first .podium-step,
+  .podium-second .podium-step,
+  .podium-third .podium-step {
+    min-height: auto;
+  }
+
+  .classification-row {
+    grid-template-columns: 48px 1fr;
+  }
+
+  .classification-gap,
+  .classification-points,
+  .classification-note {
+    grid-column: 2;
+    text-align: left;
+  }
+
+    .race-highlights {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 12px;
+  }
+
+  .race-highlight-card {
+    min-width: 240px;
+    scroll-snap-align: start;
+  }
+
+  .real-podium {
+    grid-template-columns: 1fr 1.15fr 1fr;
+  }
+
+  .weekend-circuit-preview {
+    padding: 14px;
+    margin: 18px 0;
+    border-radius: 0 22px 0 22px;
+  }
+
+  .weekend-circuit-preview img {
+    max-height: 300px;
+  }
+
+  .tyre-info-panel {
+    position: static;
+    transform: none;
+    width: 100%;
+    margin-top: 12px;
+    display: none;
+    opacity: 1;
+    box-shadow: none;
+  }
+
+  .tyre-info-panel::after {
+    display: none;
+  }
+
+  .tyre-info-card:hover .tyre-info-panel,
+  .tyre-info-card:focus .tyre-info-panel {
+    display: block;
+    transform: none;
+  }
+
+  .weekend-session-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+  }
+
+  .weekend-session-tab {
+    flex: 0 0 auto;
+    padding: 9px 13px;
+    font-size: 0.82rem;
   }
 }
