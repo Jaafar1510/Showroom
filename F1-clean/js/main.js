@@ -1726,7 +1726,50 @@ exploreTabs.forEach((tab) => {
   });
 });
 
-const seasonButtons = document.querySelectorAll(".season-btn");
+const seasonButtonsContainer = document.getElementById("seasonButtons");
+
+function getAvailableSeasons() {
+  return Object.keys(seasonRegistry)
+    .map(Number)
+    .sort((a, b) => a - b);
+}
+
+function renderSeasonButtons() {
+  if (!seasonButtonsContainer) return;
+
+  seasonButtonsContainer.innerHTML = getAvailableSeasons()
+    .map((season) => {
+      const seasonData = seasonRegistry[season];
+      const isActive = season === currentSeason;
+      const isAvailable = isSeasonAvailable(season);
+
+      return `
+        <button 
+          class="season-btn ${isActive ? "active" : ""} ${!isAvailable ? "season-unavailable" : ""}" 
+          data-season="${season}"
+          title="${seasonData.status}"
+        >
+          ${seasonData.label}
+        </button>
+      `;
+    })
+    .join("");
+
+  seasonButtonsContainer.querySelectorAll(".season-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      setActiveSeason(button.dataset.season);
+    });
+  });
+}
+
+function refreshSeasonButtons() {
+  seasonButtonsContainer?.querySelectorAll(".season-btn").forEach((button) => {
+    button.classList.toggle(
+      "active",
+      Number(button.dataset.season) === currentSeason
+    );
+  });
+}
 
 function refreshActiveSeasonUI() {
   renderRaceCalendar();
@@ -1751,6 +1794,7 @@ function setActiveSeason(season) {
 
   if (!isSeasonAvailable(selectedSeason)) {
     alert(`${selectedSeason} season data will be added soon.`);
+    refreshSeasonButtons();
     return;
   }
 
@@ -1760,19 +1804,10 @@ function setActiveSeason(season) {
 
   currentSeason = selectedSeason;
 
-  seasonButtons.forEach((button) => {
-    button.classList.toggle(
-      "active",
-      Number(button.dataset.season) === currentSeason
-    );
-  });
+  refreshSeasonButtons();
 
   console.log(`Active season: ${currentSeason}`);
   refreshActiveSeasonUI();
 }
 
-seasonButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    setActiveSeason(button.dataset.season);
-  });
-});
+renderSeasonButtons();
