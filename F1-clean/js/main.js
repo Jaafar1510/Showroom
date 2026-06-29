@@ -36,6 +36,46 @@ function getActiveSeasonData() {
   return seasonRegistry[currentSeason] || seasonRegistry[2025];
 }
 
+function getSeasonRaces() {
+  return getActiveSeasonData().races || [];
+}
+
+function getSeasonDrivers() {
+  return getActiveSeasonData().drivers || [];
+}
+
+function getSeasonTeams() {
+  return getActiveSeasonData().teams || [];
+}
+
+function getSeasonRaceResults() {
+  return getActiveSeasonData().raceResults || [];
+}
+
+function getSeasonSprintResults() {
+  return getActiveSeasonData().sprintResults || [];
+}
+
+function getSeasonRaceDetails() {
+  return getActiveSeasonData().raceDetails || {};
+}
+
+function getSeasonSessionDetails() {
+  return getActiveSeasonData().sessionDetails || {};
+}
+
+function getSeasonSprintRounds() {
+  return getActiveSeasonData().sprintRounds || [];
+}
+
+function getSeasonRacePointsSystem() {
+  return getActiveSeasonData().racePointsSystem || {};
+}
+
+function getSeasonSprintPointsSystem() {
+  return getActiveSeasonData().sprintPointsSystem || {};
+}
+
 function isSeasonAvailable(season) {
   return Boolean(seasonRegistry[season]?.races);
 }
@@ -62,7 +102,7 @@ function createSummerBreakCard() {
 function renderRaceCalendar() {
   raceCalendar.innerHTML = "";
 
-  races2025.forEach((race) => {
+  getSeasonRaces().forEach((race) => {
     const raceCard = document.createElement("article");
     raceCard.classList.add("race-card");
 
@@ -103,7 +143,7 @@ const driversGrid = document.getElementById("driversGrid");
 function renderDrivers() {
   driversGrid.innerHTML = "";
 
-  drivers2025.forEach((driver) => {
+  getSeasonDrivers().forEach((driver) => {
     const driverCard = document.createElement("article");
     driverCard.classList.add("driver-card");
 
@@ -146,7 +186,7 @@ const teamsGrid = document.getElementById("teamsGrid");
 function renderTeams() {
   teamsGrid.innerHTML = "";
 
-  teams2025.forEach((team) => {
+  getSeasonTeams().forEach((team) => {
     const teamCard = document.createElement("article");
     teamCard.classList.add("team-card");
 
@@ -180,17 +220,17 @@ const standingsTable = document.getElementById("standingsTable");
 const standingsTabs = document.querySelectorAll(".standings-tab");
 
 function getDriverByCode(code) {
-  return drivers2025.find((driver) => driver.code === code);
+  return getSeasonDrivers().find((driver) => driver.code === code);
 }
 
 function getTeamByName(teamName) {
-  return teams2025.find((team) => team.name === teamName);
+  return getSeasonTeams().find((team) => team.name === teamName);
 }
 
 function getLatestTeamForDriver(code) {
   let latestTeam = null;
 
-  raceResults2025.forEach((race) => {
+  getSeasonRaceResults().forEach((race) => {
     race.results.forEach((result) => {
       if (result.code === code) {
         latestTeam = result.team;
@@ -204,7 +244,7 @@ function getLatestTeamForDriver(code) {
 function calculateDriverStandings() {
   const standingsMap = {};
 
-  drivers2025.forEach((driver) => {
+  getSeasonDrivers().forEach((driver) => {
     standingsMap[driver.code] = {
       code: driver.code,
       name: driver.name,
@@ -253,8 +293,8 @@ function calculateDriverStandings() {
   });
 }
 
-addResultsToDriverStandings(raceResults2025, racePointsSystem, true);
-addResultsToDriverStandings(sprintResults2025, sprintPointsSystem, false);
+addResultsToDriverStandings(getSeasonRaceResults(), getSeasonRacePointsSystem(), true);
+addResultsToDriverStandings(getSeasonSprintResults(), getSeasonSprintPointsSystem(), false);
 
   return Object.values(standingsMap).sort((a, b) => {
     return (
@@ -268,7 +308,7 @@ addResultsToDriverStandings(sprintResults2025, sprintPointsSystem, false);
 function calculateConstructorStandings() {
   const constructorMap = {};
 
-  teams2025.forEach((team) => {
+  getSeasonTeams().forEach((team) => {
     constructorMap[team.name] = {
       team: team.name,
       teamColor: team.color,
@@ -303,8 +343,8 @@ function calculateConstructorStandings() {
   });
 }
 
-addResultsToConstructorStandings(raceResults2025, racePointsSystem, true);
-addResultsToConstructorStandings(sprintResults2025, sprintPointsSystem, false);
+addResultsToConstructorStandings(getSeasonRaceResults(), getSeasonRacePointsSystem(), true);
+addResultsToConstructorStandings(getSeasonSprintResults(), getSeasonSprintPointsSystem(), false);
 
   return Object.values(constructorMap).sort((a, b) => {
     return (
@@ -424,8 +464,8 @@ function getResultTitle(event, type) {
 }
 
 function renderResults(type = "race") {
-  const events = type === "sprint" ? sprintResults2025 : raceResults2025;
-  const pointsSystem = type === "sprint" ? sprintPointsSystem : racePointsSystem;
+  const events = type === "sprint" ? getSeasonSprintResults() : getSeasonRaceResults();
+  const pointsSystem = type === "sprint" ? getSeasonSprintPointsSystem() : getSeasonRacePointsSystem(); 
 
   resultsGrid.innerHTML = "";
 
@@ -530,17 +570,17 @@ connectCalendarToResults();
 const raceWeekendPanel = document.getElementById("raceWeekendPanel");
 
 function getRaceByRound(round) {
-  return races2025.find((race) => race.round === Number(round));
+  return getSeasonRaces().find((race) => race.round === Number(round));
 }
 
 function getRaceDetailsByRound(round) {
-  return raceDetails2025[Number(round)] || null;
+  return getSeasonRaceDetails()[Number(round)] || null;
 }
 
 function getWeekendFormat(round, details) {
   if (details?.weekendFormat) return details.weekendFormat;
 
-  return sprintRounds2025.includes(Number(round)) ? "sprint" : "normal";
+  return getSeasonSprintRounds().includes(Number(round)) ? "sprint" : "normal";
 }
 
 function getWeekendSessions(format) {
@@ -566,11 +606,11 @@ function getWeekendSessions(format) {
 }
 
 function getRaceResultByRound(round) {
-  return raceResults2025.find((event) => event.round === Number(round));
+  return getSeasonRaceResults().find((event) => event.round === Number(round));
 }
 
 function getSprintResultByRound(round) {
-  return sprintResults2025.find((event) => event.round === Number(round));
+  return getSeasonSprintResults().find((event) => event.round === Number(round));
 }
 
 const tyreImagePath = "./assets/images/tyres/";
@@ -778,7 +818,7 @@ function getSessionDetails(round, sessionName) {
 
   if (!sessionKey) return null;
 
-  return sessionDetails2025?.[Number(round)]?.[sessionKey] || null;
+  return getSeasonSessionDetails()?.[Number(round)]?.[sessionKey] || null;
 }
 
 function renderTyreTags(tyres = []) {
@@ -1201,7 +1241,7 @@ function getFullRaceClassification(round, raceData) {
     team: result.team,
     gap: index === 0 ? "Winner" : "Gap TBC",
     status: "Finished",
-    points: racePointsSystem[index + 1] || 0,
+    points: getSeasonRacePointsSystem()[index + 1] || 0,
     note: index > 9 ? "No points" : ""
   }));
 }
@@ -1324,7 +1364,7 @@ function renderWeekendSessionContent(sessionName, round) {
   }
 
   if (sessionName === "Sprint") {
-    return renderMiniResultList(getSprintResultByRound(round), sprintPointsSystem);
+    return renderMiniResultList(getSprintResultByRound(round), getSeasonSprintPointsSystem());
   }
 
   if (sessionName === "Qualifying" || sessionName === "Sprint Qualifying") {
@@ -1456,7 +1496,7 @@ function renderSessionCard(sessionName, round) {
             <small>Sprint result</small>
           </summary>
 
-          ${renderMiniResultList(getSprintResultByRound(round), sprintPointsSystem)}
+          ${renderMiniResultList(getSprintResultByRound(round), getSeasonSprintPointsSystem())}
         </details>
       </article>
     `;
@@ -1688,11 +1728,33 @@ exploreTabs.forEach((tab) => {
 
 const seasonButtons = document.querySelectorAll(".season-btn");
 
+function refreshActiveSeasonUI() {
+  renderRaceCalendar();
+  renderDrivers();
+  renderTeams();
+
+  const activeStanding =
+    document.querySelector(".standings-tab.active")?.dataset.standing || "drivers";
+  setActiveStanding(activeStanding);
+
+  const activeResults =
+    document.querySelector(".results-tab.active")?.dataset.results || "race";
+  setActiveResults(activeResults);
+
+  closeWeekendPanel();
+  connectCalendarToResults();
+  connectCalendarToWeekendDetails();
+}
+
 function setActiveSeason(season) {
   const selectedSeason = Number(season);
 
   if (!isSeasonAvailable(selectedSeason)) {
     alert(`${selectedSeason} season data will be added soon.`);
+    return;
+  }
+
+  if (selectedSeason === currentSeason) {
     return;
   }
 
@@ -1706,6 +1768,7 @@ function setActiveSeason(season) {
   });
 
   console.log(`Active season: ${currentSeason}`);
+  refreshActiveSeasonUI();
 }
 
 seasonButtons.forEach((button) => {
