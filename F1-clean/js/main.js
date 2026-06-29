@@ -1,3 +1,5 @@
+let currentSeason = 2025;
+
 const raceCalendar = document.getElementById("raceCalendar");
 
 function createSummerBreakCard() {
@@ -759,13 +761,33 @@ function renderNotes(notes = []) {
   `;
 }
 
+function renderComingSoonSession(title, description, items = []) {
+  return `
+    <article class="coming-soon-session">
+      <span class="coming-soon-label">Coming Soon</span>
+      <h5>${title}</h5>
+      <p>${description}</p>
+
+      ${
+        items.length
+          ? `
+            <ul>
+              ${items.map((item) => `<li>${item}</li>`).join("")}
+            </ul>
+          `
+          : ""
+      }
+    </article>
+  `;
+}
+
 function renderPracticeSession(sessionDetails) {
   if (!sessionDetails?.classification?.length) {
-    return `
-      <p class="empty-session">
-        ${sessionDetails?.headline || "Practice details will be added later."}
-      </p>
-    `;
+    return renderComingSoonSession(
+      sessionDetails?.headline || "Practice data will be added later.",
+      "Timing classification, tyre usage, lap counts, and session notes will appear here once the data is added.",
+      ["Classification", "Lap count", "Tyre notes", "Session observations"]
+    );
   }
 
   return `
@@ -892,17 +914,21 @@ function renderQualifyingSession(round, sessionName = "Qualifying") {
   const qualifying = getSessionDetails(round, sessionName);
 
   if (!qualifying) {
-    return `<p class="empty-session">Qualifying details will be added later.</p>`;
+    return renderComingSoonSession(
+      `${sessionName} details will be added later.`,
+      "The full timing board will show each driver's Q1, Q2, and Q3 times with elimination status.",
+      ["Q1 / Q2 / Q3 times", "Pole position", "Eliminated drivers", "Session notes"]
+    );
   }
 
   const rows = buildQualifyingRows(qualifying, sessionName);
   const groups = getQualifyingGroups(qualifying, sessionName);
   if (!rows.length) {
-    return `
-      <p class="empty-session">
-        ${sessionName} Q1/Q2/Q3 timing board will be added once qualifying data is filled.
-      </p>
-    `;
+    return renderComingSoonSession(
+      `${sessionName} timing board coming soon.`,
+      "Once qualifying data is filled, this section will display every phase in one clean timing board.",
+      ["Fastest laps", "Status badges", "Pole marker", "Notes"]
+    );
   }
 
   return `
@@ -968,11 +994,11 @@ function renderStartingGrid(round) {
   const gridData = getSessionDetails(round, "Starting Grid");
 
   if (!gridData?.positions?.length) {
-    return `
-      <p class="empty-session">
-        Starting grid will be added here with the real staggered F1 layout.
-      </p>
-    `;
+    return renderComingSoonSession(
+    "Starting grid coming soon.",
+    "The official race grid will appear here in a staggered F1-style layout once qualifying and penalty data are added.",
+    ["Grid position", "Qualified position", "Penalty reasons", "Pole side"]
+  );
   }
 
   return `
@@ -1007,9 +1033,11 @@ function renderStartingGrid(round) {
                 }
 
                 ${
-                  entry.note
-                    ? `<small class="grid-note">${entry.note}</small>`
-                    : ""
+                  entry.reason
+                    ? `<small class="grid-note">Reason: ${entry.reason}</small>`
+                    : entry.note
+                      ? `<small class="grid-note">${entry.note}</small>`
+                      : ""
                 }
               </article>
             </div>
@@ -1074,7 +1102,11 @@ function renderRaceHighlights(raceData) {
 
 function renderRacePodium(podium = []) {
   if (!podium.length) {
-    return `<p class="empty-session">Podium details will be added later.</p>`;
+    return renderComingSoonSession(
+      "Podium coming soon.",
+      "The race podium will appear here in P2, P1, P3 order after race data is added.",
+      ["Winner", "Second place", "Third place", "Race time and gaps"]
+    );
   }
 
   const p1 = podium.find((entry) => entry.position === 1);
@@ -1140,7 +1172,11 @@ function renderFullRaceClassification(round, raceData) {
   });
 
   if (!classification.length) {
-    return `<p class="empty-session">Full race classification will be added later.</p>`;
+    return renderComingSoonSession(
+      "Full classification coming soon.",
+      "The complete race result from P4 downward will appear here after the race data is added.",
+      ["Finishing position", "Driver and team", "Gap or status", "Points"]
+    );
   }
 
   return `
@@ -1264,40 +1300,48 @@ function renderWeekendSessionContent(sessionName, round) {
 
 function renderWeekendSessionTabs(round, sessions) {
   return `
-    <div class="weekend-session-tabs">
-      ${sessions
-        .map(
-          (sessionName, index) => `
-            <button 
-              class="weekend-session-tab ${index === 0 ? "active" : ""}" 
-              data-session="${sessionName}"
-            >
-              ${sessionName}
-            </button>
-          `
-        )
-        .join("")}
-    </div>
+    <section class="weekend-session-area">
+      <div class="weekend-session-tabs">
+        ${sessions
+          .map(
+            (sessionName, index) => `
+              <button 
+                class="weekend-session-tab ${index === 0 ? "active" : ""}" 
+                data-session="${sessionName}"
+              >
+                ${sessionName}
+              </button>
+            `
+          )
+          .join("")}
+      </div>
 
-    <div class="weekend-session-panels">
-      ${sessions
-        .map(
-          (sessionName, index) => `
-            <section 
-              class="weekend-session-panel ${index === 0 ? "active" : ""}" 
-              data-session-panel="${sessionName}"
-            >
-              <div class="weekend-session-panel-header">
-                <h4>${sessionName}</h4>
+      <div class="weekend-session-panels">
+        ${sessions
+          .map(
+            (sessionName, index) => `
+              <section 
+                class="weekend-session-panel ${index === 0 ? "active" : ""}" 
+                data-session-panel="${sessionName}"
+              >
+                <div class="weekend-session-panel-header">
+                <div class="session-header-top">
+                  <h4>${sessionName}</h4>
+                  <span class="session-status-badge">
+                    ${getSessionDetails(round, sessionName)?.status || "Coming soon"}
+                  </span>
+                </div>
+
                 <p>${getSessionSmallDescription(sessionName)}</p>
               </div>
 
-              ${renderWeekendSessionContent(sessionName, round)}
-            </section>
-          `
-        )
+                ${renderWeekendSessionContent(sessionName, round)}
+              </section>
+            `
+          )
         .join("")}
-    </div>
+      </div>
+    </section>
   `;
 }
 
@@ -1317,22 +1361,29 @@ function getSessionSmallDescription(sessionName) {
 }
 
 function connectWeekendSessionTabs() {
-  const tabs = document.querySelectorAll(".weekend-session-tab");
-  const panels = document.querySelectorAll(".weekend-session-panel");
+  const sessionAreas = document.querySelectorAll(".weekend-session-area");
 
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      const selectedSession = tab.dataset.session;
+  sessionAreas.forEach((area) => {
+    const tabs = area.querySelectorAll(".weekend-session-tab");
+    const panels = area.querySelectorAll(".weekend-session-panel");
 
-      tabs.forEach((item) => {
-        item.classList.toggle("active", item.dataset.session === selectedSession);
-      });
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const selectedSession = tab.dataset.session;
 
-      panels.forEach((panel) => {
-        panel.classList.toggle(
-          "active",
-          panel.dataset.sessionPanel === selectedSession
-        );
+        tabs.forEach((item) => {
+          item.classList.toggle(
+            "active",
+            item.dataset.session === selectedSession
+          );
+        });
+
+        panels.forEach((panel) => {
+          panel.classList.toggle(
+            "active",
+            panel.dataset.sessionPanel === selectedSession
+          );
+        });
       });
     });
   });
@@ -1592,5 +1643,26 @@ function setActiveExplore(sectionName) {
 exploreTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     setActiveExplore(tab.dataset.explore);
+  });
+});
+
+const seasonButtons = document.querySelectorAll(".season-btn");
+
+function setActiveSeason(season) {
+  currentSeason = Number(season);
+
+  seasonButtons.forEach((button) => {
+    button.classList.toggle(
+      "active",
+      Number(button.dataset.season) === currentSeason
+    );
+  });
+
+  console.log(`Active season: ${currentSeason}`);
+}
+
+seasonButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setActiveSeason(button.dataset.season);
   });
 });

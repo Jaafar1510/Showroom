@@ -115,6 +115,46 @@ body {
   background: #b80000;
 }
 
+.season-switcher {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.season-switcher span {
+  color: #fff;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.season-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.season-btn {
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.season-btn:hover,
+.season-btn.active {
+  background: #e10600;
+  border-color: #e10600;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
 /* SECTIONS */
 
 .section {
@@ -874,31 +914,6 @@ body {
 
 /* QUALIFYING */
 
-.pole-banner {
-  background:
-    linear-gradient(135deg, #e10600, #111);
-  color: #fff;
-  padding: 22px;
-  border-radius: 0 24px 0 24px;
-  margin-bottom: 22px;
-}
-
-.pole-banner span {
-  display: block;
-  font-size: 0.8rem;
-  letter-spacing: 2px;
-  font-weight: 900;
-  margin-bottom: 8px;
-}
-
-.pole-banner strong {
-  display: block;
-  font-size: 1.8rem;
-}
-
-.pole-banner small {
-  color: #f1f1f1;
-}
 
 .qualifying-board-wrapper {
   overflow-x: auto;
@@ -1298,6 +1313,58 @@ body {
   border-left: 5px solid #111;
 }
 
+.coming-soon-session {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(244, 244, 244, 0.96));
+  border: 2px dashed #cfcfcf;
+  border-left: 8px solid #e10600;
+  border-radius: 0 26px 0 26px;
+  padding: clamp(18px, 3vw, 28px);
+}
+
+.coming-soon-label {
+  display: inline-block;
+  background: #111;
+  color: #fff;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+.coming-soon-session h5 {
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  margin-bottom: 10px;
+}
+
+.coming-soon-session p {
+  color: #555;
+  line-height: 1.7;
+  font-weight: 700;
+  max-width: 760px;
+}
+
+.coming-soon-session ul {
+  margin-top: 18px;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.coming-soon-session li {
+  background: #fff;
+  border: 2px solid #eee;
+  border-left: 5px solid #e10600;
+  padding: 10px 12px;
+  border-radius: 0 14px 0 14px;
+  font-weight: 900;
+  color: #333;
+}
+
 .weekend-result-list {
   list-style: none;
   display: grid;
@@ -1672,12 +1739,16 @@ body {
 
 /* WEEKEND SESSION TABS */
 
+.weekend-session-area {
+  width: 100%;
+  margin-top: 28px;
+}
+
 .weekend-session-tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   padding: 10px 0 18px;
-  margin-top: 28px;
   margin-bottom: 22px;
   border-bottom: 2px solid #eee;
   width: 100%;
@@ -1704,7 +1775,6 @@ body {
 .weekend-session-panels {
   width: 100%;
   display: block;
-  margin-top: 12px;
 }
 
 .weekend-session-panel {
@@ -1740,6 +1810,26 @@ body {
   font-weight: 700;
 }
 
+.session-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.session-status-badge {
+  background: #e10600;
+  color: #fff;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
 .weekend-session-panel .race-highlights,
 .weekend-session-panel .real-podium,
 .weekend-session-panel .full-classification,
@@ -1759,41 +1849,6 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.weekend-session-tabs,
-.weekend-session-panels,
-.weekend-session-panel {
-  width: 100%;
-}
-
-.weekend-session-panels {
-  display: block;
-}
-
-.weekend-session-panel.active {
-  display: block;
-  width: 100%;
-}
-
-.weekend-session-panel .race-highlights,
-.weekend-session-panel .real-podium,
-.weekend-session-panel .full-classification,
-.weekend-session-panel .qualifying-board-wrapper,
-.weekend-session-panel .f1-grid-track,
-.weekend-session-panel .practice-list {
-  width: 100%;
-}
-
-.weekend-session-panel {
-  background: #f4f4f4;
-  border: 2px solid #ddd;
-  border-radius: 0 34px 0 34px;
-  padding: clamp(18px, 3vw, 28px);
-}
-
-.weekend-session-panel-header {
-  max-width: 100%;
 }
 
 /* MOBILE */
@@ -1834,13 +1889,31 @@ body {
   }
 
   .grid-slot {
-    width: 92%;
+    width: 78%;
+    max-width: 360px;
+    margin-bottom: 22px;
   }
 
-  .grid-slot.left,
+  .grid-slot.left {
+    margin-right: auto;
+    margin-left: 0;
+  }
+
   .grid-slot.right {
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 0;
+  }
+
+  .grid-position-card {
+    padding: 14px;
+  }
+
+  .grid-position-card h5 {
+    font-size: 1rem;
+  }
+
+  .grid-position-card p {
+    font-size: 0.9rem;
   }
 
   .podium-1 {
@@ -1920,5 +1993,23 @@ body {
     flex: 0 0 auto;
     padding: 9px 13px;
     font-size: 0.82rem;
+  }
+
+  .session-header-top {
+    align-items: flex-start;
+  }
+
+  .session-status-badge {
+    font-size: 0.68rem;
+    padding: 6px 10px;
+  }
+
+  .season-switcher {
+    align-items: flex-start;
+  }
+
+  .season-btn {
+    padding: 8px 13px;
+    font-size: 0.85rem;
   }
 }
