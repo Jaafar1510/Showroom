@@ -1,3 +1,96 @@
+// DEMO DATA ONLY
+// This file currently contains sample race weekend data used to test the UI.
+// Replace each round with verified real session, qualifying, grid, and race data later.
+
+// DEMO / PLACEHOLDER DATA HELPERS
+// These templates keep every race weekend page working until real data is added.
+
+function createPracticeTemplate(sessionName) {
+  return {
+    status: "Coming soon",
+    headline: `${sessionName} data will be added later.`,
+    classification: [],
+    notes: []
+  };
+}
+
+function createQualifyingTemplate() {
+  return {
+    status: "Coming soon",
+    pole: "",
+    q1: { classification: [] },
+    q2: { classification: [] },
+    q3: { classification: [] },
+    notes: []
+  };
+}
+
+function createSprintQualifyingTemplate() {
+  return {
+    status: "Coming soon",
+    pole: "",
+    sq1: { classification: [] },
+    sq2: { classification: [] },
+    sq3: { classification: [] },
+    notes: []
+  };
+}
+
+function createStartingGridTemplate() {
+  return {
+    status: "Coming soon",
+    poleSide: "left",
+    positions: [],
+    notes: []
+  };
+}
+
+function createRaceTemplate() {
+  return {
+    status: "Coming soon",
+    podium: [],
+    fastestLap: null,
+    fastestPitStop: null,
+    driverOfTheDay: "",
+    fullClassification: [],
+    strategy: [],
+    keyMoments: [],
+    penalties: [],
+    notes: []
+  };
+}
+
+function createSprintResultTemplate() {
+  return {
+    status: "Coming soon",
+    headline: "Sprint result will be added later.",
+    classification: [],
+    notes: []
+  };
+}
+
+function createNormalWeekendTemplate() {
+  return {
+    fp1: createPracticeTemplate("FP1"),
+    fp2: createPracticeTemplate("FP2"),
+    fp3: createPracticeTemplate("FP3"),
+    qualifying: createQualifyingTemplate(),
+    startingGrid: createStartingGridTemplate(),
+    race: createRaceTemplate()
+  };
+}
+
+function createSprintWeekendTemplate() {
+  return {
+    fp1: createPracticeTemplate("FP1"),
+    sprintQualifying: createSprintQualifyingTemplate(),
+    sprint: createSprintResultTemplate(),
+    qualifying: createQualifyingTemplate(),
+    startingGrid: createStartingGridTemplate(),
+    race: createRaceTemplate()
+  };
+}
+
 const sessionDetails2025 = {
   1: {
     fp1: {
@@ -173,8 +266,8 @@ const sessionDetails2025 = {
         { grid: 4, code: "LEC", team: "Ferrari", qualified: 4 },
         { grid: 5, code: "RUS", team: "Mercedes", qualified: 5 },
         { grid: 6, code: "HAM", team: "Ferrari", qualified: 6 },
-        { grid: 7, code: "ALO", team: "Aston Martin", qualified: 8, note: "Demo grid change" },
-        { grid: 8, code: "SAI", team: "Williams", qualified: 7, note: "Demo penalty/drop" },
+        { grid: 7, code: "ALO", team: "Aston Martin", qualified: 8, reason: "Demo grid change" },
+        { grid: 8, code: "SAI", team: "Williams", qualified: 7, reason: "Demo penalty/drop" },
         { grid: 9, code: "ALB", team: "Williams", qualified: 9 },
         { grid: 10, code: "TSU", team: "Racing Bulls", qualified: 10 }
       ],
@@ -341,5 +434,29 @@ const sessionDetails2025 = {
         "Demo race note: all demo values will be replaced with verified race data later."
       ]
     }
-  }
+  },
+
+  2: createSprintWeekendTemplate(),
+  3: createNormalWeekendTemplate(),
+  4: createNormalWeekendTemplate(),
+  5: createNormalWeekendTemplate(),
+  6: createSprintWeekendTemplate(),
+  7: createNormalWeekendTemplate(),
+  8: createNormalWeekendTemplate(),
+  9: createNormalWeekendTemplate(),
+  10: createNormalWeekendTemplate(),
+  11: createNormalWeekendTemplate(),
+  12: createNormalWeekendTemplate(),
+  13: createSprintWeekendTemplate(),
+  14: createNormalWeekendTemplate(),
+  15: createNormalWeekendTemplate(),
+  16: createNormalWeekendTemplate(),
+  17: createNormalWeekendTemplate(),
+  18: createNormalWeekendTemplate(),
+  19: createSprintWeekendTemplate(),
+  20: createNormalWeekendTemplate(),
+  21: createSprintWeekendTemplate(),
+  22: createNormalWeekendTemplate(),
+  23: createSprintWeekendTemplate(),
+  24: createNormalWeekendTemplate()
 };
