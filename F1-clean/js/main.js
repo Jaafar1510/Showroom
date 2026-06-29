@@ -1,5 +1,45 @@
 let currentSeason = 2025;
 
+const seasonRegistry = {
+  2025: {
+    label: "2025",
+    status: "Available",
+    races: races2025,
+    drivers: drivers2025,
+    teams: teams2025,
+    raceResults: raceResults2025,
+    sprintResults: sprintResults2025,
+    raceDetails: raceDetails2025,
+    sessionDetails: sessionDetails2025,
+    sprintRounds: sprintRounds2025,
+    racePointsSystem: racePointsSystem,
+    sprintPointsSystem: sprintPointsSystem
+  },
+
+  2026: {
+    label: "2026",
+    status: "Coming soon",
+    races: null,
+    drivers: null,
+    teams: null,
+    raceResults: null,
+    sprintResults: null,
+    raceDetails: null,
+    sessionDetails: null,
+    sprintRounds: null,
+    racePointsSystem: null,
+    sprintPointsSystem: null
+  }
+};
+
+function getActiveSeasonData() {
+  return seasonRegistry[currentSeason] || seasonRegistry[2025];
+}
+
+function isSeasonAvailable(season) {
+  return Boolean(seasonRegistry[season]?.races);
+}
+
 const raceCalendar = document.getElementById("raceCalendar");
 
 function createSummerBreakCard() {
@@ -1649,7 +1689,14 @@ exploreTabs.forEach((tab) => {
 const seasonButtons = document.querySelectorAll(".season-btn");
 
 function setActiveSeason(season) {
-  currentSeason = Number(season);
+  const selectedSeason = Number(season);
+
+  if (!isSeasonAvailable(selectedSeason)) {
+    alert(`${selectedSeason} season data will be added soon.`);
+    return;
+  }
+
+  currentSeason = selectedSeason;
 
   seasonButtons.forEach((button) => {
     button.classList.toggle(
