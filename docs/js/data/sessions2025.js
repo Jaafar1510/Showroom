@@ -5,6 +5,327 @@
 // DEMO / PLACEHOLDER DATA HELPERS
 // These templates keep every race weekend page working until real data is added.
 
+// ======================================================
+// OFFICIAL 2025 FULL WEEKEND DATA TEMPLATE
+// ======================================================
+// Use this shape for every completed 2025 race weekend.
+// Status values:
+// - "Verified"      → real checked data
+// - "Completed"     → complete but needs final review
+// - "Coming soon"   → not filled yet
+//
+// Normal weekend sessions:
+// FP1, FP2, FP3, Qualifying, Starting Grid, Race
+//
+// Sprint weekend sessions:
+// FP1, Sprint Qualifying, Sprint, Qualifying, Starting Grid, Race
+//
+// NOTE:
+// Race and Sprint results that affect standings should also be added
+// inside standings2025.js, not only here.
+// ======================================================
+
+const completedNormalWeekendTemplate = {
+  fp1: {
+    status: "Verified",
+    headline: "FP1 classification",
+    classification: [
+      {
+        position: 1,
+        code: "DRI",
+        team: "Team Name",
+        time: "1:00.000",
+        gap: "—",
+        laps: 20,
+        tyres: []
+      }
+    ],
+    notes: []
+  },
+
+  fp2: {
+    status: "Verified",
+    headline: "FP2 classification",
+    classification: [
+      {
+        position: 1,
+        code: "DRI",
+        team: "Team Name",
+        time: "1:00.000",
+        gap: "—",
+        laps: 20,
+        tyres: []
+      }
+    ],
+    notes: []
+  },
+
+  fp3: {
+    status: "Verified",
+    headline: "FP3 classification",
+    classification: [
+      {
+        position: 1,
+        code: "DRI",
+        team: "Team Name",
+        time: "1:00.000",
+        gap: "—",
+        laps: 20,
+        tyres: []
+      }
+    ],
+    notes: []
+  },
+
+  qualifying: {
+    status: "Verified",
+    pole: "DRI",
+
+    q1: {
+      classification: [
+        {
+          position: 1,
+          code: "DRI",
+          time: "1:00.000"
+        }
+      ]
+    },
+
+    q2: {
+      classification: [
+        {
+          position: 1,
+          code: "DRI",
+          time: "1:00.000"
+        }
+      ]
+    },
+
+    q3: {
+      classification: [
+        {
+          position: 1,
+          code: "DRI",
+          time: "1:00.000"
+        }
+      ]
+    },
+
+    notes: []
+  },
+
+  startingGrid: {
+    status: "Verified",
+    poleSide: "left",
+    positions: [
+      {
+        grid: 1,
+        code: "DRI",
+        team: "Team Name",
+        qualified: 1,
+        reason: ""
+      }
+    ],
+    notes: []
+  },
+
+  race: {
+    status: "Verified",
+
+    fastestLap: {
+      code: "DRI",
+      time: "1:00.000",
+      lap: 50
+    },
+
+    fastestPitStop: {
+      team: "Team Name",
+      driver: "DRI",
+      time: "2.00s"
+    },
+
+    driverOfTheDay: "DRI",
+
+    podium: [
+      {
+        position: 1,
+        code: "DRI",
+        team: "Team Name",
+        time: "1:30:00.000"
+      },
+      {
+        position: 2,
+        code: "DRI",
+        team: "Team Name",
+        gap: "+0.000s"
+      },
+      {
+        position: 3,
+        code: "DRI",
+        team: "Team Name",
+        gap: "+0.000s"
+      }
+    ],
+
+    fullClassification: [
+      {
+        position: 1,
+        code: "DRI",
+        team: "Team Name",
+        time: "1:30:00.000",
+        status: "Finished",
+        points: 25,
+        note: ""
+      }
+    ],
+
+    strategy: [],
+    keyMoments: [],
+    penalties: [],
+    notes: []
+  }
+};
+
+const completedSprintWeekendTemplate = {
+  fp1: {
+    status: "Verified",
+    headline: "FP1 classification",
+    classification: [
+      {
+        position: 1,
+        code: "DRI",
+        team: "Team Name",
+        time: "1:00.000",
+        gap: "—",
+        laps: 20,
+        tyres: []
+      }
+    ],
+    notes: []
+  },
+
+  sprintQualifying: {
+    status: "Verified",
+    pole: "DRI",
+
+    sq1: {
+      classification: [
+        {
+          position: 1,
+          code: "DRI",
+          time: "1:00.000"
+        }
+      ]
+    },
+
+    sq2: {
+      classification: [
+        {
+          position: 1,
+          code: "DRI",
+          time: "1:00.000"
+        }
+      ]
+    },
+
+    sq3: {
+      classification: [
+        {
+          position: 1,
+          code: "DRI",
+          time: "1:00.000"
+        }
+      ]
+    },
+
+    notes: []
+  },
+
+  sprint: {
+    status: "Verified",
+    notes: []
+  },
+
+  qualifying: {
+    status: "Verified",
+    pole: "DRI",
+
+    q1: {
+      classification: [
+        {
+          position: 1,
+          code: "DRI",
+          time: "1:00.000"
+        }
+      ]
+    },
+
+    q2: {
+      classification: [
+        {
+          position: 1,
+          code: "DRI",
+          time: "1:00.000"
+        }
+      ]
+    },
+
+    q3: {
+      classification: [
+        {
+          position: 1,
+          code: "DRI",
+          time: "1:00.000"
+        }
+      ]
+    },
+
+    notes: []
+  },
+
+  startingGrid: {
+    status: "Verified",
+    poleSide: "left",
+    positions: [
+      {
+        grid: 1,
+        code: "DRI",
+        team: "Team Name",
+        qualified: 1,
+        reason: ""
+      }
+    ],
+    notes: []
+  },
+
+  race: {
+    status: "Verified",
+
+    fastestLap: {
+      code: "DRI",
+      time: "1:00.000",
+      lap: 50
+    },
+
+    fastestPitStop: {
+      team: "Team Name",
+      driver: "DRI",
+      time: "2.00s"
+    },
+
+    driverOfTheDay: "DRI",
+
+    podium: [],
+
+    fullClassification: [],
+
+    strategy: [],
+    keyMoments: [],
+    penalties: [],
+    notes: []
+  }
+};
+
 function createPracticeTemplate(sessionName) {
   return {
     status: "Coming soon",
