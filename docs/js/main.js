@@ -1762,6 +1762,26 @@ function renderSeasonButtons() {
   });
 }
 
+function updateHeroSeasonText() {
+  const heroTitle = document.getElementById("heroSeasonTitle");
+  const heroDescription = document.getElementById("heroSeasonDescription");
+  const heroStatus = document.getElementById("heroSeasonStatus");
+
+  const seasonData = getActiveSeasonData();
+
+  if (heroTitle) {
+    heroTitle.textContent = `Formula 1 ${seasonData.label} Season`;
+  }
+
+  if (heroDescription) {
+    heroDescription.textContent = `Explore the ${seasonData.label} Formula 1 season with races, teams, drivers, standings, results, and full race weekend details.`;
+  }
+
+  if (heroStatus) {
+    heroStatus.textContent = seasonData.status;
+  }
+}
+
 function refreshSeasonButtons() {
   seasonButtonsContainer?.querySelectorAll(".season-btn").forEach((button) => {
     button.classList.toggle(
@@ -1772,6 +1792,8 @@ function refreshSeasonButtons() {
 }
 
 function refreshActiveSeasonUI() {
+  updateHeroSeasonText();
+
   renderRaceCalendar();
   renderDrivers();
   renderTeams();
@@ -1811,3 +1833,4 @@ function setActiveSeason(season) {
 }
 
 renderSeasonButtons();
+updateHeroSeasonText();
