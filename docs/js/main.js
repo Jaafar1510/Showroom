@@ -976,11 +976,15 @@ function buildQualifyingRows(qualifying, sessionName) {
         sortPosition = 1;
       }
 
+      const qualifyingPosition =
+        q3?.position || q2?.position || q1?.position || "—";
+
       return {
         code,
         q1,
         q2,
         q3,
+        qualifyingPosition,
         status,
         statusClass,
         sortGroup,
@@ -1019,12 +1023,13 @@ function renderQualifyingSession(round, sessionName = "Qualifying") {
       <table class="qualifying-board">
         <thead>
           <tr>
-            <th>Driver</th>
-            <th>${groups.phase1Label}</th>
-            <th>${groups.phase2Label}</th>
-            <th>${groups.phase3Label}</th>
-            <th>Status</th>
-          </tr>
+          <th>Pos</th>
+          <th>Driver</th>
+          <th>${groups.phase1Label}</th>
+          <th>${groups.phase2Label}</th>
+          <th>${groups.phase3Label}</th>
+          <th>Status</th>
+        </tr>
         </thead>
 
         <tbody>
@@ -1034,14 +1039,22 @@ function renderQualifyingSession(round, sessionName = "Qualifying") {
 
               return `
                 <tr>
-                  <td>
-                    <span class="quali-driver-name">
-                      ${driver ? driver.name : row.code}
-                    </span>
-                    <span class="standing-code">${row.code}</span>
-                  </td>
+                <td class="quali-position">
+                  ${
+                    typeof row.qualifyingPosition === "number"
+                      ? `P${row.qualifyingPosition}`
+                      : row.qualifyingPosition
+                  }
+                </td>
 
-                  <td>${row.q1?.time || "—"}</td>
+                <td>
+                  <span class="quali-driver-name">
+                    ${driver ? driver.name : row.code}
+                  </span>
+                  <span class="standing-code">${row.code}</span>
+                </td>
+
+                <td>${row.q1?.time || "—"}</td>
                   <td>${row.q2?.time || "—"}</td>
                   <td>${row.q3?.time || "—"}</td>
 

@@ -996,6 +996,12 @@ body {
   background: #888;
 }
 
+.quali-position {
+  font-weight: 950;
+  color: #e10600;
+  white-space: nowrap;
+}
+
 /* STARTING GRID */
 
 .f1-grid-track {
