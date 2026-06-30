@@ -4,6 +4,7 @@ const seasonRegistry = {
   2025: {
     label: "2025",
     status: "Available",
+    available: true,
     races: races2025,
     drivers: drivers2025,
     teams: teams2025,
@@ -19,16 +20,17 @@ const seasonRegistry = {
   2026: {
     label: "2026",
     status: "Coming soon",
-    races: null,
-    drivers: null,
-    teams: null,
-    raceResults: null,
-    sprintResults: null,
-    raceDetails: null,
-    sessionDetails: null,
-    sprintRounds: null,
-    racePointsSystem: null,
-    sprintPointsSystem: null
+    available: false,
+    races: races2026,
+    drivers: drivers2026,
+    teams: teams2026,
+    raceResults: raceResults2026,
+    sprintResults: sprintResults2026,
+    raceDetails: raceDetails2026,
+    sessionDetails: sessionDetails2026,
+    sprintRounds: sprintRounds2026,
+    racePointsSystem: racePointsSystem2026,
+    sprintPointsSystem: sprintPointsSystem2026
   }
 };
 
@@ -77,7 +79,7 @@ function getSeasonSprintPointsSystem() {
 }
 
 function isSeasonAvailable(season) {
-  return Boolean(seasonRegistry[season]?.races);
+  return Boolean(seasonRegistry[season]?.available);
 }
 
 const raceCalendar = document.getElementById("raceCalendar");
