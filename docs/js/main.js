@@ -886,7 +886,7 @@ function renderPracticeSession(sessionDetails) {
               <span class="session-position">P${entry.position}</span>
 
               <div>
-                <strong>${driver ? driver.name : entry.code}</strong>
+                <strong>${entry.name || (driver ? driver.name : entry.code)}</strong>
                 <small>${entry.team || driver?.team || "Team TBC"}</small>
                 ${renderTyreTags(entry.tyres)}
               </div>
