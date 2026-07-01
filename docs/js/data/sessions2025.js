@@ -776,6 +776,43 @@ const sessionDetails2025 = {
       ]
     },
 
+    sprintGrid: {
+      status: "Verified",
+      poleSide: "left",
+      positions: [
+        { grid: 1, code: "HAM", team: "Ferrari", qualified: 1, note: "Sprint pole" },
+        { grid: 2, code: "VER", team: "Red Bull Racing", qualified: 2 },
+        { grid: 3, code: "PIA", team: "McLaren", qualified: 3 },
+        { grid: 4, code: "LEC", team: "Ferrari", qualified: 4 },
+        { grid: 5, code: "RUS", team: "Mercedes", qualified: 5 },
+        { grid: 6, code: "NOR", team: "McLaren", qualified: 6 },
+        { grid: 7, code: "ANT", team: "Mercedes", qualified: 7 },
+        { grid: 8, code: "TSU", team: "Racing Bulls", qualified: 8 },
+        { grid: 9, code: "ALB", team: "Williams", qualified: 9 },
+        { grid: 10, code: "STR", team: "Aston Martin", qualified: 10 },
+        { grid: 11, code: "ALO", team: "Aston Martin", qualified: 11 },
+        { grid: 12, code: "BEA", team: "Haas", qualified: 12 },
+        { grid: 13, code: "SAI", team: "Williams", qualified: 13 },
+        { grid: 14, code: "BOR", team: "Kick Sauber", qualified: 14 },
+        { grid: 15, code: "HAD", team: "Racing Bulls", qualified: 15 },
+        { grid: 16, code: "DOO", team: "Alpine", qualified: 16 },
+        { grid: 17, code: "GAS", team: "Alpine", qualified: 17 },
+        { grid: 18, code: "OCO", team: "Haas", qualified: 18 },
+        { grid: 19, code: "LAW", team: "Red Bull Racing", qualified: 19 },
+        {
+          grid: 20,
+          code: "HUL",
+          team: "Kick Sauber",
+          qualified: 20,
+          reason: "Required to start from pit lane after Parc Ferme changes"
+        }
+      ],
+      notes: [
+        "Lewis Hamilton started the Sprint from pole for Ferrari.",
+        "Nico Hulkenberg was required to start from the pit lane after his car was modified under Parc Ferme conditions."
+      ]
+    },
+
     sprint: {
       status: "Verified",
       headline: "Sprint classification",
