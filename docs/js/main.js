@@ -590,6 +590,7 @@ function getWeekendSessions(format) {
     return [
       "FP1",
       "Sprint Qualifying",
+      "Sprint Grid",
       "Sprint",
       "Qualifying",
       "Starting Grid",
@@ -809,6 +810,7 @@ const sessionKeyMap = {
   "FP2": "fp2",
   "FP3": "fp3",
   "Sprint Qualifying": "sprintQualifying",
+  "Sprint Grid": "sprintGrid",
   "Sprint": "sprint",
   "Qualifying": "qualifying",
   "Starting Grid": "startingGrid",
@@ -1085,15 +1087,18 @@ function getGridSide(position, poleSide) {
   return isOdd ? "left" : "right";
 }
 
-function renderStartingGrid(round) {
-  const gridData = getSessionDetails(round, "Starting Grid");
+function renderStartingGrid(round, sessionName = "Starting Grid") {
+  const gridData = getSessionDetails(round, sessionName);
+  const isSprintGrid = sessionName === "Sprint Grid";
 
   if (!gridData?.positions?.length) {
     return renderComingSoonSession(
-    "Starting grid coming soon.",
-    "The official race grid will appear here in a staggered F1-style layout once qualifying and penalty data are added.",
-    ["Grid position", "Qualified position", "Penalty reasons", "Pole side"]
-  );
+      isSprintGrid ? "Sprint grid coming soon." : "Starting grid coming soon.",
+      isSprintGrid
+        ? "The official Sprint starting grid will appear here once Sprint Qualifying data is added."
+        : "The official race grid will appear here in a staggered F1-style layout once qualifying and penalty data are added.",
+      ["Grid position", "Qualified position", "Penalty reasons", "Pole side"]
+    );
   }
 
   return `
@@ -1345,6 +1350,46 @@ function renderRaceSession(round) {
   `;
 }
 
+function renderSprintSession(round) {
+  const sprintData = getSessionDetails(round, "Sprint");
+
+  if (!sprintData?.classification?.length) {
+    return renderMiniResultList(
+      getSprintResultByRound(round),
+      getSeasonSprintPointsSystem()
+    );
+  }
+
+  return `
+    <ol class="weekend-result-list">
+      ${sprintData.classification
+        .map((entry) => {
+          const driver = getDriverByCode(entry.code);
+
+          return `
+            <li>
+              <span>
+                ${typeof entry.position === "number" ? `P${entry.position}` : entry.position}
+              </span>
+
+              <strong>${driver ? driver.name : entry.code}</strong>
+
+              <small>${entry.team}</small>
+
+              <b>
+                ${entry.time || entry.gap || entry.status || "—"}
+                ${entry.points !== undefined ? ` · ${entry.points} pts` : ""}
+              </b>
+            </li>
+          `;
+        })
+        .join("")}
+    </ol>
+
+    ${renderNotes(sprintData.notes)}
+  `;
+}
+
 function renderMiniResultList(event, pointsSystem) {
   if (!event) {
     return `<p class="empty-session">Results will be added later.</p>`;
@@ -1379,16 +1424,20 @@ function renderWeekendSessionContent(sessionName, round) {
   }
 
   if (sessionName === "Sprint") {
-    return renderMiniResultList(getSprintResultByRound(round), getSeasonSprintPointsSystem());
+    return renderSprintSession(round);
   }
 
   if (sessionName === "Qualifying" || sessionName === "Sprint Qualifying") {
     return renderQualifyingSession(round, sessionName);
   }
 
+  if (sessionName === "Sprint Grid") {
+    return renderStartingGrid(round, "Sprint Grid");
+  }
+
   if (sessionName === "Starting Grid") {
     return renderStartingGrid(round);
-  }
+  } 
 
   return renderPracticeSession(sessionDetails);
 }
@@ -1446,6 +1495,7 @@ function getSessionSmallDescription(sessionName) {
     "FP2": "Second practice session, pace runs, and tyre work.",
     "FP3": "Final practice before qualifying.",
     "Sprint Qualifying": "SQ1, SQ2, and SQ3 timing board.",
+    "Sprint Grid": "Official Sprint starting grid layout.",
     "Sprint": "Sprint result and points finishers.",
     "Qualifying": "Q1, Q2, and Q3 timing board.",
     "Starting Grid": "Official race starting grid layout.",
@@ -1511,7 +1561,7 @@ function renderSessionCard(sessionName, round) {
             <small>Sprint result</small>
           </summary>
 
-          ${renderMiniResultList(getSprintResultByRound(round), getSeasonSprintPointsSystem())}
+          ${renderSprintSession(round)}
         </details>
       </article>
     `;
