@@ -1804,7 +1804,356 @@ const sessionDetails2025 = {
       ]
     }
   },
-  6: createSprintWeekendTemplate(),
+  6: {
+    fp1: {
+      status: "Verified",
+      headline: "FP1 classification",
+      classification: [
+        { position: 1, code: "PIA", team: "McLaren", time: "1:27.128", gap: "—", laps: 22, tyres: [] },
+        { position: 2, code: "LEC", team: "Ferrari", time: "", gap: "+0.356s", laps: 22, tyres: [] },
+        { position: 3, code: "VER", team: "Red Bull Racing", time: "", gap: "+0.430s", laps: 20, tyres: [] },
+        { position: 4, code: "SAI", team: "Williams", time: "", gap: "+0.550s", laps: 23, tyres: [] },
+        { position: 5, code: "ALB", team: "Williams", time: "", gap: "+0.827s", laps: 25, tyres: [] },
+        { position: 6, code: "HAD", team: "Racing Bulls", time: "", gap: "+0.840s", laps: 23, tyres: [] },
+        { position: 7, code: "RUS", team: "Mercedes", time: "", gap: "+0.930s", laps: 26, tyres: [] },
+        { position: 8, code: "TSU", team: "Red Bull Racing", time: "", gap: "+1.027s", laps: 21, tyres: [] },
+        { position: 9, code: "ANT", team: "Mercedes", time: "", gap: "+1.099s", laps: 28, tyres: [] },
+        { position: 10, code: "ALO", team: "Aston Martin", time: "", gap: "+1.115s", laps: 24, tyres: [] },
+        { position: 11, code: "LAW", team: "Racing Bulls", time: "", gap: "+1.246s", laps: 21, tyres: [] },
+        { position: 12, code: "NOR", team: "McLaren", time: "", gap: "+1.263s", laps: 21, tyres: [] },
+        { position: 13, code: "HAM", team: "Ferrari", time: "", gap: "+1.428s", laps: 20, tyres: [] },
+        { position: 14, code: "HUL", team: "Kick Sauber", time: "", gap: "+1.445s", laps: 13, tyres: [] },
+        { position: 15, code: "BOR", team: "Kick Sauber", time: "", gap: "+1.643s", laps: 19, tyres: [] },
+        { position: 16, code: "BEA", team: "Haas", time: "", gap: "+1.868s", laps: 22, tyres: [] },
+        { position: 17, code: "GAS", team: "Alpine", time: "", gap: "+1.956s", laps: 22, tyres: [] },
+        { position: 18, code: "OCO", team: "Haas", time: "", gap: "+2.051s", laps: 19, tyres: [] },
+        { position: 19, code: "DOO", team: "Alpine", time: "", gap: "+2.229s", laps: 22, tyres: [] },
+        { position: 20, code: "STR", team: "Aston Martin", time: "", gap: "+2.234s", laps: 21, tyres: [] }
+      ],
+      notes: [
+        "Oscar Piastri topped the only practice session of the Miami Sprint weekend.",
+        "The Sprint format meant FP1 was the only practice session before competitive running."
+      ]
+    },
+
+    sprintQualifying: {
+      status: "Verified",
+      pole: "ANT",
+
+      sq1: {
+        classification: [
+          { position: 1, code: "ANT", time: "1:27.858" },
+          { position: 2, code: "PIA", time: "1:27.951" },
+          { position: 3, code: "NOR", time: "1:27.890" },
+          { position: 4, code: "VER", time: "1:27.953" },
+          { position: 5, code: "RUS", time: "1:27.688" },
+          { position: 6, code: "LEC", time: "1:28.325" },
+          { position: 7, code: "HAM", time: "1:28.231" },
+          { position: 8, code: "ALB", time: "1:27.859" },
+          { position: 9, code: "HAD", time: "1:28.394" },
+          { position: 10, code: "ALO", time: "1:28.455" },
+          { position: 11, code: "HUL", time: "1:28.542" },
+          { position: 12, code: "OCO", time: "1:28.303" },
+          { position: 13, code: "GAS", time: "1:28.345" },
+          { position: 14, code: "LAW", time: "1:28.914" },
+          { position: 15, code: "SAI", time: "1:27.899" },
+          { position: 16, code: "STR", time: "1:29.028" },
+          { position: 17, code: "DOO", time: "1:29.171" },
+          { position: 18, code: "TSU", time: "1:29.246" },
+          { position: 19, code: "BOR", time: "1:29.312" },
+          { position: 20, code: "BEA", time: "1:29.825" }
+        ]
+      },
+
+      sq2: {
+        classification: [
+          { position: 1, code: "ANT", time: "1:27.384" },
+          { position: 2, code: "PIA", time: "1:27.354" },
+          { position: 3, code: "NOR", time: "1:27.109" },
+          { position: 4, code: "VER", time: "1:27.245" },
+          { position: 5, code: "RUS", time: "1:27.666" },
+          { position: 6, code: "LEC", time: "1:27.467" },
+          { position: 7, code: "HAM", time: "1:27.546" },
+          { position: 8, code: "ALB", time: "1:27.697" },
+          { position: 9, code: "HAD", time: "1:27.773" },
+          { position: 10, code: "ALO", time: "1:27.766" },
+          { position: 11, code: "HUL", time: "1:27.850" },
+          { position: 12, code: "OCO", time: "1:28.070" },
+          { position: 13, code: "GAS", time: "1:28.167" },
+          { position: 14, code: "LAW", time: "1:28.375" },
+          { position: 15, code: "SAI", time: "DNF" }
+        ]
+      },
+
+      sq3: {
+        classification: [
+          { position: 1, code: "ANT", time: "1:26.482" },
+          { position: 2, code: "PIA", time: "1:26.527" },
+          { position: 3, code: "NOR", time: "1:26.582" },
+          { position: 4, code: "VER", time: "1:26.737" },
+          { position: 5, code: "RUS", time: "1:26.791" },
+          { position: 6, code: "LEC", time: "1:26.808" },
+          { position: 7, code: "HAM", time: "1:27.030" },
+          { position: 8, code: "ALB", time: "1:27.193" },
+          { position: 9, code: "HAD", time: "1:27.543" },
+          { position: 10, code: "ALO", time: "1:27.790" }
+        ]
+      },
+
+      notes: [
+        "Kimi Antonelli took Sprint pole for Mercedes.",
+        "Oscar Piastri and Lando Norris completed the top three for McLaren."
+      ]
+    },
+
+    sprintGrid: {
+      status: "Verified",
+      poleSide: "left",
+      positions: [
+        { grid: 1, code: "ANT", team: "Mercedes", qualified: 1, note: "Sprint pole" },
+        { grid: 2, code: "PIA", team: "McLaren", qualified: 2 },
+        { grid: 3, code: "NOR", team: "McLaren", qualified: 3 },
+        { grid: 4, code: "VER", team: "Red Bull Racing", qualified: 4 },
+        { grid: 5, code: "RUS", team: "Mercedes", qualified: 5 },
+        { grid: 6, code: "LEC", team: "Ferrari", qualified: 6 },
+        { grid: 7, code: "HAM", team: "Ferrari", qualified: 7 },
+        { grid: 8, code: "ALB", team: "Williams", qualified: 8 },
+        { grid: 9, code: "HAD", team: "Racing Bulls", qualified: 9 },
+        { grid: 10, code: "ALO", team: "Aston Martin", qualified: 10 },
+        { grid: 11, code: "HUL", team: "Kick Sauber", qualified: 11 },
+        { grid: 12, code: "OCO", team: "Haas", qualified: 12 },
+        { grid: 13, code: "GAS", team: "Alpine", qualified: 13 },
+        { grid: 14, code: "LAW", team: "Racing Bulls", qualified: 14 },
+        { grid: 15, code: "SAI", team: "Williams", qualified: 15 },
+        { grid: 16, code: "STR", team: "Aston Martin", qualified: 16 },
+        { grid: 17, code: "DOO", team: "Alpine", qualified: 17 },
+        { grid: 18, code: "BOR", team: "Kick Sauber", qualified: 19 },
+        { grid: 19, code: "BEA", team: "Haas", qualified: 20 },
+        {
+          grid: 20,
+          code: "TSU",
+          team: "Red Bull Racing",
+          qualified: 18,
+          reason: "Required to start from pit lane after Parc Ferme changes"
+        }
+      ],
+      notes: [
+        "Kimi Antonelli started the Sprint from pole.",
+        "Yuki Tsunoda was required to start from the pit lane after his car was modified under Parc Ferme conditions."
+      ]
+    },
+
+    sprint: {
+      status: "Verified",
+      headline: "Sprint classification",
+      classification: [
+        { position: 1, code: "NOR", team: "McLaren", time: "36:37.647", points: 8 },
+        { position: 2, code: "PIA", team: "McLaren", gap: "+0.672s", points: 7 },
+        { position: 3, code: "HAM", team: "Ferrari", gap: "+1.073s", points: 6 },
+        { position: 4, code: "RUS", team: "Mercedes", gap: "+3.127s", points: 5 },
+        { position: 5, code: "STR", team: "Aston Martin", gap: "+3.412s", points: 4 },
+        { position: 6, code: "TSU", team: "Red Bull Racing", gap: "+5.153s", points: 3 },
+        { position: 7, code: "ANT", team: "Mercedes", gap: "+5.635s", points: 2 },
+        { position: 8, code: "GAS", team: "Alpine", gap: "+5.973s", points: 1 },
+        { position: 9, code: "HUL", team: "Kick Sauber", gap: "+6.153s", points: 0 },
+        { position: 10, code: "HAD", team: "Racing Bulls", gap: "+7.502s", points: 0 },
+        { position: 11, code: "ALB", team: "Williams", gap: "+7.522s", points: 0 },
+        { position: 12, code: "OCO", team: "Haas", gap: "+8.998s", points: 0 },
+        { position: 13, code: "LAW", team: "Racing Bulls", gap: "+9.024s", points: 0 },
+        { position: 14, code: "BEA", team: "Haas", gap: "+9.218s", points: 0 },
+        { position: 15, code: "BOR", team: "Kick Sauber", gap: "+9.675s", points: 0 },
+        { position: 16, code: "DOO", team: "Alpine", gap: "+9.909s", points: 0 },
+        { position: 17, code: "VER", team: "Red Bull Racing", gap: "+12.059s", points: 0 },
+        { position: "NC", code: "ALO", team: "Aston Martin", status: "DNF", points: 0, note: "Completed 13 laps" },
+        { position: "NC", code: "SAI", team: "Williams", status: "DNF", points: 0, note: "Completed 12 laps" },
+        { position: "NC", code: "LEC", team: "Ferrari", status: "DNS", points: 0 }
+      ],
+      notes: [
+        "Lando Norris won the Miami Sprint for McLaren.",
+        "Max Verstappen received a 10-second time penalty for an unsafe release.",
+        "Oliver Bearman received a five-second penalty for an unsafe release.",
+        "Alexander Albon received a five-second penalty for failing to stay above the minimum lap time under the Safety Car.",
+        "Liam Lawson received a five-second penalty for causing a collision."
+      ]
+    },
+
+    qualifying: {
+      status: "Verified",
+      pole: "VER",
+
+      q1: {
+        classification: [
+          { position: 1, code: "VER", time: "1:26.870" },
+          { position: 2, code: "NOR", time: "1:26.955" },
+          { position: 3, code: "ANT", time: "1:27.077" },
+          { position: 4, code: "PIA", time: "1:27.006" },
+          { position: 5, code: "RUS", time: "1:27.014" },
+          { position: 6, code: "SAI", time: "1:27.098" },
+          { position: 7, code: "ALB", time: "1:27.042" },
+          { position: 8, code: "LEC", time: "1:27.417" },
+          { position: 9, code: "OCO", time: "1:27.450" },
+          { position: 10, code: "TSU", time: "1:27.298" },
+          { position: 11, code: "HAD", time: "1:27.301" },
+          { position: 12, code: "HAM", time: "1:27.279" },
+          { position: 13, code: "BOR", time: "1:27.343" },
+          { position: 14, code: "DOO", time: "1:27.422" },
+          { position: 15, code: "LAW", time: "1:27.444" },
+          { position: 16, code: "HUL", time: "1:27.473" },
+          { position: 17, code: "ALO", time: "1:27.604" },
+          { position: 18, code: "GAS", time: "1:27.710" },
+          { position: 19, code: "STR", time: "1:27.830" },
+          { position: 20, code: "BEA", time: "1:27.999" }
+        ]
+      },
+
+      q2: {
+        classification: [
+          { position: 1, code: "VER", time: "1:26.643" },
+          { position: 2, code: "NOR", time: "1:26.499" },
+          { position: 3, code: "ANT", time: "1:26.606" },
+          { position: 4, code: "PIA", time: "1:26.269" },
+          { position: 5, code: "RUS", time: "1:26.575" },
+          { position: 6, code: "SAI", time: "1:26.847" },
+          { position: 7, code: "ALB", time: "1:26.855" },
+          { position: 8, code: "LEC", time: "1:26.948" },
+          { position: 9, code: "OCO", time: "1:26.967" },
+          { position: 10, code: "TSU", time: "1:26.959" },
+          { position: 11, code: "HAD", time: "1:26.987" },
+          { position: 12, code: "HAM", time: "1:27.006" },
+          { position: 13, code: "BOR", time: "1:27.151" },
+          { position: 14, code: "DOO", time: "1:27.186" },
+          { position: 15, code: "LAW", time: "1:27.363" }
+        ]
+      },
+
+      q3: {
+        classification: [
+          { position: 1, code: "VER", time: "1:26.204" },
+          { position: 2, code: "NOR", time: "1:26.269" },
+          { position: 3, code: "ANT", time: "1:26.271" },
+          { position: 4, code: "PIA", time: "1:26.375" },
+          { position: 5, code: "RUS", time: "1:26.385" },
+          { position: 6, code: "SAI", time: "1:26.569" },
+          { position: 7, code: "ALB", time: "1:26.682" },
+          { position: 8, code: "LEC", time: "1:26.754" },
+          { position: 9, code: "OCO", time: "1:26.824" },
+          { position: 10, code: "TSU", time: "1:26.943" }
+        ]
+      },
+
+      notes: [
+        "Max Verstappen took Grand Prix pole position for Red Bull Racing.",
+        "Lando Norris qualified second, just ahead of Kimi Antonelli."
+      ]
+    },
+
+    startingGrid: {
+      status: "Verified",
+      poleSide: "left",
+      positions: [
+        { grid: 1, code: "VER", team: "Red Bull Racing", qualified: 1, note: "Pole position" },
+        { grid: 2, code: "NOR", team: "McLaren", qualified: 2 },
+        { grid: 3, code: "ANT", team: "Mercedes", qualified: 3 },
+        { grid: 4, code: "PIA", team: "McLaren", qualified: 4 },
+        { grid: 5, code: "RUS", team: "Mercedes", qualified: 5 },
+        { grid: 6, code: "SAI", team: "Williams", qualified: 6 },
+        { grid: 7, code: "ALB", team: "Williams", qualified: 7 },
+        { grid: 8, code: "LEC", team: "Ferrari", qualified: 8 },
+        { grid: 9, code: "OCO", team: "Haas", qualified: 9 },
+        { grid: 10, code: "TSU", team: "Red Bull Racing", qualified: 10 },
+        { grid: 11, code: "HAD", team: "Racing Bulls", qualified: 11 },
+        { grid: 12, code: "HAM", team: "Ferrari", qualified: 12 },
+        { grid: 13, code: "BOR", team: "Kick Sauber", qualified: 13 },
+        { grid: 14, code: "DOO", team: "Alpine", qualified: 14 },
+        { grid: 15, code: "LAW", team: "Racing Bulls", qualified: 15 },
+        { grid: 16, code: "HUL", team: "Kick Sauber", qualified: 16 },
+        { grid: 17, code: "ALO", team: "Aston Martin", qualified: 17 },
+        { grid: 18, code: "STR", team: "Aston Martin", qualified: 19 },
+        { grid: 19, code: "BEA", team: "Haas", qualified: 20 },
+        {
+          grid: 20,
+          code: "GAS",
+          team: "Alpine",
+          qualified: 18,
+          reason: "Required to start from pit lane after Parc Ferme changes"
+        }
+      ],
+      notes: [
+        "Max Verstappen started from pole.",
+        "Pierre Gasly was required to start from the pit lane after Alpine modified his car under Parc Ferme conditions."
+      ]
+    },
+
+    race: {
+      status: "Verified",
+
+      fastestLap: {
+        code: "NOR",
+        time: "1:29.746",
+        lap: 36
+      },
+
+      fastestPitStop: {
+        team: "Williams",
+        driver: "ALB",
+        time: "21.906s pit-lane time"
+      },
+
+      driverOfTheDay: "PIA",
+
+      podium: [
+        { position: 1, code: "PIA", team: "McLaren", time: "1:28:51.587" },
+        { position: 2, code: "NOR", team: "McLaren", gap: "+4.630s" },
+        { position: 3, code: "RUS", team: "Mercedes", gap: "+37.644s" }
+      ],
+
+      fullClassification: [
+        { position: 1, code: "PIA", team: "McLaren", time: "1:28:51.587", status: "Finished", points: 25 },
+        { position: 2, code: "NOR", team: "McLaren", gap: "+4.630s", status: "Finished", points: 18 },
+        { position: 3, code: "RUS", team: "Mercedes", gap: "+37.644s", status: "Finished", points: 15 },
+        { position: 4, code: "VER", team: "Red Bull Racing", gap: "+39.956s", status: "Finished", points: 12 },
+        { position: 5, code: "ALB", team: "Williams", gap: "+48.067s", status: "Finished", points: 10 },
+        { position: 6, code: "ANT", team: "Mercedes", gap: "+55.502s", status: "Finished", points: 8 },
+        { position: 7, code: "LEC", team: "Ferrari", gap: "+57.036s", status: "Finished", points: 6 },
+        { position: 8, code: "HAM", team: "Ferrari", gap: "+60.186s", status: "Finished", points: 4 },
+        { position: 9, code: "SAI", team: "Williams", gap: "+60.577s", status: "Finished", points: 2 },
+        { position: 10, code: "TSU", team: "Red Bull Racing", gap: "+74.434s", status: "Finished", points: 1, note: "Five-second time penalty for speeding in the pit lane" },
+        { position: 11, code: "HAD", team: "Racing Bulls", gap: "+74.602s", status: "Finished", points: 0 },
+        { position: 12, code: "OCO", team: "Haas", gap: "+82.006s", status: "Finished", points: 0 },
+        { position: 13, code: "GAS", team: "Alpine", gap: "+90.445s", status: "Finished", points: 0 },
+        { position: 14, code: "HUL", team: "Kick Sauber", gap: "+1 lap", status: "Finished", points: 0 },
+        { position: 15, code: "ALO", team: "Aston Martin", gap: "+1 lap", status: "Finished", points: 0 },
+        { position: 16, code: "STR", team: "Aston Martin", gap: "+1 lap", status: "Finished", points: 0 },
+        { position: "NC", code: "LAW", team: "Racing Bulls", status: "DNF", points: 0, note: "Completed 36 laps" },
+        { position: "NC", code: "BOR", team: "Kick Sauber", status: "DNF", points: 0, note: "Completed 30 laps" },
+        { position: "NC", code: "BEA", team: "Haas", status: "DNF", points: 0, note: "Completed 27 laps" },
+        { position: "NC", code: "DOO", team: "Alpine", status: "DNF", points: 0, note: "Retired on lap 1" }
+      ],
+
+      strategy: [
+        "Oscar Piastri moved forward from fourth on the grid and converted McLaren's race pace into victory.",
+        "Lando Norris completed a McLaren one-two, while George Russell finished third after Mercedes executed a strong race strategy."
+      ],
+
+      keyMoments: [
+        "Oscar Piastri passed Max Verstappen for the lead and went on to win.",
+        "McLaren secured a dominant one-two finish.",
+        "George Russell completed the podium for Mercedes.",
+        "Alex Albon finished fifth for Williams.",
+        "Lando Norris set the fastest lap on lap 36."
+      ],
+
+      penalties: [
+        "Yuki Tsunoda received a five-second time penalty for speeding in the pit lane."
+      ],
+
+      notes: [
+        "Oscar Piastri was voted Driver of the Day.",
+        "Lando Norris set the official fastest lap with a 1:29.746 on lap 36.",
+        "The fastest pit-lane time in the official pit stop summary was Alex Albon's 21.906s stop."
+      ]
+    }
+  },
   7: createNormalWeekendTemplate(),
   8: createNormalWeekendTemplate(),
   9: createNormalWeekendTemplate(),
