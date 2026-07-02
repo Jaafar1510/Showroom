@@ -1064,8 +1064,8 @@ body {
 }
 
 .pole-grid-card {
-  border-color: #e10600;
-  box-shadow: 0 0 0 4px rgba(225, 6, 0, 0.25);
+  border-color: var(--team-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--team-color) 25%, transparent);
 }
 
 .grid-card-top {
