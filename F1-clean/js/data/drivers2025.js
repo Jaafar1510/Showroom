@@ -2,6 +2,7 @@ const drivers2025 = [
   {
     number: 1,
     code: "VER",
+    imageKey: "ver",
     name: "Max Verstappen",
     country: "Netherlands",
     flag: "🇳🇱",
@@ -11,6 +12,7 @@ const drivers2025 = [
   {
     number: 30,
     code: "LAW",
+    imageKey: "law",
     name: "Liam Lawson",
     country: "New Zealand",
     flag: "🇳🇿",
@@ -20,6 +22,7 @@ const drivers2025 = [
   {
     number: 16,
     code: "LEC",
+    imageKey: "lec",
     name: "Charles Leclerc",
     country: "Monaco",
     flag: "🇲🇨",
@@ -29,6 +32,7 @@ const drivers2025 = [
   {
     number: 44,
     code: "HAM",
+    imageKey: "ham",
     name: "Lewis Hamilton",
     country: "Great Britain",
     flag: "🇬🇧",
@@ -38,6 +42,7 @@ const drivers2025 = [
   {
     number: 4,
     code: "NOR",
+    imageKey: "nor",
     name: "Lando Norris",
     country: "Great Britain",
     flag: "🇬🇧",
@@ -47,6 +52,7 @@ const drivers2025 = [
   {
     number: 81,
     code: "PIA",
+    imageKey: "pia",
     name: "Oscar Piastri",
     country: "Australia",
     flag: "🇦🇺",
@@ -56,6 +62,7 @@ const drivers2025 = [
   {
     number: 63,
     code: "RUS",
+    imageKey: "rus",
     name: "George Russell",
     country: "Great Britain",
     flag: "🇬🇧",
@@ -65,6 +72,7 @@ const drivers2025 = [
   {
     number: 12,
     code: "ANT",
+    imageKey: "ant",
     name: "Kimi Antonelli",
     country: "Italy",
     flag: "🇮🇹",
@@ -74,6 +82,7 @@ const drivers2025 = [
   {
     number: 14,
     code: "ALO",
+    imageKey: "alo",
     name: "Fernando Alonso",
     country: "Spain",
     flag: "🇪🇸",
@@ -83,6 +92,7 @@ const drivers2025 = [
   {
     number: 18,
     code: "STR",
+    imageKey: "str",
     name: "Lance Stroll",
     country: "Canada",
     flag: "🇨🇦",
@@ -92,6 +102,7 @@ const drivers2025 = [
   {
     number: 10,
     code: "GAS",
+    imageKey: "gas",
     name: "Pierre Gasly",
     country: "France",
     flag: "🇫🇷",
@@ -101,6 +112,7 @@ const drivers2025 = [
   {
     number: 7,
     code: "DOO",
+    imageKey: "doo",
     name: "Jack Doohan",
     country: "Australia",
     flag: "🇦🇺",
@@ -110,6 +122,7 @@ const drivers2025 = [
   {
     number: 31,
     code: "OCO",
+    imageKey: "oco",
     name: "Esteban Ocon",
     country: "France",
     flag: "🇫🇷",
@@ -119,6 +132,7 @@ const drivers2025 = [
   {
     number: 87,
     code: "BEA",
+    imageKey: "bea",
     name: "Oliver Bearman",
     country: "Great Britain",
     flag: "🇬🇧",
@@ -128,6 +142,7 @@ const drivers2025 = [
   {
     number: 22,
     code: "TSU",
+    imageKey: "tsu",
     name: "Yuki Tsunoda",
     country: "Japan",
     flag: "🇯🇵",
@@ -137,6 +152,7 @@ const drivers2025 = [
   {
     number: 6,
     code: "HAD",
+    imageKey: "had",
     name: "Isack Hadjar",
     country: "France",
     flag: "🇫🇷",
@@ -146,6 +162,7 @@ const drivers2025 = [
   {
     number: 23,
     code: "ALB",
+    imageKey: "alb",
     name: "Alexander Albon",
     country: "Thailand",
     flag: "🇹🇭",
@@ -155,6 +172,7 @@ const drivers2025 = [
   {
     number: 55,
     code: "SAI",
+    imageKey: "sai",
     name: "Carlos Sainz",
     country: "Spain",
     flag: "🇪🇸",
@@ -164,6 +182,7 @@ const drivers2025 = [
   {
     number: 27,
     code: "HUL",
+    imageKey: "hul",
     name: "Nico Hulkenberg",
     country: "Germany",
     flag: "🇩🇪",
@@ -173,6 +192,7 @@ const drivers2025 = [
   {
     number: 5,
     code: "BOR",
+    imageKey: "bor",
     name: "Gabriel Bortoleto",
     country: "Brazil",
     flag: "🇧🇷",
@@ -181,22 +201,10 @@ const drivers2025 = [
   }
 ];
 
-const driverImagePath = "./assets/images/drivers/";
+function getDriverImage(driver, season = "2025") {
+  if (!driver || !driver.imageKey) {
+    return "./assets/img/drivers/fallback-driver.webp";
+  }
 
-const driverImages2025 = {
-  VER: "verstappen.jpeg",
-  LEC: "leclerc.jpeg",
-  NOR: "norris.jpeg",
-  PIA: "piastri.jpeg",
-  RUS: "russell.jpeg",
-  ALO: "alonso.jpeg",
-  STR: "stroll.jpeg",
-  GAS: "gasly.jpeg",
-  TSU: "tsunoda.jpeg",
-  ALB: "albon.jpeg",
-};
-
-drivers2025.forEach((driver) => {
-  const fileName = driverImages2025[driver.code];
-  driver.image = fileName ? driverImagePath + fileName : null;
-});
+  return `./assets/img/drivers/${season}/${driver.imageKey}.webp`;
+}
