@@ -1867,6 +1867,22 @@ body {
   width: 100%;
 }
 
+.team-placeholder {
+  width: 100%;
+  min-height: 150px;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: rgba(255, 255, 255, 0.72);
+  background:
+    radial-gradient(circle at top, color-mix(in srgb, var(--team-color, #e10600) 35%, transparent), transparent 60%),
+    rgba(255, 255, 255, 0.06);
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 @keyframes weekendPanelFade {
   from {
     opacity: 0;

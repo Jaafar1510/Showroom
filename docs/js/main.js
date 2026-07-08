@@ -70,6 +70,33 @@ function getSeasonSprintRounds() {
   return getActiveSeasonData().sprintRounds || [];
 }
 
+function slugify(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function getDriverImagePath(driver) {
+  const season = getActiveSeasonData().label || String(currentSeason);
+  const key = driver.imageKey || slugify(driver.code);
+
+  if (!key) return "";
+
+  return `./assets/img/drivers/${season}/${key}.webp`;
+}
+
+function getTeamImagePath(team) {
+  const season = getActiveSeasonData().label || String(currentSeason);
+  const key = team.imageKey || team.slug || team.id || slugify(team.name);
+
+  if (!key) return "";
+
+  return `./assets/img/teams/${season}/${key}-car.webp`;
+}
+
 function getSeasonRacePointsSystem() {
   return getActiveSeasonData().racePointsSystem || {};
 }
@@ -151,31 +178,41 @@ function renderDrivers() {
 
     driverCard.style.setProperty("--team-color", driver.teamColor);
 
+    const driverImage = getDriverImagePath(driver);
+
     driverCard.innerHTML = `
-  <div class="driver-image-box">
+      <div class="driver-image-box">
         ${
-        driver.image
-            ? `<img src="${driver.image}" alt="${driver.name}" class="driver-image">`
+          driverImage
+            ? `<img src="${driverImage}" alt="${driver.name}" class="driver-image">`
             : `<div class="driver-placeholder">${driver.code}</div>`
         }
-  </div>
+      </div>
 
-  <div class="driver-info">
+      <div class="driver-info">
         <div class="driver-top">
-        <span class="driver-number">#${driver.number}</span>
-        <span class="driver-code">${driver.code}</span>
+          <span class="driver-number">#${driver.number}</span>
+          <span class="driver-code">${driver.code}</span>
         </div>
 
         <div class="driver-main">
-        <h3>${driver.name}</h3>
-        <p>${driver.flag} ${driver.country}</p>
+          <h3>${driver.name}</h3>
+          <p>${driver.flag} ${driver.country}</p>
         </div>
 
         <div class="driver-team">
-        ${driver.team}
+          ${driver.team}
         </div>
-  </div>
-    `; 
+      </div>
+    `;
+
+    const img = driverCard.querySelector(".driver-image");
+
+    if (img) {
+      img.addEventListener("error", () => {
+        img.outerHTML = `<div class="driver-placeholder">${driver.code}</div>`;
+      }, { once: true });
+    }
 
     driversGrid.appendChild(driverCard);
   });
@@ -194,9 +231,15 @@ function renderTeams() {
 
     teamCard.style.setProperty("--team-color", team.color);
 
+    const teamImage = getTeamImagePath(team);
+
     teamCard.innerHTML = `
       <div class="team-image-box">
-        <img src="${team.image}" alt="${team.name}" class="team-image">
+        ${
+          teamImage
+            ? `<img src="${teamImage}" alt="${team.name}" class="team-image">`
+            : `<div class="team-placeholder">${team.name}</div>`
+        }
       </div>
 
       <div class="team-content">
@@ -211,6 +254,14 @@ function renderTeams() {
         </div>
       </div>
     `;
+
+    const img = teamCard.querySelector(".team-image");
+
+    if (img) {
+      img.addEventListener("error", () => {
+        img.outerHTML = `<div class="team-placeholder">${team.name}</div>`;
+      }, { once: true });
+    }
 
     teamsGrid.appendChild(teamCard);
   });
