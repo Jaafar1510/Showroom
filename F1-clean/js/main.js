@@ -209,9 +209,13 @@ function renderDrivers() {
     const img = driverCard.querySelector(".driver-image");
 
     if (img) {
-      img.addEventListener("error", () => {
-        img.outerHTML = `<div class="driver-placeholder">${driver.code}</div>`;
-      }, { once: true });
+      img.addEventListener(
+        "error",
+        () => {
+          img.outerHTML = `<div class="driver-placeholder">${driver.code}</div>`;
+        },
+        { once: true }
+      );
     }
 
     driversGrid.appendChild(driverCard);
