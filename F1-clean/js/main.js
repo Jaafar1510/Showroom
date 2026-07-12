@@ -337,6 +337,10 @@ function openDriverProfile(code) {
 
   const driver = getDriverByCode(code);
 
+  const profile = typeof driverProfiles !== "undefined"
+  ? driverProfiles[code] || {}
+  : {};
+
   if (!driver) {
     driverProfilePanel.innerHTML = `
       <div class="driver-profile-empty">
@@ -369,7 +373,7 @@ function openDriverProfile(code) {
             ← Back to Data Hub
           </button>
 
-          <span class="driver-profile-kicker">${currentSeason} Driver Profile</span>
+          <span class="driver-profile-kicker">Driver Career Profile</span>
 
           <h3>${driver.name}</h3>
 
@@ -380,8 +384,7 @@ function openDriverProfile(code) {
           </div>
 
           <p>
-            Racing for <strong>${driver.team}</strong> in the ${currentSeason} Formula 1 season.
-            This profile expands the Data Hub card into a full driver view while keeping the website one clean page.
+            ${profile.bio || `${driver.name} is part of the Formula 1 grid, with this profile combining career identity and season context.`}
           </p>
         </div>
 
@@ -397,30 +400,55 @@ function openDriverProfile(code) {
       <div class="driver-profile-content">
         <section>
           <div class="driver-profile-section-header">
-            <span>Season Identity</span>
-            <h4>${driver.name} in ${currentSeason}</h4>
+            <span>Career Numbers</span>
+            <h4>${profile.fullName || driver.name}</h4>
           </div>
 
           <div class="driver-profile-stat-grid">
             <article class="driver-profile-stat">
-              <span>Number</span>
-              <strong>${driver.number}</strong>
+              <span>World Titles</span>
+              <strong>${profile.championships ?? "—"}</strong>
             </article>
 
             <article class="driver-profile-stat">
-              <span>Code</span>
-              <strong>${driver.code}</strong>
+              <span>Wins</span>
+              <strong>${profile.careerStats?.wins || "—"}</strong>
             </article>
 
             <article class="driver-profile-stat">
-              <span>Team</span>
-              <strong>${driver.team}</strong>
+              <span>Podiums</span>
+              <strong>${profile.careerStats?.podiums || "—"}</strong>
             </article>
 
             <article class="driver-profile-stat">
-              <span>Teammate</span>
-              <strong>${teammate}</strong>
+              <span>Pole Positions</span>
+              <strong>${profile.careerStats?.poles || "—"}</strong>
             </article>
+
+            <article class="driver-profile-stat">
+              <span>Fastest Laps</span>
+              <strong>${profile.careerStats?.fastestLaps || "—"}</strong>
+            </article>
+
+            <article class="driver-profile-stat">
+              <span>GP Entries</span>
+              <strong>${profile.careerStats?.grandsPrixEntered || "—"}</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="driver-profile-records">
+          <div class="driver-profile-section-header">
+            <span>Records & Legacy</span>
+            <h4>Career Highlights</h4>
+          </div>
+
+          <div class="driver-profile-record-grid">
+            ${
+              (profile.records || ["Career records will be updated soon."])
+                .map((record) => `<article>${record}</article>`)
+                .join("")
+            }
           </div>
         </section>
 
@@ -433,13 +461,23 @@ function openDriverProfile(code) {
 
             <div class="driver-profile-detail-list">
               <p>
-                Country
-                <strong>${driver.flag || ""} ${driver.country || "Not added yet"}</strong>
+                Full Name
+                <strong>${profile.fullName || driver.name}</strong>
               </p>
 
               <p>
-                Team
-                <strong>${driver.team}</strong>
+                Nationality
+                <strong>${profile.nationality || driver.country || "Not added yet"}</strong>
+              </p>
+
+              <p>
+                Date of Birth
+                <strong>${profile.dateOfBirth || "Not added yet"}</strong>
+              </p>
+
+              <p>
+                Place of Birth
+                <strong>${profile.placeOfBirth || "Not added yet"}</strong>
               </p>
 
               <p>
@@ -456,8 +494,8 @@ function openDriverProfile(code) {
 
           <article class="driver-profile-info-card">
             <div class="driver-profile-section-header">
-              <span>Team Machine</span>
-              <h4>${driver.team}</h4>
+              <span>Career Numbers</span>
+              <h4>${profile.fullName || driver.name}</h4>
             </div>
 
             ${
@@ -467,7 +505,7 @@ function openDriverProfile(code) {
             }
 
             <p class="driver-profile-note">
-              Team colors, driver image, and car image are pulled from the active season.
+              <!-- Team colors, driver image, and car image are pulled from the active season. -->
             </p>
           </article>
         </section>

@@ -2134,6 +2134,22 @@ body {
   outline-offset: 5px;
 }
 
+.driver-profile-record-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.driver-profile-record-grid article {
+  background: #111;
+  color: #fff;
+  border-left: 7px solid var(--team-color, #e10600);
+  border-radius: 0 22px 0 22px;
+  padding: 20px;
+  font-weight: 900;
+  line-height: 1.45;
+}
+
 @keyframes weekendPanelFade {
   from {
     opacity: 0;
