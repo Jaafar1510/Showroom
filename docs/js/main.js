@@ -168,6 +168,7 @@ function renderRaceCalendar() {
 renderRaceCalendar();
 
 const driversGrid = document.getElementById("driversGrid");
+const driverProfilePanel = document.getElementById("driverProfilePanel");
 
 function renderDrivers() {
   driversGrid.innerHTML = "";
@@ -177,6 +178,21 @@ function renderDrivers() {
     driverCard.classList.add("driver-card");
 
     driverCard.style.setProperty("--team-color", driver.teamColor);
+
+    driverCard.tabIndex = 0;
+    driverCard.setAttribute("role", "link");
+    driverCard.setAttribute("aria-label", `Open ${driver.name} profile`);
+
+    driverCard.addEventListener("click", () => {
+      openDriverProfile(driver.code);
+    });
+
+    driverCard.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openDriverProfile(driver.code);
+      }
+    });
 
     const driverImage = getDriverImagePath(driver);
 
@@ -278,6 +294,224 @@ const standingsTabs = document.querySelectorAll(".standings-tab");
 
 function getDriverByCode(code) {
   return getSeasonDrivers().find((driver) => driver.code === code);
+}
+
+/* DRIVER PROFILE PANEL */
+
+function findTeamByDriver(driver) {
+  return getSeasonTeams().find((team) => {
+    if (team.name === driver.team) return true;
+
+    if (Array.isArray(team.drivers) && team.drivers.includes(driver.name)) {
+      return true;
+    }
+
+    return false;
+  });
+}
+
+function getDriverTeammate(driver, team) {
+  if (!team || !Array.isArray(team.drivers)) {
+    return "Season teammate";
+  }
+
+  return team.drivers.find((name) => name !== driver.name) || "Season teammate";
+}
+
+function closeDriverProfile(shouldScroll = true) {
+  if (!driverProfilePanel) return;
+
+  driverProfilePanel.classList.add("hidden-section");
+  driverProfilePanel.classList.remove("visible-section");
+
+  if (shouldScroll) {
+    document.getElementById("explore")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+}
+
+function openDriverProfile(code) {
+  if (!driverProfilePanel) return;
+
+  const driver = getDriverByCode(code);
+
+  if (!driver) {
+    driverProfilePanel.innerHTML = `
+      <div class="driver-profile-empty">
+        Driver profile not found.
+      </div>
+    `;
+
+    driverProfilePanel.classList.remove("hidden-section");
+    driverProfilePanel.classList.add("visible-section");
+
+    driverProfilePanel.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+    return;
+  }
+
+  const team = findTeamByDriver(driver);
+  const teammate = getDriverTeammate(driver, team);
+  const teamColor = driver.teamColor || team?.color || "#e10600";
+  const driverImage = getDriverImagePath(driver);
+  const teamImage = team ? getTeamImagePath(team) : "";
+
+  driverProfilePanel.innerHTML = `
+    <div class="driver-profile-card" style="--team-color: ${teamColor}">
+      <div class="driver-profile-hero">
+        <div class="driver-profile-copy">
+          <button class="driver-profile-back" type="button" data-driver-profile-close>
+            ← Back to Data Hub
+          </button>
+
+          <span class="driver-profile-kicker">${currentSeason} Driver Profile</span>
+
+          <h3>${driver.name}</h3>
+
+          <div class="driver-profile-meta">
+            <span>#${driver.number}</span>
+            <span>${driver.code}</span>
+            <span>${driver.flag || ""} ${driver.country || ""}</span>
+          </div>
+
+          <p>
+            Racing for <strong>${driver.team}</strong> in the ${currentSeason} Formula 1 season.
+            This profile expands the Data Hub card into a full driver view while keeping the website one clean page.
+          </p>
+        </div>
+
+        <div class="driver-profile-image-box">
+          ${
+            driverImage
+              ? `<img src="${driverImage}" alt="${driver.name}" class="driver-profile-image">`
+              : `<div class="driver-profile-placeholder">${driver.code}</div>`
+          }
+        </div>
+      </div>
+
+      <div class="driver-profile-content">
+        <section>
+          <div class="driver-profile-section-header">
+            <span>Season Identity</span>
+            <h4>${driver.name} in ${currentSeason}</h4>
+          </div>
+
+          <div class="driver-profile-stat-grid">
+            <article class="driver-profile-stat">
+              <span>Number</span>
+              <strong>${driver.number}</strong>
+            </article>
+
+            <article class="driver-profile-stat">
+              <span>Code</span>
+              <strong>${driver.code}</strong>
+            </article>
+
+            <article class="driver-profile-stat">
+              <span>Team</span>
+              <strong>${driver.team}</strong>
+            </article>
+
+            <article class="driver-profile-stat">
+              <span>Teammate</span>
+              <strong>${teammate}</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="driver-profile-split">
+          <article class="driver-profile-info-card">
+            <div class="driver-profile-section-header">
+              <span>Driver Details</span>
+              <h4>Profile</h4>
+            </div>
+
+            <div class="driver-profile-detail-list">
+              <p>
+                Country
+                <strong>${driver.flag || ""} ${driver.country || "Not added yet"}</strong>
+              </p>
+
+              <p>
+                Team
+                <strong>${driver.team}</strong>
+              </p>
+
+              <p>
+                Race Number
+                <strong>${driver.number}</strong>
+              </p>
+
+              <p>
+                Driver Code
+                <strong>${driver.code}</strong>
+              </p>
+            </div>
+          </article>
+
+          <article class="driver-profile-info-card">
+            <div class="driver-profile-section-header">
+              <span>Team Machine</span>
+              <h4>${driver.team}</h4>
+            </div>
+
+            ${
+              teamImage
+                ? `<img src="${teamImage}" alt="${driver.team} car" class="driver-profile-team-car">`
+                : `<div class="team-placeholder">${driver.team}</div>`
+            }
+
+            <p class="driver-profile-note">
+              Team colors, driver image, and car image are pulled from the active season.
+            </p>
+          </article>
+        </section>
+      </div>
+    </div>
+  `;
+
+  const closeButton = driverProfilePanel.querySelector("[data-driver-profile-close]");
+
+  if (closeButton) {
+    closeButton.addEventListener("click", () => closeDriverProfile(true));
+  }
+
+  const driverImg = driverProfilePanel.querySelector(".driver-profile-image");
+
+  if (driverImg) {
+    driverImg.addEventListener(
+      "error",
+      () => {
+        driverImg.outerHTML = `<div class="driver-profile-placeholder">${driver.code}</div>`;
+      },
+      { once: true }
+    );
+  }
+
+  const teamImg = driverProfilePanel.querySelector(".driver-profile-team-car");
+
+  if (teamImg) {
+    teamImg.addEventListener(
+      "error",
+      () => {
+        teamImg.outerHTML = `<div class="team-placeholder">${driver.team}</div>`;
+      },
+      { once: true }
+    );
+  }
+
+  driverProfilePanel.classList.remove("hidden-section");
+  driverProfilePanel.classList.add("visible-section");
+
+  driverProfilePanel.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 }
 
 function getDriverDisplayName(entryOrCode) {
@@ -1949,6 +2183,7 @@ function refreshActiveSeasonUI() {
   renderRaceCalendar();
   renderDrivers();
   renderTeams();
+  closeDriverProfile(false);
 
   const activeStanding =
     document.querySelector(".standings-tab.active")?.dataset.standing || "drivers";
