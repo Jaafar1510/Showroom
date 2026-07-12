@@ -280,6 +280,36 @@ function getDriverByCode(code) {
   return getSeasonDrivers().find((driver) => driver.code === code);
 }
 
+function getDriverDisplayName(entryOrCode) {
+  const code =
+    typeof entryOrCode === "string"
+      ? entryOrCode
+      : entryOrCode?.code;
+
+  const driver = getDriverByCode(code);
+
+  if (typeof entryOrCode === "object" && entryOrCode?.name) {
+    return entryOrCode.name;
+  }
+
+  return driver?.name || code || "Driver TBC";
+}
+
+function getDriverDisplayLabel(entryOrCode) {
+  const code =
+    typeof entryOrCode === "string"
+      ? entryOrCode
+      : entryOrCode?.code;
+
+  const driver = getDriverByCode(code);
+  const flag =
+    typeof entryOrCode === "object" && entryOrCode?.flag
+      ? entryOrCode.flag
+      : driver?.flag || "";
+
+  return `${flag ? `${flag} ` : ""}${getDriverDisplayName(entryOrCode)}`;
+}
+
 function getTeamByName(teamName) {
   return getSeasonTeams().find((team) => team.name === teamName);
 }
@@ -550,7 +580,7 @@ function renderResults(type = "race") {
                 <span class="result-position">P${position}</span>
 
                 <span class="result-driver">
-                  ${driver ? `${driver.flag} ${driver.name}` : result.code}
+                  ${getDriverDisplayLabel(result)}
                   <small>${result.code}</small>
                 </span>
 
@@ -1038,6 +1068,8 @@ function buildQualifyingRows(qualifying, sessionName) {
 
       return {
         code,
+        name: q3?.name || q2?.name || q1?.name || "",
+        team: q3?.team || q2?.team || q1?.team || "",
         q1,
         q2,
         q3,
@@ -1106,7 +1138,7 @@ function renderQualifyingSession(round, sessionName = "Qualifying") {
 
                 <td>
                   <span class="quali-driver-name">
-                    ${driver ? driver.name : row.code}
+                    ${getDriverDisplayName(row)}
                   </span>
                   <span class="standing-code">${row.code}</span>
                 </td>
@@ -1178,7 +1210,7 @@ function renderStartingGrid(round, sessionName = "Starting Grid") {
                   ${entry.grid === 1 ? `<b>POLE</b>` : ""}
                 </div>
 
-                <h5>${driver ? driver.name : entry.code}</h5>
+                <h5>${getDriverDisplayName(entry)}</h5>
                 <p>${teamName || "Team TBC"}</p>
 
                 ${
@@ -1210,7 +1242,7 @@ function getRaceHighlightCards(raceData) {
     {
       title: "Fastest Lap",
       value: raceData?.fastestLap
-        ? `${getDriverByCode(raceData.fastestLap.code)?.name || raceData.fastestLap.code}`
+        ? getDriverDisplayName(raceData.fastestLap)
         : "Coming soon",
       detail: raceData?.fastestLap
         ? `${raceData.fastestLap.time} — Lap ${raceData.fastestLap.lap}`
@@ -1228,7 +1260,7 @@ function getRaceHighlightCards(raceData) {
     {
       title: "Driver of the Day",
       value: raceData?.driverOfTheDay
-        ? getDriverByCode(raceData.driverOfTheDay)?.name || raceData.driverOfTheDay
+        ? getDriverDisplayName(raceData.driverOfTheDay)
         : "Coming soon",
       detail: raceData?.driverOfTheDay
         ? "Fan-voted Driver of the Day."
@@ -1277,7 +1309,7 @@ function renderRacePodium(podium = []) {
       <article class="podium-step ${medalClass}">
         <div class="podium-medal">${medalIcon}</div>
         <span>P${entry.position}</span>
-        <h5>${driver ? driver.name : entry.code}</h5>
+        <h5>${getDriverDisplayName(entry)}</h5>
         <p>${entry.team || driver?.team || "Team TBC"}</p>
         <strong>${entry.time || entry.gap || "Time TBC"}</strong>
       </article>
@@ -1351,7 +1383,7 @@ function renderFullRaceClassification(round, raceData) {
                 </span>
 
                 <div class="classification-driver">
-                  <strong>${driver ? driver.name : entry.code}</strong>
+                  <strong>${getDriverDisplayName(entry)}</strong>
                   <small>${entry.team || driver?.team || "Team TBC"}</small>
                 </div>
 
@@ -1427,7 +1459,7 @@ function renderSprintSession(round) {
                 ${typeof entry.position === "number" ? `P${entry.position}` : entry.position}
               </span>
 
-              <strong>${driver ? driver.name : entry.code}</strong>
+              <strong>${getDriverDisplayName(entry)}</strong>
 
               <small>${entry.team}</small>
 
@@ -1460,7 +1492,7 @@ function renderMiniResultList(event, pointsSystem) {
           return `
             <li>
               <span>P${index + 1}</span>
-              <strong>${driver ? driver.name : result.code}</strong>
+              <strong>${getDriverDisplayName(result)}</strong>
               <small>${result.team}</small>
               <b>${points} pts</b>
             </li>

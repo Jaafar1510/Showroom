@@ -201,10 +201,3 @@ const drivers2025 = [
   }
 ];
 
-function getDriverImage(driver, season = "2025") {
-  if (!driver || !driver.imageKey) {
-    return "./assets/img/drivers/fallback-driver.webp";
-  }
-
-  return `./assets/img/drivers/${season}/${driver.imageKey}.webp`;
-}
