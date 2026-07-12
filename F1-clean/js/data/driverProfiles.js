@@ -419,3 +419,171 @@ const driverProfiles = {
     bio: "Liam Lawson earned attention through substitute appearances and a fearless style, showing readiness whenever Formula 1 gave him a chance."
   }
 };
+
+const verifiedDriverCareerStats = {
+  VER: {
+    wins: 71,
+    podiums: 129,
+    poles: 48,
+    grandsPrixEntered: 242,
+    careerPoints: 3520.5
+  },
+
+  HAM: {
+    wins: 106,
+    podiums: 207,
+    poles: 104,
+    grandsPrixEntered: 389,
+    careerPoints: 5165.5
+  },
+
+  LEC: {
+    wins: 9,
+    podiums: 53,
+    poles: 27,
+    grandsPrixEntered: 180,
+    careerPoints: 1780
+  },
+
+  NOR: {
+    wins: 11,
+    podiums: 46,
+    poles: 16,
+    grandsPrixEntered: 160,
+    careerPoints: 1527
+  },
+
+  PIA: {
+    wins: 9,
+    podiums: 28,
+    poles: 6,
+    grandsPrixEntered: 77,
+    careerPoints: 881
+  },
+
+  RUS: {
+    wins: 7,
+    podiums: 29,
+    poles: 12,
+    grandsPrixEntered: 161,
+    careerPoints: 1187
+  },
+
+  ANT: {
+    wins: 5,
+    podiums: 10,
+    poles: 5,
+    grandsPrixEntered: 33,
+    careerPoints: 329
+  },
+
+  ALO: {
+    wins: 32,
+    podiums: 106,
+    poles: 22,
+    grandsPrixEntered: 436,
+    careerPoints: 2394
+  },
+
+  STR: {
+    wins: 0,
+    podiums: 3,
+    poles: 1,
+    grandsPrixEntered: 198,
+    careerPoints: 325
+  },
+
+  GAS: {
+    wins: 1,
+    podiums: 6,
+    poles: 0,
+    grandsPrixEntered: 186,
+    careerPoints: 500
+  },
+
+  DOO: {
+    wins: 0,
+    podiums: 0,
+    poles: 0,
+    grandsPrixEntered: 7,
+    careerPoints: 0
+  },
+
+  OCO: {
+    wins: 1,
+    podiums: 4,
+    poles: 0,
+    grandsPrixEntered: 189,
+    careerPoints: 486
+  },
+
+  BEA: {
+    wins: 0,
+    podiums: 0,
+    poles: 0,
+    grandsPrixEntered: 36,
+    careerPoints: 66
+  },
+
+  TSU: {
+    wins: 0,
+    podiums: 0,
+    poles: 0,
+    grandsPrixEntered: 111,
+    careerPoints: 124
+  },
+
+  HAD: {
+    wins: 0,
+    podiums: 1,
+    poles: 0,
+    grandsPrixEntered: 32,
+    careerPoints: 103
+  },
+
+  ALB: {
+    wins: 0,
+    podiums: 2,
+    poles: 0,
+    grandsPrixEntered: 136,
+    careerPoints: 318
+  },
+
+  SAI: {
+    wins: 4,
+    podiums: 29,
+    poles: 6,
+    grandsPrixEntered: 238,
+    careerPoints: 1342.5
+  },
+
+  HUL: {
+    wins: 0,
+    podiums: 1,
+    poles: 1,
+    grandsPrixEntered: 258,
+    careerPoints: 622
+  },
+
+  BOR: {
+    wins: 0,
+    podiums: 0,
+    poles: 0,
+    grandsPrixEntered: 32,
+    careerPoints: 25
+  },
+
+  LAW: {
+    wins: 0,
+    podiums: 0,
+    poles: 0,
+    grandsPrixEntered: 44,
+    careerPoints: 83
+  }
+};
+
+Object.keys(verifiedDriverCareerStats).forEach((code) => {
+  if (!driverProfiles[code]) return;
+
+  driverProfiles[code].careerStats = verifiedDriverCareerStats[code];
+});

@@ -241,6 +241,7 @@ function renderDrivers() {
 renderDrivers();
 
 const teamsGrid = document.getElementById("teamsGrid");
+const teamProfilePanel = document.getElementById("teamProfilePanel");
 
 function renderTeams() {
   teamsGrid.innerHTML = "";
@@ -250,6 +251,21 @@ function renderTeams() {
     teamCard.classList.add("team-card");
 
     teamCard.style.setProperty("--team-color", team.color);
+
+    teamCard.tabIndex = 0;
+    teamCard.setAttribute("role", "link");
+    teamCard.setAttribute("aria-label", `Open ${team.name} profile`);
+
+    teamCard.addEventListener("click", () => {
+      openTeamProfile(getTeamProfileKey(team));
+    });
+
+    teamCard.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openTeamProfile(getTeamProfileKey(team));
+      }
+    });
 
     const teamImage = getTeamImagePath(team);
 
@@ -296,6 +312,10 @@ function getDriverByCode(code) {
   return getSeasonDrivers().find((driver) => driver.code === code);
 }
 
+function getDriverByName(name) {
+  return getSeasonDrivers().find((driver) => driver.name === name);
+}
+
 /* DRIVER PROFILE PANEL */
 
 function findTeamByDriver(driver) {
@@ -332,7 +352,7 @@ function closeDriverProfile(shouldScroll = true) {
   }
 }
 
-function openDriverProfile(code) {
+function openDriverProfile(code, returnTeamKey = null) {
   if (!driverProfilePanel) return;
 
   const driver = getDriverByCode(code);
@@ -360,6 +380,7 @@ function openDriverProfile(code) {
   }
 
   const team = findTeamByDriver(driver);
+  const returnTeam = returnTeamKey ? findTeamByKey(returnTeamKey) : null;
   const teammate = getDriverTeammate(driver, team);
   const teamColor = driver.teamColor || team?.color || "#e10600";
   const driverImage = getDriverImagePath(driver);
@@ -369,9 +390,19 @@ function openDriverProfile(code) {
     <div class="driver-profile-card" style="--team-color: ${teamColor}">
       <div class="driver-profile-hero">
         <div class="driver-profile-copy">
-          <button class="driver-profile-back" type="button" data-driver-profile-close>
-            ← Back to Data Hub
-          </button>
+          <div class="driver-profile-actions">
+            ${
+              returnTeam
+                ? `<button class="driver-profile-back" type="button" data-driver-profile-return-team>
+                    ← Back to ${returnTeam.name}
+                  </button>`
+                : ""
+            }
+
+            <button class="driver-profile-back" type="button" data-driver-profile-close>
+              ${returnTeam ? "Close to Data Hub" : "← Back to Data Hub"}
+            </button>
+          </div>
 
           <span class="driver-profile-kicker">Driver Career Profile</span>
 
@@ -426,8 +457,8 @@ function openDriverProfile(code) {
             </article>
 
             <article class="driver-profile-stat">
-              <span>Fastest Laps</span>
-              <strong>${profile.careerStats?.fastestLaps || "—"}</strong>
+              <span>Career Points</span>
+              <strong>${profile.careerStats?.careerPoints ?? "—"}</strong>
             </article>
 
             <article class="driver-profile-stat">
@@ -494,9 +525,13 @@ function openDriverProfile(code) {
 
           <article class="driver-profile-info-card">
             <div class="driver-profile-section-header">
-              <span>Career Numbers</span>
-              <h4>${profile.fullName || driver.name}</h4>
+              <span>${currentSeason} Season Context</span>
+              <h4>${driver.team}</h4>
             </div>
+
+            <button class="profile-link-button" type="button" data-driver-team-profile>
+              Open ${driver.team} Team Profile
+            </button>
 
             ${
               teamImage
@@ -505,7 +540,7 @@ function openDriverProfile(code) {
             }
 
             <p class="driver-profile-note">
-              <!-- Team colors, driver image, and car image are pulled from the active season. -->
+              Click the team above to open its connected team profile.
             </p>
           </article>
         </section>
@@ -517,6 +552,24 @@ function openDriverProfile(code) {
 
   if (closeButton) {
     closeButton.addEventListener("click", () => closeDriverProfile(true));
+  }
+
+  const returnTeamButton = driverProfilePanel.querySelector("[data-driver-profile-return-team]");
+
+  if (returnTeamButton && returnTeamKey) {
+    returnTeamButton.addEventListener("click", () => {
+      closeDriverProfile(false);
+      openTeamProfile(returnTeamKey);
+    });
+  }
+
+  const driverTeamButton = driverProfilePanel.querySelector("[data-driver-team-profile]");
+
+  if (driverTeamButton && team) {
+    driverTeamButton.addEventListener("click", () => {
+      closeDriverProfile(false);
+      openTeamProfile(getTeamProfileKey(team), driver.code);
+    });
   }
 
   const driverImg = driverProfilePanel.querySelector(".driver-profile-image");
@@ -543,12 +596,297 @@ function openDriverProfile(code) {
     );
   }
 
+  closeTeamProfile(false);
+
   driverProfilePanel.classList.remove("hidden-section");
   driverProfilePanel.classList.add("visible-section");
 
   driverProfilePanel.scrollIntoView({
     behavior: "smooth",
     block: "start"
+  });
+}
+
+/* TEAM PROFILE PANEL */
+
+function getTeamProfileKey(team) {
+  return team?.id || team?.imageKey || team?.slug || slugify(team?.name);
+}
+
+function getTeamProfileData(team) {
+  const key = getTeamProfileKey(team);
+
+  if (typeof teamProfiles === "undefined") {
+    return {};
+  }
+
+  return teamProfiles[key] || {};
+}
+
+function findTeamByKey(key) {
+  return getSeasonTeams().find((team) => {
+    const teamKey = getTeamProfileKey(team);
+
+    return (
+      teamKey === key ||
+      team.imageKey === key ||
+      team.id === key ||
+      slugify(team.name) === key
+    );
+  });
+}
+
+function closeTeamProfile(shouldScroll = true) {
+  if (!teamProfilePanel) return;
+
+  teamProfilePanel.classList.add("hidden-section");
+  teamProfilePanel.classList.remove("visible-section");
+
+  if (shouldScroll) {
+    document.getElementById("explore")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+}
+
+function openTeamProfile(key, returnDriverCode = null) {
+  if (!teamProfilePanel) return;
+
+  const team = findTeamByKey(key);
+
+  if (!team) {
+    teamProfilePanel.innerHTML = `
+      <div class="team-profile-empty">
+        Team profile not found.
+      </div>
+    `;
+
+    teamProfilePanel.classList.remove("hidden-section");
+    teamProfilePanel.classList.add("visible-section");
+
+    teamProfilePanel.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+    return;
+  }
+
+  const returnDriver = returnDriverCode ? getDriverByCode(returnDriverCode) : null;
+  const profile = getTeamProfileData(team);
+  const teamColor = team.color || "#e10600";
+  const teamImage = getTeamImagePath(team);
+  const stats = profile.teamStats || {};
+
+  teamProfilePanel.innerHTML = `
+    <div class="team-profile-card" style="--team-color: ${teamColor}">
+      <div class="team-profile-hero">
+        <div class="team-profile-copy">
+          <div class="team-profile-actions">
+            ${
+              returnDriver
+                ? `<button class="team-profile-back" type="button" data-team-profile-return-driver>
+                    ← Back to ${returnDriver.name}
+                  </button>`
+                : ""
+            }
+
+            <button class="team-profile-back" type="button" data-team-profile-close>
+              ${returnDriver ? "Close to Data Hub" : "← Back to Data Hub"}
+            </button>
+          </div>
+
+          <span class="team-profile-kicker">Team Career Profile</span>
+
+          <h3>${team.name}</h3>
+
+          <div class="team-profile-meta">
+            <span>${profile.firstTeamEntry || "Entry TBC"}</span>
+            <span>${team.powerUnit || profile.powerUnit || "Power Unit TBC"}</span>
+            <span>${team.base || profile.base || "Base TBC"}</span>
+          </div>
+
+          <p>
+            ${profile.bio || `${team.name} is part of the Formula 1 grid, with this profile combining team history and active season context.`}
+          </p>
+        </div>
+
+        <div class="team-profile-image-box">
+          ${
+            teamImage
+              ? `<img src="${teamImage}" alt="${team.name} car" class="team-profile-car">`
+              : `<div class="team-placeholder">${team.name}</div>`
+          }
+        </div>
+      </div>
+
+      <div class="team-profile-content">
+        <section>
+          <div class="team-profile-section-header">
+            <span>Team Summary</span>
+            <h4>${profile.fullName || team.name}</h4>
+          </div>
+
+          <div class="team-profile-stat-grid">
+            <article class="team-profile-stat">
+              <span>World Titles</span>
+              <strong>${stats.championships ?? "—"}</strong>
+            </article>
+
+            <article class="team-profile-stat">
+              <span>Wins</span>
+              <strong>${stats.wins ?? "—"}</strong>
+            </article>
+
+            <article class="team-profile-stat">
+              <span>Podiums</span>
+              <strong>${stats.podiums ?? "—"}</strong>
+            </article>
+
+            <article class="team-profile-stat">
+              <span>Pole Positions</span>
+              <strong>${stats.poles ?? "—"}</strong>
+            </article>
+
+            <article class="team-profile-stat">
+              <span>Team Points</span>
+              <strong>${stats.teamPoints ?? "—"}</strong>
+            </article>
+
+            <article class="team-profile-stat">
+              <span>GP Entries</span>
+              <strong>${stats.grandsPrixEntered ?? "—"}</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="team-profile-records">
+          <div class="team-profile-section-header">
+            <span>Records & Legacy</span>
+            <h4>Team Highlights</h4>
+          </div>
+
+          <div class="team-profile-record-grid">
+            ${
+              (profile.records || ["Team records will be updated soon."])
+                .map((record) => `<article>${record}</article>`)
+                .join("")
+            }
+          </div>
+        </section>
+
+        <section class="team-profile-split">
+          <article class="team-profile-info-card">
+            <div class="team-profile-section-header">
+              <span>Team Details</span>
+              <h4>Profile</h4>
+            </div>
+
+            <div class="team-profile-detail-list">
+              <p>
+                Full Team Name
+                <strong>${profile.fullName || team.name}</strong>
+              </p>
+
+              <p>
+                Base
+                <strong>${team.base || "Not added yet"}</strong>
+              </p>
+
+              <p>
+                Team Chief
+                <strong>${profile.teamChief || "Not added yet"}</strong>
+              </p>
+
+              <p>
+                Technical Chief
+                <strong>${profile.technicalChief || "Not added yet"}</strong>
+              </p>
+
+              <p>
+                Chassis
+                <strong>${profile.chassis || "Not added yet"}</strong>
+              </p>
+
+              <p>
+                Power Unit
+                <strong>${profile.powerUnit || team.powerUnit || "Not added yet"}</strong>
+              </p>
+            </div>
+          </article>
+
+          <article class="team-profile-info-card">
+            <div class="team-profile-section-header">
+              <span>${currentSeason} Season Context</span>
+              <h4>${team.name}</h4>
+            </div>
+
+            <div class="team-profile-driver-list">
+              ${(team.drivers || [])
+                .map((driverName) => {
+                  const seasonDriver = getDriverByName(driverName);
+
+                  return seasonDriver
+                    ? `<button type="button" data-team-driver-code="${seasonDriver.code}">
+                        ${driverName}
+                      </button>`
+                    : `<span>${driverName}</span>`;
+                })
+                .join("")}
+            </div>
+
+            <p class="team-profile-note">
+              This section comes from the active season data, while the profile above shows the latest team career summary.
+            </p>
+          </article>
+        </section>
+      </div>
+    </div>
+  `;
+
+  const closeButton = teamProfilePanel.querySelector("[data-team-profile-close]");
+
+  if (closeButton) {
+    closeButton.addEventListener("click", () => closeTeamProfile(true));
+  }
+
+  const returnDriverButton = teamProfilePanel.querySelector("[data-team-profile-return-driver]");
+
+  if (returnDriverButton && returnDriverCode) {
+    returnDriverButton.addEventListener("click", () => {
+      closeTeamProfile(false);
+      openDriverProfile(returnDriverCode);
+    });
+  }
+
+  const teamImg = teamProfilePanel.querySelector(".team-profile-car");
+
+  if (teamImg) {
+    teamImg.addEventListener(
+      "error",
+      () => {
+        teamImg.outerHTML = `<div class="team-placeholder">${team.name}</div>`;
+      },
+      { once: true }
+    );
+  }
+
+  closeDriverProfile(false);
+
+  teamProfilePanel.classList.remove("hidden-section");
+  teamProfilePanel.classList.add("visible-section");
+
+  teamProfilePanel.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+  teamProfilePanel.querySelectorAll("[data-team-driver-code]").forEach((button) => {
+    button.addEventListener("click", () => {
+      closeTeamProfile(false);
+      openDriverProfile(button.dataset.teamDriverCode, getTeamProfileKey(team));
+    });
   });
 }
 
@@ -2222,6 +2560,7 @@ function refreshActiveSeasonUI() {
   renderDrivers();
   renderTeams();
   closeDriverProfile(false);
+  closeTeamProfile(false);
 
   const activeStanding =
     document.querySelector(".standings-tab.active")?.dataset.standing || "drivers";
